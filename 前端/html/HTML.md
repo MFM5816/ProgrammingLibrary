@@ -1,7 +1,34 @@
 HTML，即超文本标记语言，是一种用于创建网页的标记语言。当你访问一个网站并看到段落、标题、链接、图像和视频等内容时，这些就是HTML。
-HTML 用于内容和结构。CSS 用于样式。JavaScript 用于为网页添加交互性。一个很好的比喻是将 HTML、CSS 和 JavaScript 比作一座完整的建筑。HTML 代表构成墙壁的砖块、混凝土和钢筋，是使建筑物坚固的地基。CSS 代表使房屋美观的内外设计。JavaScript 代表确保水电供应不间断的电力和供水系统。
-## HTML基础知识
-HTML 是超文本标记语言 (Hypertext Markup Language) 的缩写，是一种用于创建网页的标记语言。当您访问网站并看到段落、标题、链接、图片和视频等内容时，这些内容就是 HTML。
+- HTML（HyperText Markup Language）：超文本标记语言。从**语义**的角度描述页面的**结构**。相当于人的身体组织结构。
+- CSS（Cascading Style Sheets）：层叠样式表。从**审美**的角度美化页面的**样式**。相当于人的衣服和打扮。
+- JavaScript（简称JS）：从**交互**的角度描述页面的**行为**，实现业务逻辑和页面控制。相当于人的动作，让人有生命力。
+再比如：
+HTML 相当于人的身体组织结构：
+![[Pasted image 20260118144623.png]]
+CSS 相当于人的衣服和打扮：
+![[Pasted image 20260118144705.png]]
+JS 相当于人的行为：
+![[20200322_2220.gif]]
+## HTML基础
+### 初识html
+HTML 是超文本标记语言 (Hypertext Markup Language) 的缩写，是一种用于创建网页的标记语言。HTML 不是一种编程语言，是一种描述性的**标记语言**。当您访问网站并看到段落、标题、链接、图片和视频等内容时，这些内容就是 HTML。
+* *概念：超文本*
+有两层含义：
+（1）图片、音频、视频、动画、多媒体等内容，被称为超文本，因为它们超出了文本的限制。
+（2）不仅如此，它还可以从一个文件跳转到另一个文件，与世界各地主机的文件进行连接。即：超级链接文本。
+* 标记语言
+（1）**标记语言是一套标记标签**。比如：标签`<a>`表示超链接、标签`<img>`表示图片、标签`<h1>`表示一级标题等等，它们都是属于 HTML 标签。说的通俗一点就是：网页是由网页元素组成的，这些元素是由 HTML 标签描述出来，然后通过浏览器解析，就可以显示给用户看了。
+
+（2）编程语言是有编译过程的，而标记语言没有编译过程，HTML标签是直接由浏览器解析执行。
+
+- 网页 ：由各种标记组成的一个页面就叫网页。
+- 主页(首页) : 一个网站的起始页面或者导航页面。
+- 标记： 比如`<p>`称为开始标记 ，`</p>`称为结束标记，也叫标签。每个标签都规定好了特殊的含义。
+- 元素：比如`<p>内容</p>`称为元素.
+- 属性：给每一个标签所做的辅助信息。
+- XHTML：符合XML语法标准的HTML。
+- DHTML：dynamic，动态的。`javascript + css + html`合起来的页面就是一个 DHTML。
+- HTTP：超文本传输协议。用来规定客户端浏览器和服务端交互时数据的一个格式。SMTP：邮件传输协议，FTP：文件传输协议。
 ### 语法
 HTML 通过使用元素来表示网页的内容和结构。大多数元素都有一个开始标签和一个结束标签。有时，这些标签也被称为开始和结束标签。在这两个标签之间，是内容。这些内容可以是文本或其他 HTML 元素。
 ```html
@@ -22,16 +49,59 @@ HTML 通过使用元素来表示网页的内容和结构。大多数元素都有
 - **HTML元素**：用于表示页面上的内容。它们大多由一个开始标签和一个结束标签组成
 
 - **HTML 结构**：HTML 由 `<head>`和` <body`>组成body，其中元数据、样式和内容都以结构化的方式呈现。
-- ```HTML
-  <html>
-	  <head>头部信息</head>
+ ```HTML
+  <!DOCTYPE html>
+  <html lang="en">
+	  <head>
+		  <!--头部信息-->
+		  <meta charset="utf-8">
+		  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+		  <title>窗口标签</title>
+	  </head>
 	  <body>主体信息</body>
   </html>
   ```
+- `<!DOCTYPE html>`文档声明头
+任何一个标准的HTML页面，第一行一定是一个以`<!DOCTYPE ……>`开头的语句。这一行，就是文档声明头，即 DocType Declaration，简称DTD。
+**DTD可告知浏览器文档使用哪种 HTML 或 XHTML 规范**。
 
+| 标签名               | 定义     | 说明                             |
+| ----------------- | ------ | ------------------------------ |
+| `<html></html>`   | HTML标签 | 页面中最大的标签，我们成为根标签               |
+| `<head></head>`   | 文档的头部  | 注意在head标签中我们必须要设置的标签是title     |
+| `<title></title>` | 文档的标题  | 让页面拥有一个属于自己的网页标题               |
+| `<body></body>`   | 文档的主体  | 元素包含文档的所有内容，页面内容 基本都是放到body里面的 |
+* 页面语言 `lang`
+最常见的语言类型有两种：
+en：定义页面语言为英语。
+zh-CN：定义页面语言为中文。
+- 基本语法特性
+（1）HTML对换行不敏感，对tab不敏感
+HTML只在乎标签的嵌套结构，嵌套的关系。谁嵌套了谁，谁被谁嵌套了，和换行、tab无关。换不换行、tab不tab，都不影响页面的结构。
+也就是说，HTML不是依靠缩进来表示嵌套的，而是看标签的嵌套关系。但是，我们发现有良好的缩进，代码更易读。建议大家都正确缩进标签。
+![[Pasted image 20260118201000.png]]
+ 2）空白折叠现象
+HTML中所有的**文字之间**，如果有空格、换行、tab都将被折叠为一个空格显示。
+3）标签要严格封闭
 
-### 样板和编码
-什么是 HTML 样板代码？它就像一个现成的网页模板。可以把它想象成房子的地基。样板代码包含了每个 HTML 文档所需的基本结构和必要元素。它可以节省时间，并确保网页设置正确。
+标签不封闭的结果是灾难性的。
+### 属性
+属性是放置在 HTML 元素的开始标记内的值。属性与标记之间、各属性之间需要以空格隔开。属性提供有关元素的附加信息或指定元素的行为方式。以下是属性的基本语法：
+```html
+<element attribute="value"></element>
+```
+属性名称后跟等号 ( `=`) 和用引号括起来的值。该值可以是字符串或数字，具体取决于属性类型。
+- ID ：HTML 元素的唯一元素标识符。每个 HTML 文档只能使用一次 ID 名称。
+```HTML
+
+# 属性
+`id`
+该`id`属性为 HTML 元素添加唯一标识符。
+`h1`下面是带有 的元素`id`的示例`title`。
+
+<h1 id="title">Movie Review Page</h1>
+```
+您可以在 JavaScript 或 CSS 中引用`id`的名称`title`。以下 CSS 示例引用 ，`id`将`title`文本更改`color`为`red`。
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -40,19 +110,88 @@ HTML 通过使用元素来表示网页的内容和结构。大多数元素都有
     <meta
        name="viewport"
        content="width=device-width, initial-scale=1.0" />
-    <title>freeCodeCamp</title>
+    <title>Review page Example</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <h1 id="title">Movie Review Page</h1>
   </body>
 </html>
 ```
-- <!DOCTYPE html>类型 ：这用于告诉浏览器您正在使用哪个版本的 HTML。
-- html 元素 ：这代表 HTML 文档的顶级元素或根。要指定文档的语言，您应该使用 `lang`属性。
-- head 元素 ： 这 头 部分包含重要的元数据，这是浏览器和搜索引擎所需的幕后信息。
-- meta 元素 ：这些元素代表您网站的元数据。这些元素包含有关字符编码等内容的详细信息，以及 Twitter 等网站应如何预览页面链接等内容。
-- title 元素 ：此元素用于设置浏览器选项卡或窗口中显示的文本。
-- UTF-8字符编码 ：UTF-8 或 UCS Transformation Format 8 是一种在网络上广泛使用的标准化字符编码。字符编码是计算机用来将字符存储为数据的方法。这 字符集 属性在 a 内部使用 元 元素将字符编码设置为 UTF-8。
+```css
+#title {
+  color: red;
+}
+```
+`#`前面的井号 ( )`title`告诉计算机您希望使用`id`该值定位到 。`id`名称不应重复使用，并且应始终唯一。关于值，还有一点需要注意，即值中不能包含空格。以下是将单词和应用于属性值`id`的示例：`main``heading``id`
+```html
+<h1 id="main heading">Main heading</h1>
+```
+浏览器会将此空间视为其中的一部分，`id`这将在样式和脚本方面导致不必要的问题。`id`属性值应该只包含字母、数字、下划线和破折号。
+- `class`
+与属性相反`id`，`class`属性值不需要唯一并且可以包含空格。
+```
+html
+<div class="box"></div>
+```
+如果您想为一个元素添加多个类名，可以用空格分隔它们。以下是一个将多个类名应用于一个`div`元素的更新示例。
+```html
+<div class="box red-box"></div>
+```
+## 计算机编码
+计算机，不能直接存储文字，存储的是编码。
+
+计算机只能处理二进制的数据，其它数据，比如：0-9、a-z、A-Z，这些字符，我们可以定义一套规则来表示。假如：A用110表示，B用111表示等。
+
+**ASCII码：** 美国发布的，用1个字节(8位二进制)来表示一个字符，共可以表示2^8=256个字符。 美国的国家语言是英语，只要能表示0-9、a-z、A-Z、特殊符号。
+
+**ANSI编码：** **每个国家为了显示本国的语言，都对ASCII码进行了扩展**。用2个字节(16位二进制)来表示一个汉字，共可以表示2^16＝65536个汉字。例如： 中国的ANSI编码是GB2312编码(简体)，对6763汉字进行编码，含600多特殊字符。另外还有GBK(简体)。 日本的ANSI编码是JIS编码。 台湾的ANSI编码是BIG5编码（繁体）。
+
+**GBK：** 对GB2312进行了扩展，用来显示罕见的、古汉语的汉字。现在已经收录了2.1万左右。并提供了1890个汉字码位。K的含义就是“扩展”。
+
+**Unicode编码(统一编码)：** 用4个字节(32位二进制)来表示一个字符，想法不错，但效率太低。例如，字母A用ASCII表示的话一个字节就够，可用Unicode编码的话，得用4个字节表示，造成了空间的极大浪费。A的Unicode编码是0000 0000 0000 0000 0000 0000 0100 0000
+
+**UTF-8(Unicode Transform Format)编码：** 根据字符的不同，选择其编码的长度。比如：一个字符A用1个字节表示，一个汉字用2个字节表示。
+
+毫无疑问，开发中，都用**UTF-8**编码吧，准没错。
+
+**中文能够使用的字符集两种：**
+
+- 第一种：UTF-8。UTF-8是国际通用字库，里面涵盖了所有地球上所有人类的语言文字，比如阿拉伯文、汉语、鸟语……
+    
+- 第二种：GBK（对GB2312进行了扩展）。gb2312 是国标，是中国的字库，里面**仅**涵盖了汉字和一些常用外文，比如日文片假名，和常见的符号。
+    
+
+字库规模： UTF-8（字很全） > gb2312（只有汉字）
+
+**重点1：避免乱码**
+
+我们用meta标签声明的当前这个html文档的字库，一定要和保存的文件编码类型一样，否则乱码（重点）。
+
+拿 sublime编辑器举例，当我们不设置的时候，sublime默认类型就是UTF-8。而一旦更改为gb2312的时候，就一定要记得设置一下sublime的保存类型： `文件→ set File Encoding to → Chinese Simplified(GBK)`。VS Code 的道理一样。
+
+**重点2：UTF-8和gb2312的比较**
+
+保存大小：UTF-8（更臃肿、加载更慢） > gb2312 （更小巧，加载更快）
+
+总结：
+
+- UTF-8：字多，有各种国家的语言，但是保存尺寸大，文件臃肿；
+- gb2312：字少，只用中文和少数外语和符号，但是尺寸小，文件小巧。
+
+列出2个使用情形：
+
+1） 你们公司是做日本动漫的，经常出现一些日语动漫的名字，网页要使用UTF-8。如果用gb2312将无法显示日语。 2） 你们公司就是中文网页，极度的追求网页的显示速度，要使用gb2312。如果使用UTF-8将每个汉字多一个byte，所以5000个汉字，多5kb。
+
+我们亲测：
+
+- qq网、网易、搜狐都是使用gb2312。这些公司，都追求显示速度。
+- 新华网藏语频道，使用的是UTF-8，保证字符集的数量。
+
+我们是怎么查看网页的编码方式的呢？在浏览器中打开网页，右键，选择“查看网页源代码”，找到meta标签中的charset属性即可。
+
+那么，我们为什么可以查看网页的源代码呢？因为这个打开的html网页已经存到我的临时文件夹里了，临时文件夹里的html是纯文本文件，纯文本文件自然可以查看网页的源代码。
+
 ### 路径和链接行为
 
 - **目标属性类型**：控制链接行为。
@@ -93,14 +232,114 @@ HTML 通过使用元素来表示网页的内容和结构。大多数元素都有
 - **Ruby 注解 ( `ruby`) 元素**：用于表示 Ruby 注解的文本。
 - **删除线 ( `s`) 元素**：用于表示不再准确或相关的内容。
 ## 标签
-所有页面都应以<!DOCTYPE html>开始。这个特殊字符串被称为声明，确保浏览器尝试满足行业标准规范。
-<!DOCTYPE html>告诉浏览器该文档是HTML5文档，这是最新版本的HTML。
 
-请注意，页面的全部内容都嵌套在html元素中。html元素是HTML页面的基本元素，并包裹页面上的所有内容。
-你也可以通过在html元素上添加lang属性来指定页面的语言。
-在HTML标签的开头添加lang属性，值为en，以指定页面的语言为英语。
+###  head标签
+head元素用于包含有关文档的元数据，例如其标题、样式表链接和脚本。元数据是关于页面的信息，但不会直接显示在页面上。
+
+头标签内部的常见标签如下：
+- `<title>`：指定整个网页的标题，在浏览器最上方显示。
+- `<base>`：为页面上的所有链接规定默认地址或默认目标。
+- `<meta>`：提供有关页面的基本信息
+- `<link>`：定义文档与外部资源的关系。
+#### title标签
+title元素决定浏览器在页面的标题栏或标签页中显示什么内
+
+#### link 标签
+  此元素用于链接到外部资源，例如样式表和站点图标。这是使用的基本语法 关联 外部 CSS 文件的元素：
+```html
+<link rel="stylesheet" href="./styles.css" />
+```
+rel属性用于指定链接资源和 HTML 文档之间的关系。
+href属性用于指定外部资源的 URL 位置。
+* 链接字体
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap"
+  rel="stylesheet"
+/>
+```
+* 链接到图标
+```html
+<link rel="icon" href="favicon.ico" />
+```
+网站图标（favicon）是“favourite icon”（最喜欢的图标）的缩写，它是一个通常显示在浏览器标签页网站标题旁边的小图标。许多网站会使用网站图标来展示其品牌标识。
+#### meta标签
+meta表示“元”。“元”配置，就是表示基本的配置项目。
+常见的几种 meta 标签如下：
+
+（1）字符集 charset：
+
+```
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+```
+
+字符集用meta标签中的`charset`定义，charset就是character set（即“字符集”），即**网页的编码方式**。
+
+**字符集**(Character set)是多个字符的集合。计算机要准确的处理各种字符集文字，需要进行字符编码，以便计算机能够识别和存储各种文字。
+
+上面这行代码非常关键， 是必须要写的代码，否则可能导致乱码。比如你保存的时候，meta写的和声明的不匹配，那么浏览器就是乱码。
+
+utf-8是目前最常用的字符集编码方式，常用的字符集编码方式还有gbk和gb2312等。
+
+（2）视口 viewport：
+
+```
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
+`width=device-width` ：表示视口宽度等于屏幕宽度。
 
 
+（3）定义“关键词”：
+
+举例如下：
+
+```
+<meta name="Keywords" content="网易,邮箱,游戏,新闻,体育,娱乐,女性,亚运,论坛,短信" />
+```
+
+这些关键词，就是告诉搜索引擎，这个网页是干嘛的，能够提高搜索命中率。让别人能够找到你，搜索到你。
+
+（4）定义“页面描述”：
+
+meta除了可以设置字符集，还可以设置关键字和页面描述。
+
+只要设置Description页面描述，那么百度搜索结果，就能够显示这些语句，这个技术叫做**SEO**（search engine optimization，搜索引擎优化）。
+
+设置页面描述的举例：
+
+```
+<meta name="Description" content="网易是中国领先的互联网技术公司，为用户提供免费邮箱、游戏、搜索引擎服务，开设新闻、娱乐、体育等30多个内容频道，及博客、视频、论坛等互动交流，网聚人的力量。" />
+```
+
+效果如下：
+
+![[Pasted image 20260118151955.png]]
+
+另外还有一个`<meta>`标签是需要记住的：
+
+```
+<meta http-equiv="refresh" content="3;http://www.baidu.com">
+```
+
+上面这个标签的意思是说，3秒之后，自动跳转到百度页面。
+#### base标签
+```html
+<base href="/">
+```
+base 标签用于指定基础的路径。指定之后，所有的 a 链接都是以这个路径为基准。
+
+## body标签
+`<body>`标签的属性有：
+- `bgcolor`：设置整个网页的背景颜色。
+- `background`：设置整个网页的背景图片。
+- `text`：设置网页中的文本颜色。
+- `leftmargin`：网页的左边距。IE浏览器默认是8个像素。
+- `topmargin`：网页的上边距。
+- `rightmargin`：网页的右边距。
+- `bottommargin`：网页的下边距。
 
 ### 布局标签
 * `header`
@@ -794,82 +1033,7 @@ figure元素表示自包含的内容，并允许您将图像与标题关联起�
 - **DOM 检查器**：一种可以检查和修改网页 HTML 结构的工具。
 - **开发者工具**：一套直接内置于浏览器中的 Web 开发工具，可帮助您调试、分析和优化网页。
 ### 其他标签
-####  head标签
-注意，到目前为止你添加到页面上的所有内容都在`<body>`元素内。所有应该呈现到页面上的页面内容元素都应该放在`<body>`元素内。然而，其他重要的信息则放在`<head>`元素内
-head元素用于包含有关文档的元数据，例如其标题、样式表链接和脚本。元数据是关于页面的信息，但不会直接显示在页面上。
-##### title标签
-title元素决定浏览器在页面的标题栏或标签页中显示什么内
 
-##### link 标签
-  此元素用于链接到外部资源，例如样式表和站点图标。这是使用的基本语法 关联 外部 CSS 文件的元素：
-```html
-<link rel="stylesheet" href="./styles.css" />
-```
-rel属性用于指定链接资源和 HTML 文档之间的关系。
-href属性用于指定外部资源的 URL 位置。
-* 链接字体
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap"
-  rel="stylesheet"
-/>
-```
-* 链接到图标
-```html
-<link rel="icon" href="favicon.ico" />
-```
-网站图标（favicon）是“favourite icon”（最喜欢的图标）的缩写，它是一个通常显示在浏览器标签页网站标题旁边的小图标。许多网站会使用网站图标来展示其品牌标识。
-##### meta标签
-- 搜索引擎优化 ：搜索引擎优化是一种优化网页的做法，使网页变得更加可见并在搜索引擎上排名更高。
-- 元（ 描述 ） 元素 ：这用于提供网页的简短描述并影响 SEO。
-```html
-<meta
-  name="description"
-  content="Discover expert tips and techniques for gardening in small spaces, choosing the right plants, and maintaining a thriving garden."
-/>
-```
-通过将该`name`属性设置为 true `description`，可以确保浏览器、搜索引擎和其他网络工具正确解析此元数据。`content`您可以在该属性中放置描述。建议您保持描述简短明了。这是因为搜索引擎通常会根据搜索结果页面的布局截断描述。
-
-```
-<meta charset="UTF-8" />
-```
-
-```
-<meta name="viewport" content="width=device-width, initial-scale=1" >
-```
-
-
-- 打开图标签 ：开放图协议使您能够控制网站内容在各种社交媒体平台（例如 Facebook、LinkedIn 等）上的显示方式。
-
-通过设置这些开放图属性，您可以吸引用户点击并参与您的内容。您可以通过集合来设置这些属性 元 HTML 中的元素 头 部分。
-
-- og:标题 财产 ：这用于设置社交媒体帖子显示的标题。
-
-```html
-<meta content="freeCodeCamp.org" property="og:title" />
-```
-
-- og：类型 财产 ： 这 类型 属性用于表示在社交媒体上共享的内容类型。此内容的示例包括文章、网站、视频或音乐。
-
-```html
-<meta property="og:type" content="website" />
-```
-
-- og：图像 财产 ：这用于设置社交媒体帖子显示的图像。
-
-```html
-<meta
-  content="https://cdn.freecodecamp.org/platform/universal/fcc_meta_1920X1080-indigo.png"
-  property="og:image"
-/>
-```
-
-- 奥格：网址 财产 ：用于设置用户单击社交媒体帖子的 URL。
-```html
-<meta property="og:url" content="https://www.freecodecamp.org" />
-```
 #### body标签
 该元素用于表示 HTML 文档的内容。
 ```html
@@ -974,59 +1138,7 @@ HTML5有一些元素可以识别不同的内容区域。这些元素使你的HTM
 ```html
 <a href="https://www.freecodecamp.org" target="_blank">freeCodeCamp</a>
 ```
-## 属性
-属性是放置在 HTML 元素的开始标记内的值。属性提供有关元素的附加信息或指定元素的行为方式。以下是属性的基本语法：
-```html
-<element attribute="value"></element>
-```
-属性名称后跟等号 ( `=`) 和用引号括起来的值。该值可以是字符串或数字，具体取决于属性类型。
-- ID ：HTML 元素的唯一元素标识符。每个 HTML 文档只能使用一次 ID 名称。
-```HTML
 
-# 属性
-`id`
-该`id`属性为 HTML 元素添加唯一标识符。
-`h1`下面是带有 的元素`id`的示例`title`。
-
-<h1 id="title">Movie Review Page</h1>
-```
-您可以在 JavaScript 或 CSS 中引用`id`的名称`title`。以下 CSS 示例引用 ，`id`将`title`文本更改`color`为`red`。
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-       name="viewport"
-       content="width=device-width, initial-scale=1.0" />
-    <title>Review page Example</title>
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <h1 id="title">Movie Review Page</h1>
-  </body>
-</html>
-```
-```css
-#title {
-  color: red;
-}
-```
-`#`前面的井号 ( )`title`告诉计算机您希望使用`id`该值定位到 。`id`名称不应重复使用，并且应始终唯一。关于值，还有一点需要注意，即值中不能包含空格。以下是将单词和应用于属性值`id`的示例：`main``heading``id`
-```html
-<h1 id="main heading">Main heading</h1>
-```
-浏览器会将此空间视为其中的一部分，`id`这将在样式和脚本方面导致不必要的问题。`id`属性值应该只包含字母、数字、下划线和破折号。
-- `class`
-与属性相反`id`，`class`属性值不需要唯一并且可以包含空格。
-```
-html
-<div class="box"></div>
-```
-如果您想为一个元素添加多个类名，可以用空格分隔它们。以下是一个将多个类名应用于一个`div`元素的更新示例。
-```html
-<div class="box red-box"></div>
-```
 ## 任务
 
 复习 HTML 表格和表单的相关主题和概念。
