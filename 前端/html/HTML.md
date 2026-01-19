@@ -49,8 +49,8 @@ HTML 通过使用元素来表示网页的内容和结构。大多数元素都有
 - **HTML元素**：用于表示页面上的内容。它们大多由一个开始标签和一个结束标签组成
 
 - **HTML 结构**：HTML 由 `<head>`和` <body`>组成body，其中元数据、样式和内容都以结构化的方式呈现。
- ```HTML
-  <!DOCTYPE html>
+```html
+ <!DOCTYPE html>
   <html lang="en">
 	  <head>
 		  <!--头部信息-->
@@ -60,7 +60,9 @@ HTML 通过使用元素来表示网页的内容和结构。大多数元素都有
 	  </head>
 	  <body>主体信息</body>
   </html>
-  ```
+```
+
+
 - `<!DOCTYPE html>`文档声明头
 任何一个标准的HTML页面，第一行一定是一个以`<!DOCTYPE ……>`开头的语句。这一行，就是文档声明头，即 DocType Declaration，简称DTD。
 **DTD可告知浏览器文档使用哪种 HTML 或 XHTML 规范**。
@@ -138,7 +140,7 @@ html
 ```html
 <div class="box red-box"></div>
 ```
-## 计算机编码
+### 计算机编码
 计算机，不能直接存储文字，存储的是编码。
 
 计算机只能处理二进制的数据，其它数据，比如：0-9、a-z、A-Z，这些字符，我们可以定义一套规则来表示。假如：A用110表示，B用111表示等。
@@ -211,26 +213,6 @@ html
     - `<section>`将文档中的相关内容分组。
     - `<footer>`：定义章节或文档的页脚。
 
-### 语义化的HTML元素
-
-- **强调（`em`）元素**：标记具有强调意义的文本。
-- **习语文本（`i`）元素**：用于突出显示替代语气或语气、来自其他语言的习语、技术术语和想法。
-- **重要性 ( `strong`) 元素**：标记具有重要性的文本。
-- **引起注意 ( `b`) 元素**：用于引起对内容含义不重要的文本的注意。
-- **描述列表（`dl`）元素**：用于表示术语描述分组的列表。
-- **描述术语（`dt`）元素**：用于表示被定义的术语。
-- **Description Details ( `dd`) 元素**：用于表示术语的描述。
-- **块引用（`blockquote`）元素**：用于表示从其他来源引用的部分。
-- **行内引用 ( `q`) 元素**：用于表示简短的行内引用。
-- **缩写 ( `abbr`) 元素**：用于表示缩写或首字母缩略词。
-- **联系地址（`address`）元素**：用于表示联系信息。
-- **（日期）时间（`time`）元素**：用于表示日期和/或时间。
-- **上标 ( `sup`) 元素**：用于表示上标文本。
-- **下标 ( `sub`) 元素**：用于表示下标文本。
-- **行内代码 ( `code`) 元素**：用于表示一段计算机代码。
-- **未明确标注 ( `u`) 元素**：用于表示一段行内文本，该文本应以表明其具有非文本标注的方式呈现。
-- **Ruby 注解 ( `ruby`) 元素**：用于表示 Ruby 注解的文本。
-- **删除线 ( `s`) 元素**：用于表示不再准确或相关的内容。
 ## 标签
 
 ###  head标签
@@ -331,7 +313,7 @@ meta除了可以设置字符集，还可以设置关键字和页面描述。
 ```
 base 标签用于指定基础的路径。指定之后，所有的 a 链接都是以这个路径为基准。
 
-## body标签
+### body标签
 `<body>`标签的属性有：
 - `bgcolor`：设置整个网页的背景颜色。
 - `background`：设置整个网页的背景图片。
@@ -406,10 +388,41 @@ footer元素用于定义文档或章节的脚注。脚注通常包含关于文�
 ```
 `div`当您需要对共享一组 CSS 样式的 HTML 元素进行分组时。
 尽管该`div`元素在实际代码库中很常用，但您仍应注意不要过度使用它。有时其他元素可能更合适。
+div标签的属性：
+>`align="属性值"`：设置块儿的位置。属性值可选择：left、right、 center
+
+
 * `span`
+和div的作用一致，但不换行。span也是表达“小区域、小跨度”的标签，但只是一个**文本级**的标签。span里面只能放置文字、图片、表单元素。 span里面不能放p、h、ul、dl、ol、div。
 ### 文本标签
+#### 转义字符
+- `&nbsp;`：空格 （non-breaking spacing，不断打空格）
+- `&lt;`：小于号`<`（less than）
+- `&gt;`：大于号`>`（greater than）
+- `&amp;`：符号`&`
+- `&quot;`：双引号
+- `&apos;`：单引号
+- `&copy;`：版权`©`
+- `&trade;`：商标`™`
+- `&#32464;`：文字`绐`。其实，`#32464`是汉字`绐`的unicode编码
+
+| 特殊字符 | 描述       | 字符的代码      |
+| ---- | -------- | ---------- |
+|      | 空格符      | `&nbsp;`   |
+| <    | 小于号      | `&lt;`     |
+| >    | 大于号      | `&gt;`     |
+| &    | 和号       | `&amp;`    |
+| ￥    | 人民币      | `&yen;`    |
+| ©    | 版权       | `&copy;`   |
+| ®    | 注册商标     | `&reg;`    |
+| °    | 摄氏度      | `&deg;`    |
+| ±    | 正负号      | `&plusmn;` |
+| ×    | 乘号       | `&times;`  |
+| ÷    | 除号       | `&divide;` |
+| ²    | 平方2（上标2） | `&sup2;`   |
+| ³    | 立方3（上标3） | `&sup3;`   |
 #### 标题标签
-HTML 中有六个标题元素。这 h1 通过 h6 标题元素用于表示其下方内容的重要性。数字越小，重要性越高，所以 h2 元素的重要性低于 h1 元素。
+HTML 中有六个标题元素。这 h1 通过 h6 标题元素用于表示其下方内容的重要性。数字越小，重要性越高，所以 h2 元素的重要性低于 h1 元素。具有align属性，属性值可以是：left、center、right。
 ```html
 <h1>most important heading element</h1>
 <h2>second most important heading element</h2>
@@ -469,8 +482,8 @@ strong元素用于表示某些文本具有重要性或紧急性。
 ```
 浏览器将对元素内的内容应用默认样式`code`。默认样式为等宽字体。
 该`code`元素用于表示单行代码。如果要表示多行代码，则需要将该`code`元素放置在预格式化文本元素内。
-
-预格式化文本元素用于表示预格式化文本。
+- pre
+将保留标签内部所有的空白字符(空格、换行符)，原封不动地输出结果（告诉浏览器不要忽略空格和空行）。
 ```html
 <pre>
   <code>
@@ -556,42 +569,47 @@ Ruby 文本（ rt ）元素：用于指示 Ruby 注释的文本。通常用于�
 一千五点就是下午三点。
 
 每当您需要表示事件、发布日期或约会时，最好使用该`time`元素。
+- `<hr />`
+水平分隔线（horizontal rule）可以在视觉上将文档分隔成各个部分。在网页中常常看到一些水平线将段落与段落之间隔开，使得文档结构清晰，层次分明。
+属性介绍：
+> `align="属性值"`：设定线条置放位置。属性值可选择：left right center。
+> `size="2"`：设定线条粗细。以像素为单位，内定为2。
+   `width="500"`或`width="70%"`：设定线条长度。可以是绝对值（单位是像素）或相对值。如果设置为相对值的话，内定为100%。
+` color="#0000FF"`：设置线条颜色。
+  `noshade`：不要阴影，即设定线条为平面显示。若没有这个属性则表明线条具阴影或立体。
 
+-  `<br />`
+如果希望某段文本强制换行显示，就需要使用换行标签。
+```html
+This <br/> is a para<br/>graph with line breaks
+```
 
 #### 段落标签
-`p`
-用于网页上的段落
+**作用**：可以把 HTML 文档分割为若干段落。在网页中如果要把文字有条理地显示出来，离不开段落标签。就如同我们平常写文章一样，整个网页也可以分为若干个段落。
 ```html
 <p>This is a paragraph element.</p>
 ```
-
+- `align="属性值"`：对齐方式。属性值包括left center right。
 #### 超链接标签
-锚 （ 一个 ) 元素 ：这些元素用于将链接应用到网页。这 链接地址 属性用于指定当用户单击链接时链接应转到的位置
-```html
-<a href="https://freecodecamp.org" target="_blank">Visit freeCodeCamp</a>
-```
-  
-您可能已经看过 目标 锚元素或链接上的属性。这个重要的属性告诉浏览器在哪里打开锚元素的 URL。
 
-该属性有四个重要的可能值。请注意，每个值前面都有一个下划线。
+##### 链接形式
+1、外部链接：链接到外部文件
+```html
+<a href="02页面.html">点击进入另外一个文件</a>
+```
+a是英语`anchor`“锚”的意思，就好像这个页面往另一个页面扔出了一个锚。是一个文本级的标签。
+2、锚链接
 
-第一个值是_self，这是默认值。这将在当前浏览上下文中打开链接。在大多数情况下，这将是当前选项卡或窗口。
-```html
-<a href="https://freecodecamp.org" target="_self">Visit freeCodeCamp</a>
-```
-第二个值是_brank的 ，这会在新的浏览上下文中打开链接。通常，这将在新选项卡中打开。但有些用户可能会将其浏览器配置为打开新窗口。
-```html
-<a href="https://freecodecamp.org" target="_blank">Visit freeCodeCamp</a>
-```
-第三个值是 `_parent` ，这会在当前上下文的父级中打开链接。例如，如果您的网站有 内嵌框架 , 一个 _parent 在那方面的价值 内嵌框架 将在您网站的选项卡/窗口中打开，而不是在嵌入框架中打开。
-```html
-<a href="https://freecodecamp.org" target="_parent">Visit freeCodeCamp</a>
-```
-第四个值是` _top `，这会在最顶层的浏览上下文中打开链接 - 想想“父级的父级”。这类似于 _parent ，但链接将始终在完整的浏览器选项卡/窗口中打开，即使对于嵌套的嵌入框架也是如此。
-```html
-<a href="https://freecodecamp.org" target="_top">Visit freeCodeCamp</a>
-```
-
+**锚链接**：给超链接起一个名字，作用是**在本页面或者其他页面的的不同位置进行跳转**。比如说，在网页底部有一个向上箭头，点击箭头后回到顶部，这个就可以利用锚链接。
+##### 超链接属性
+- `href`：目标URL
+- `title`：悬停文本。
+- `name`：主要用于设置一个锚点的名称。
+- `target`：告诉浏览器用什么方式来打开目标页面。`target`属性有以下几个值：
+    - `_self`：在同一个网页中显示（默认值）
+    - `_blank`：**在新的窗口中打开**。
+    - `_parent`：在父窗口中显示
+    - `_top`：在顶级窗口中显示
 ##### 绝对路径与相对路径
 
 - **路径定义**：路径是一个字符串，用于指定文件或目录在文件系统中的位置。在Web开发中，路径允许开发人员链接到图像、样式表、脚本和其他网页等资源。
@@ -681,6 +699,12 @@ public/index.html
   <li>other cats</li>
 </ol>
 ```
+**ul属性：**
+>`type="属性值"`。属性值可以选： `disc`(实心原点，默认)，`square`(实心方点)，`circle`(空心圆)。
+
+**ol属性**
+>- `type="属性值"`。属性值可以是：1(阿拉伯数字，默认)、a、A、i、I。结合`start`属性表示`从几开始`。
+
 * 描述列表
 描述列表非常适合以有组织且易于阅读的格式呈现术语和定义，例如在术语表或真正的词典中，您可以在其中找到单词及其相应的定义。
 - 描述列表（ dl ）元素：用于表示术语描述包的列表。
@@ -703,6 +727,7 @@ public/index.html
 在浏览器中，您会看到每个术语及其相应的描述。默认情况下，描述稍微向右缩进，以便在视觉上区分它们。
 但描述列表不仅限于术语和定义。它们的用途远不止于此。
 ### 表格标签
+表格标签用`<table>`表示。 一个表格`<table>`是由每行`<tr>`组成的，每行是由每个单元格`<td>`组成的。 所以我们要记住，一个表格是由行组成的（行是由列组成的），而不是由行和列组成的。
 - **表格元素**：用于创建 HTML 表格。
 - **表格头部（`thead`）元素**：用于对 HTML 表格中的标题内容进行分组。
 - **Table Row ( `tr`) 元素**：用于在 HTML 表格中创建行。
@@ -805,7 +830,36 @@ scope 属性用于指定表头单元格是属于某一行、某一列，还是�
 ```html
 <th scope="col">Example Header</th>
 ```
+**`<table>`的属性：**
 
+- `border`：边框。像素为单位。
+- `style="border-collapse:collapse;"`：单元格的线和表格的边框线合并（表格的两边框合并为一条）
+- `width`：宽度。像素为单位。
+- `height`：高度。像素为单位。
+- `bordercolor`：表格的边框颜色。
+- `align`：**表格**的水平对齐方式。属性值可以填：left right center。 注意：这里不是设置表格里内容的对齐方式，如果想设置内容的对齐方式，要对单元格标签`<td>`进行设置）
+- `cellpadding`：单元格内容到边的距离，像素为单位。默认情况下，文字是紧挨着左边那条线的，即默认情况下的值为0。 注意不是单元格内容到四条边的距离哈，而是到一条边的距离，默认是与左边那条线的距离。如果设置属性`dir="rtl"`，那就指的是内容到右边那条线的距离。
+- `cellspacing`：单元格和单元格之间的距离（外边距），像素为单位。默认情况下的值为0
+- `bgcolor="#99cc66"`：表格的背景颜色。
+- `background="路径src/..."`：背景图片。 背景图片的优先级大于背景颜色。
+- `bordercolorlight`：表格的上、左边框，以及单元格的右、下边框的颜色
+- `bordercolordark`：表格的右、下边框，以及单元格的上、左的边框的颜色 这两个属性的目的是为了设置3D的效果。
+- `dir`：公有属性，单元格内容的排列方式(direction)。 可以 取值：`ltr`：从左到右（left to right，默认），`rtl`：从右到左（right to left） 既然说`dir`是共有属性，如果把这个属性放在任意标签中，那表明这个标签的位置可能会从右开始排列。
+ `<tr>`**属性：**
+ - `dir`：公有属性，设置这一行单元格内容的排列方式。可以取值：
+    - `ltr`：从左到右（left to right，默认）
+    - `rtl`：从右到左（right to left）
+- `bgcolor`：设置这一行的单元格的背景色。 注：没有background属性，即：无法设置这一行的背景图片，如果非要设置，可以用css实现。
+- `height`：一行的高度
+- `align="center"`：一行的内容水平居中显示，取值：left、center、right
+- `valign="center"`：一行的内容垂直居中，取值：top、middle、bottom
+`<td>`**属性：**
+- `align`：内容的横向对齐方式。属性值可以填：left right center。如果想让每个单元格的内容都居中，这个属性太麻烦了，以后用css来解决。
+- `valign`：内容的纵向对齐方式。属性值可以填：top middle bottom
+- `width`：绝对值或者相对值(%)
+- `height`：单元格的高度
+- `bgcolor`：设置这个单元格的背景色。
+- `background`：设置这个单元格的背景图片。
 ### 表单标签
 * `form`
 用于创建供用户输入的 HTML 表单
@@ -941,11 +995,72 @@ method 属性用于指定发送表单数据时使用的HTTP方法。最常见的
 
 - **聚焦状态**：这是用户选中输入字段时的状态。
 
+### iframe框架标签
+替换元素是指其内容由外部资源而非 CSS 本身决定的元素。CSS（层叠样式表）用于向网页添加样式。常见的替换元素包括图像、iframe 和视频元素。
 
+使用替换元素，您可以控制元素的位置或布局。但您的 CSS 无法直接修改该元素的内容。通过一些示例可能更容易解释这一点。考虑一下图像元素，它将图像嵌入到您的网页中：
+```html
+<img src="example-img-url" alt="Descriptive text goes here">
+```
+元素本身被替换为外部对象：图像。CSS 可以控制图像的定位，或为其应用滤镜，但实际上无法修改图像本身。一个更强大的例子可能是将`iframe`外部网站嵌入到网页中的元素。
+```html
+<iframe width="400" height="200" src="https://www.youtube.com/embed/u43gJJrVa1I?si=BoDW_puFsy8OEr_Z" title="Professional Cloud Architect Certification Course – Pass the Exam! (YouTube video)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+```
+属性`src`指定要嵌入的页面的 URL。`width`属性指定 的宽度`iframe`。`height`属性指定 的高度`iframe`。属性允许用户在全屏模式下`allowfullscreen`显示。为 指定属性也是一个好习惯，因为它对于可访问性很重要。`iframe``title``iframe`
+使用该`iframe`元素的其他常见示例是将地图嵌入到页面上。
+其中一个属性是 allow。它就像一个权限列表，告诉浏览器 iframe 允许使用哪些功能。
+ referrer-policy。它是决定在页面连接到另一个页面时分享多少详细信息的规则。
+```html
+<iframe
+  title="Map of the Royal Observatory, Greenwich, London"
+  width="300"
+  height="200"
+  src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&amp;layer=mapnik">
+</iframe>
+```
+元素本身会被替换为外部对象：网站。您的 CSS 可以更改嵌入网站的位置，但无法修改网站的内容。更进一步说，如果嵌入网站包含某个`h1`元素，您的 CSS 将无法为该`h1`元素设置样式。您无法更改其大小、字体颜色等等。
+
+您可以包括 允许全屏 属性允许用户以全屏模式显示 iframe。
+
+```html
+<iframe
+  src="video-url"
+  width="width-value"
+  height="height-value"
+  allowfullscreen
+></iframe>
+```
+
+要将视频嵌入到 内嵌框架 您可以直接从 YouTube 和 Vimeo 等流行视频服务复制它，或者使用 源代码 属性指向该视频的 URL。以下是嵌入 YouTube 上流行的 freeCodeCamp 课程的示例：
+
+```html
+<h1>A freeCodeCamp YouTube Video Embedded with the iframe Element</h1>
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/PkZNo7MFNFg?si=-UBVIUNM3csdeiWF"
+  title="YouTube video player"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+></iframe>
+```
+
+还有一些其他被替换的元素，例如 视频 ， 和 嵌入 。并且某些元素在特定情况下表现为替换元素。这是一个例子 输入 元素与 类型 属性设置为 图像 :
+
+```html
+<input type="image" alt="Descriptive text goes here" src="example-img-url">
+```
+
+- 优化媒体 ：在网页上使用图像等媒体时需要考虑三个工具：大小、格式和压缩。压缩算法用于减小文件或数据的大小。
+- 图片格式 ：两种最常见的文件格式是 PNG 和 JPG，但它们不再是提供图像的最理想格式。除非您需要支持较旧的浏览器，否则您应该考虑使用更优化的格式，例如 WEBP 或 AVIF。
+- 图片许可 ：公共领域的图像不附带版权，可以不受任何限制地自由使用。根据 Creative Commons 0 许可证专门许可的图像被视为公共领域。某些图像可能会在宽松的许可证下发布，例如 Creative Commons 许可证或 freeCodeCamp 使用的 BSD 许可证。
+- SVG ：可扩展矢量图形根据路径和方程跟踪数据以绘制点、直线和曲线。这真正意味着矢量图形（如 SVG）可以缩放到任何大小而不影响质量。
 ### 多媒体标签
 #### 图像标签
-`<img>`
-可以通过使用`<img>`元素将图片添加到网站。img元素有一个没有闭合标签的单标签，也称为空元素。
+img: 英文全称 image（图像），代表的是一张图片。
+可以通过使用`<img>`元素将图片添加到网站。img元素有一个没有闭合标签的单标签，也称为单元素。
 * src属性
 img元素中的src属性指定了图像的URL(即图像所在的位置)。
 ```html
@@ -1034,14 +1149,7 @@ figure元素表示自包含的内容，并允许您将图像与标题关联起�
 - **开发者工具**：一套直接内置于浏览器中的 Web 开发工具，可帮助您调试、分析和优化网页。
 ### 其他标签
 
-#### body标签
-该元素用于表示 HTML 文档的内容。
-```html
-<body>
-  <h1>CatPhotoApp</h1>
-  <p>This is a paragraph element.</p>
-</body>  
-```
+
 #### script标签
 该`script`元素用于嵌入可执行代码。大多数开发人员会使用它来执行 JavaScript 代码。JavaScript 用于为网页添加交互性。常见的 JavaScript 应用包括交互式游戏、图片滑块以及实时验证用户输入的动态表单。
 
@@ -1058,69 +1166,8 @@ figure元素表示自包含的内容，并允许您将图像与标题关联起�
 <script src="path-to-javascript-file.js"></script>
 ```
 此处使用属性`src`来指定外部 JavaScript 文件的位置。`src`代表“源”。不建议将所有 JavaScript 代码都放在 HTML 文档中，是因为关注点分离。关注点分离是一种设计原则，它将程序分成不同的部分，每个部分处理不同的关注点。
-#### iframe标签
-替换元素是指其内容由外部资源而非 CSS 本身决定的元素。CSS（层叠样式表）用于向网页添加样式。常见的替换元素包括图像、iframe 和视频元素。
 
-使用替换元素，您可以控制元素的位置或布局。但您的 CSS 无法直接修改该元素的内容。通过一些示例可能更容易解释这一点。考虑一下图像元素，它将图像嵌入到您的网页中：
-```html
-<img src="example-img-url" alt="Descriptive text goes here">
-```
-元素本身被替换为外部对象：图像。CSS 可以控制图像的定位，或为其应用滤镜，但实际上无法修改图像本身。一个更强大的例子可能是将`iframe`外部网站嵌入到网页中的元素。
-```html
-<iframe width="400" height="200" src="https://www.youtube.com/embed/u43gJJrVa1I?si=BoDW_puFsy8OEr_Z" title="Professional Cloud Architect Certification Course – Pass the Exam! (YouTube video)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-```
-属性`src`指定要嵌入的页面的 URL。`width`属性指定 的宽度`iframe`。`height`属性指定 的高度`iframe`。属性允许用户在全屏模式下`allowfullscreen`显示。为 指定属性也是一个好习惯，因为它对于可访问性很重要。`iframe``title``iframe`
-使用该`iframe`元素的其他常见示例是将地图嵌入到页面上。
-其中一个属性是 allow。它就像一个权限列表，告诉浏览器 iframe 允许使用哪些功能。
- referrer-policy。它是决定在页面连接到另一个页面时分享多少详细信息的规则。
-```html
-<iframe
-  title="Map of the Royal Observatory, Greenwich, London"
-  width="300"
-  height="200"
-  src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&amp;layer=mapnik">
-</iframe>
-```
-元素本身会被替换为外部对象：网站。您的 CSS 可以更改嵌入网站的位置，但无法修改网站的内容。更进一步说，如果嵌入网站包含某个`h1`元素，您的 CSS 将无法为该`h1`元素设置样式。您无法更改其大小、字体颜色等等。
-
-您可以包括 允许全屏 属性允许用户以全屏模式显示 iframe。
-
-```html
-<iframe
-  src="video-url"
-  width="width-value"
-  height="height-value"
-  allowfullscreen
-></iframe>
-```
-
-要将视频嵌入到 内嵌框架 您可以直接从 YouTube 和 Vimeo 等流行视频服务复制它，或者使用 源代码 属性指向该视频的 URL。以下是嵌入 YouTube 上流行的 freeCodeCamp 课程的示例：
-
-```html
-<h1>A freeCodeCamp YouTube Video Embedded with the iframe Element</h1>
-
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/PkZNo7MFNFg?si=-UBVIUNM3csdeiWF"
-  title="YouTube video player"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  referrerpolicy="strict-origin-when-cross-origin"
-  allowfullscreen
-></iframe>
-```
-
-还有一些其他被替换的元素，例如 视频 ， 和 嵌入 。并且某些元素在特定情况下表现为替换元素。这是一个例子 输入 元素与 类型 属性设置为 图像 :
-
-```html
-<input type="image" alt="Descriptive text goes here" src="example-img-url">
-```
-
-- 优化媒体 ：在网页上使用图像等媒体时需要考虑三个工具：大小、格式和压缩。压缩算法用于减小文件或数据的大小。
-- 图片格式 ：两种最常见的文件格式是 PNG 和 JPG，但它们不再是提供图像的最理想格式。除非您需要支持较旧的浏览器，否则您应该考虑使用更优化的格式，例如 WEBP 或 AVIF。
-- 图片许可 ：公共领域的图像不附带版权，可以不受任何限制地自由使用。根据 Creative Commons 0 许可证专门许可的图像被视为公共领域。某些图像可能会在宽松的许可证下发布，例如 Creative Commons 许可证或 freeCodeCamp 使用的 BSD 许可证。
-- SVG ：可扩展矢量图形根据路径和方程跟踪数据以绘制点、直线和曲线。这真正意味着矢量图形（如 SVG）可以缩放到任何大小而不影响质量。
-### 注释
+#### 注释
 HTML以<!--开头，包含任意数量的文本行，并以-->结尾。
 ```html
 <!-- TODO: Remove h1 -->
