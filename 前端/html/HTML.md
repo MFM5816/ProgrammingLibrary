@@ -202,6 +202,10 @@ html
 - **链接状态**：管理不同的链接交互（悬停、激活）。
 
 ### 语义化HTML的重要性
+**标签语义化的作用：**
+- 能够便于开发者阅读和写出更优雅的代码。
+- 同时让浏览器或是网络爬虫可以很好地解析，从而更好分析其中的内容。
+- 更好地搜索引擎优化。
 
 - **标题元素的结构层级**：使用正确的标题元素对于维护内容的结构层级至关重要。` `h1`<h1>` 元素是最高级别的标题，`<h2>``h6`元素是最低级别的标题。
 - **展示型 HTML 元素**：定义内容外观的元素。例如，已弃用的 `<div>` `center`、 `<span> `big`` 和 ` `font`<div>` 元素。
@@ -375,6 +379,10 @@ section元素用于在文档中定义章节、页眉、页脚或任何其他部�
   </ul>
 </section>
 ```
+* article
+表示文章。如文章、评论、帖子、博客
+* aside
+表示侧边栏。如文章的侧栏
 * `footer`
 footer元素用于定义文档或章节的脚注。脚注通常包含关于文档作者的信息、版权数据、使用条款链接、联系信息等。
 
@@ -878,20 +886,22 @@ method 属性用于指定发送表单数据时使用的HTTP方法。最常见的
 用于创建用户输入的输入字段
 属性
 
-| 属性           | 说明                                                                                                                    |
-| ------------ | --------------------------------------------------------------------------------------------------------------------- |
-| type         | 用于指定输入字段的类型,`text`, `email`, `number`, `radio`, `checkbox` `range` `password` `date`                                  |
-| placeholeder | 用于向用户显示提示，告诉他们要在输入字段中输入什么内容。                                                                                          |
-| value        | 用于指定输入的值。如果输入有一个 按钮 类型，即 价值 属性可用于设置按钮文本。                                                                              |
-| name         | 用于为输入字段指定名称，作为提交表单数据时的键。对于单选按钮，给它们相同的 姓名 将它们分组在一起，因此一次只能选择组中的一个选项。在表单提交中，为每个可提交元素提供一个name属性是有用且良好的实践。该属性用于在表单提交时识别该元素 |
-| size         | 用于定义用户在输入中键入时应可见的字符数                                                                                                  |
-| min          | 可与输入类型一起使用，例如 数字 指定输入字段中允许的最小值。                                                                                       |
-| max          | 可与输入类型一起使用，例如 数字 指定输入字段中允许的最大值。                                                                                       |
-| minlength    | 用于指定输入字段中所需的最小字符数                                                                                                     |
-| maxlength    | 用于指定输入字段中允许的最大字符数                                                                                                     |
-| required     | 用于指定在提交表单之前必须填写输入字段                                                                                                   |
-| disabled     | 用于指定应禁用输入字段。                                                                                                          |
-| readonly     | 用于指定输入字段是只读的                                                                                                          |
+| 属性           | 说明                                                                                                                                       |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| type         | 用于指定输入字段的类型,`text`, `email`, `number`, `radio`, `checkbox` `range` `password` `date` ，tel,url,search,time,date,datetime,month,week,color |
+| placeholeder | 用于向用户显示提示，告诉他们要在输入字段中输入什么内容。                                                                                                             |
+| value        | 用于指定输入的值。如果输入有一个 按钮 类型，即 价值 属性可用于设置按钮文本。                                                                                                 |
+| name         | 用于为输入字段指定名称，作为提交表单数据时的键。对于单选按钮，给它们相同的 姓名 将它们分组在一起，因此一次只能选择组中的一个选项。在表单提交中，为每个可提交元素提供一个name属性是有用且良好的实践。该属性用于在表单提交时识别该元素                    |
+| size         | 用于定义用户在输入中键入时应可见的字符数                                                                                                                     |
+| min          | 可与输入类型一起使用，例如 数字 指定输入字段中允许的最小值。                                                                                                          |
+| max          | 可与输入类型一起使用，例如 数字 指定输入字段中允许的最大值。                                                                                                          |
+| minlength    | 用于指定输入字段中所需的最小字符数                                                                                                                        |
+| maxlength    | 用于指定输入字段中允许的最大字符数                                                                                                                        |
+| required     | 用于指定在提交表单之前必须填写输入字段                                                                                                                      |
+| disabled     | 用于指定应禁用输入字段。                                                                                                                             |
+| readonly     | 用于指定输入字段是只读的                                                                                                                             |
+| autocomplete | 自动完成（填充的）。on 开启（默认），off 取消。用于表单元素，也可用于表单自身(on/off)                                                                                       |
+| pattern      | 自定义正则，验证表单                                                                                                                               |
 ```html
 
 <!-- Text input -->
@@ -919,6 +929,62 @@ method 属性用于指定发送表单数据时使用的HTTP方法。最常见的
 <!-- Button -->
 <input type="button" value="Show Alert" />
 
+
+
+```
+
+```html
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        form {
+            width: 100%;
+            /* 最大宽度*/
+            max-width: 640px;
+            /* 最小宽度*/
+            min-width: 320px;
+            margin: 0 auto;
+            font-family: "Microsoft Yahei";
+            font-size: 20px;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            height: 30px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<form action="">
+    <fieldset>
+        <legend>表单属性</legend>
+        <label for="">
+            用户名：<input type="text" placeholder="例如：smyhvae" autofocus name="userName" autocomplete="on" required/>
+        </label>
+
+        <label for="">
+            电话：<input type="tel" pattern="1\d{10}"/>
+        </label>
+
+        <label for="">
+            multiple的表单: <input type="file" multiple>
+        </label>
+
+        <!-- 上传文件-->
+        <input type="file" name="file" multiple/>
+
+        <input type="submit"/>
+    </fieldset>
+</form>
+
+</body>
+</html>
 ```
 `
 使用 type="password"，你可以通过 pattern 属性定义一个正则表达式，密码必须匹配该表达式才被视为有效。
@@ -961,7 +1027,28 @@ method 属性用于指定发送表单数据时使用的HTTP方法。最常见的
 <button type="submit">Submit Form</button>
 <button type="reset">Reset Form</button>
 ```
-
+* **`<datalist>` 数据列表**
+```html
+<input type="text" list="myData">
+<datalist id="myData">
+    <option>本科</option>
+    <option>研究生</option>
+    <option>不明</option>
+</datalist>
+```
+- `<keygen>`元素
+keygen 元素的作用是提供一种验证用户的可靠方法。
+keygen 元素是密钥对生成器（key-pair generator）。当提交表单时，会生成两个键：一个公钥，一个私钥。
+私钥（private key）存储于客户端，公钥（public key）则被发送到服务器。公钥可用于之后验证用户的客户端证书（client certificate）。
+- `<meter>`元素：度量器
+	- low：低于该值后警告
+	- high：高于该值后警告
+	- value：当前值
+	- max：最大值
+	- min：最小值。
+```html
+<meter  value="81"    min="0" max="100"  low="60"  high="80"/>
+```
 - **`fieldset`元素**：用于将相关的输入组合在一起。
 - **`legend`元素**：用于添加标题来描述一组输入内容。
 
@@ -1082,15 +1169,17 @@ figure元素表示自包含的内容，并允许您将图像与标题关联起�
 </figure>
 ```
 #### 音频&视频
-##### audio 
+* audio 
 `audio`和元素`video`允许您向 HTML 文档添加声音和视频内容。`audio`元素支持 mp3、wav 和 ogg 等常见音频格式。`video`元素支持 mp4、ogg 和 webm 格式。
 
-| 属性         | 说明                                                                             | 备注  |
-| ---------- | ------------------------------------------------------------------------------ | --- |
-| src属性      | 指向音频文件的位置                                                                      |     |
-| controls属性 | 允许用户管理音频播放，包括调节音量、暂停或继续播放。该属性`controls`是一个布尔值，可以添加到元素以启用内置播放控件。如果省略，则不会显示任何控件。 |     |
-| loop属性     | `loop`属性是一个布尔属性，用于使音频连续播放                                                      |     |
-| muted属性    | 静音状态启动音频                                                                       |     |
+| 属性         | 说明                                                                             |
+| ---------- | ------------------------------------------------------------------------------ |
+| src属性      | 指向音频文件的位置                                                                      |
+| controls属性 | 允许用户管理音频播放，包括调节音量、暂停或继续播放。该属性`controls`是一个布尔值，可以添加到元素以启用内置播放控件。如果省略，则不会显示任何控件。 |
+| loop属性     | `loop`属性是一个布尔属性，用于使音频连续播放                                                      |
+| muted属性    | 静音状态启动音频                                                                       |
+| autoplay   | 自动播放.写成`autoplay` 或者 `autoplay = ""`，都可以。                                      |
+| preload    | 预加载 同时设置 autoplay 时，此属性将失效。                                                    |
 
 ```HTML
 <audio src="https://cdn.freecodecamp.org/curriculum/js-music-player/cruising-for-a-musing.mp3" controls></audio>
@@ -1107,16 +1196,17 @@ figure元素表示自包含的内容，并允许您将图像与标题关联起�
 
 浏览器将首先从 ogg 类型开始，如果它无法播放音频，那么它将移动到列表中的下一个类型。
 
-##### video
+* video
 
-| 属性       | 说明        |     |
-| -------- | --------- | --- |
-| src属性    | 指向音频文件的位置 |     |
-| loop     |           |     |
-| controls |           |     |
-| muted    |           |     |
-| autoplay | 视频自动播放    |     |
-| `poster` |           |     |
+| 属性       | 说明        |
+| -------- | --------- |
+| src属性    | 指向音频文件的位置 |
+| loop     | 循环播放      |
+| controls | 控制条       |
+| muted    |           |
+| autoplay | 视频自动播放    |
+| `poster` |           |
+| preload  |           |
 
 
 **注意**：`width`此处使用此属性是为了缩小视频尺寸，使其更适合预览窗口。
@@ -1185,6 +1275,7 @@ HTML5有一些元素可以识别不同的内容区域。这些元素使你的HTM
 ```html
 <a href="https://www.freecodecamp.org" target="_blank">freeCodeCamp</a>
 ```
+
 
 ## 任务
 
@@ -1417,271 +1508,4 @@ HTML 表单中的客户端表单验证是什么？有哪些示例？
 
 
 
-# 实践
-```
-# 建立食谱页面
 
-构建一个功能类似于此示例项目的应用程序。尽量不要照搬示例项目，赋予其你自己的个人风格。
-
-**目标：**满足以下用户故事并通过所有测试以完成实验。
-
-**用户故事：**
-
-1. 你应该有一个`!DOCTYPE html`声明。
-2. 您应该有一个设置`html`为 的元素。`lang``en`
-3. 您应该有一个`head`元素，其中包含`title`具有您的食谱名称的元素，以及一个属性设置为的`meta`元素。`charset``UTF-8`
-4. 你应该有一个`body`元素。
-5. 您应该有一个`h1`带有您的食谱名称的元素。
-6. 您应该`p`在下方有一个介绍菜谱的元素`h1`。
-7. 您应该有一个包含成分部分`h2`文本的元素。`Ingredients`
-8. 您应该有一个无序列表（`ul`元素），其中至少有四个列表项（`li`元素），在第一个`h2`元素下方列出您的成分。
-9. 您应该有第二个元素，其中包含说明部分的`h2`文本。`Instructions`
-10. 您应该有一个有序列表（`ol`元素），其中至少有四个列表项，按顺序列出配方步骤，位于第二个列表项下方`h2`。
-11. 您应该有一个`img`元素，其`src`属性设置为有效图像（`https://cdn.freecodecamp.org/curriculum/labs/recipe.jpg`如果愿意，您可以使用），以及一个`alt`描述图像的属性。
-```
-
-```
-# 建立旅行社页面
-
-构建一个功能类似于此示例项目的应用程序。尽量不要照搬示例项目，赋予其你自己的个人风格。
-
-**目标：**满足以下用户故事并通过所有测试以完成实验。
-
-**用户故事：**
-
-1. 你应该有一个`DOCTYPE`声明。
-2. 您应该有一个设置`html`为 的元素。`lang``en`
-3. 您应该有一个`head`元素，其中包含设置为`meta`的 void 元素和带有文本的。`charset``utf-8``title``Travel Agency Page`
-4. `meta`您的元素中应该有一个标签`head`，其中包含您网站的简短描述，用于 SEO。
-5. 您应该有一个`h1`元素来展示您的旅行目的地。
-6. 您应该在元素下方添加一段`h1`介绍旅行机会的段落。
-7. 您应该有一个`h2`带有文本的元素`Packages`。
-8. 您应该有一个`p`元素来简要介绍各种包。
-9. 您应该有一个包含两个列表项的无序列表元素。这两个列表项分别应包含文本`Group Travels`和`Private Tours`。每个列表项的文本应包含在一个锚元素中。
-10. 您应该有一个`h2`带有文本的元素`Top Itineraries`。
-11. 您应该至少有三个`figure`元素，每个元素包含一个锚元素和一个`figcaption`元素。
-12. 这三个锚点元素应该包含一个`img`具有适当`alt`属性的元素，以及一个设置为有效图像的属性作为其内容。如果您愿意，`src`可以使用`https://cdn.freecodecamp.org/curriculum/labs/colosseo.jpg`、`https://cdn.freecodecamp.org/curriculum/labs/alps.jpg`和。`https://cdn.freecodecamp.org/curriculum/labs/sea.jpg`
-13. 所有五个锚元素都应具有一个`href`值为 的属性`https://www.freecodecamp.org/learn`和一个`target`值为 的属性`_blank`。
-```
-
-```
-# 构建 HTML 音频和视频播放器
-
-构建一个功能类似于此示例项目的应用程序。尽量不要照搬示例项目，赋予其你自己的个人风格。
-
-**目标：**满足以下用户故事并通过所有测试以完成实验。
-
-**用户故事：**
-
-1. 您应该有一个`h1`元素作为页面的主标题。
-2. 你应该有两个`section`元素。
-3. 在第一个`section`元素中，您应该有一个`h2`用于播放视频标题的元素。
-4. 元素下方`h2`应该有一个具有和属性的`video`元素。属性应设置为。`controls``width``width``640`
-5. 在元素内部`video`，您应该有一个`source`元素，该元素具有`src`指向视频文件的属性和`type`属性。
-    - 您可以使用`https://cdn.freecodecamp.org/curriculum/labs/what-is-the-map-method-and-how-does-it-work.mp4`。
-6. 在第二个`section`元素中，您应该有一个`h2`用于播放歌曲标题的元素。
-7. 在该`h2`元素下方，您应该有一个具有和属性`audio`的元素，以及一个指向音频文件的属性。 `controls``loop``src`
-    - 您可以使用`https://cdn.freecodecamp.org/curriculum/js-music-player/sailing-away.mp3`。
-    - 或者`https://cdn.freecodecamp.org/curriculum/js-music-player/we-are-going-to-make-it.mp3`。
-```
-
-```
-# 调试宠物领养页面
-宠物领养店老板莎莉已经建立了她的第一个网页，但存在一些问题。
-
-您的工作是修复所有错误，以便 Sally 可以继续构建她的页面。
-
-**目标：**满足以下用户故事并通过所有测试以完成实验。
-
-**用户故事：**
-
-1. Sally 想使用一些猫的图片，但显示不正确。您需要在`img`元素中修复以下问题：
-    - `href`用图像源的正确属性替换该属性。
-    - `att`用代表图像的简短描述性文本的正确属性替换该属性。
-    - 删除`</img>`结束标签，因为`img`元素是空元素并且没有结束标签。
-2. Sally 想使用一些链接将用户引导至狗和猫的页面。但这些链接无法正常工作。您需要修复`a`元素中的以下问题：
-    - 将这两个`src`属性替换为用于指定 URL 的正确属性。
-```html
-<h1>Welcome XYZ Pet Adoption!</h1>
-
-<p>Consider adopting a pet today. We have cats, dogs, rabbits and more.</p>
-
-  
-
-<h2>See our cats!</h2>
-
-<img href="https://cdn.freecodecamp.org/curriculum/cat-photo-app/cats.jpg" att="Two tabby kittens sleeping together on a couch."></img>
-
-  
-
-<h2>Adopt a cat!</h2>
-
-<a src="/cats">Visit cats page</a>
-
-  
-
-<h2>Adopt a dog!</h2>
-
-<a src="/dogs">Visit dogs page</a>
-```
-```
-# 构建活动中心
-
-构建一个功能与此示例项目类似的应用程序。尽量不要照搬示例项目，要融入你自己的风格。
-
-在本实验中，你将利用语义化的HTML元素来创建网页结构。你将添加内容和图片，使其看起来像一个真实的活动中心。
-
-**目标：**完成以下用户故事，并通过所有测试以完成实验。
-
-**用户故事：**
-
-1. 你应该有一个`header`元素。
-    
-2. 在元素内部`header`，应该有一个`h1`包含文本的元素`Event Hub`和一个`nav`元素。
-    
-3. 在该`nav`元素内部，您应该有一个包含两个项目的无序列表，每个项目都包含指向页面不同部分的链接。第一个项目应该包含文本`Upcoming Events`，第二个项目应该包含文本`Past Events`。
-    
-4. `a`每个链接都应该由一个带有属性的元素表示，该属性分别`href`链接到页面的相应部分。`#upcoming-events``#past-events`
-    
-5. 你应该有一个`main`元素，其中包含页面的各个部分。
-    
-6. 该元素内部`main`应该有两个`section`元素。
-    
-7. 第一个`section`元素应该有一个`id`值为的属性。`upcoming-events`
-    
-8. 该`#upcoming-events`部分内容应包含：
-    
-    - `h2`包含文本的元素`Upcoming Events`。
-    - 两个`article`要素。每篇文章应代表一个事件，并且应包含：
-        - `h3`用于设置活动标题的元素。
-        - 事件描述元素`p`。您可以根据需要添加底部日期。
-9. 第二个`section`元素应该有一个`id`值为 的属性`past-events`。
-    
-10. 该`#past-events`部分内容应包含：
-    
-    - `h2`包含文本的元素`Past Events`。
-    - 两个`article`要素。文章的每个要素都应代表一个过去的事件，并且应包含：
-        - `h3`事件标题元素
-        - 事件描述元素`p`。您可以根据需要添加底部日期。
-        - 一个图像元素，其`src`属性指向图像文件，其`alt`属性包含图像描述。
-
-**注：**活动描述和日期可以使用任何文本。图片可以使用以下图片链接（如有需要）：
-
-- `https://cdn.freecodecamp.org/curriculum/labs/past-event1.jpg`。
-- `https://cdn.freecodecamp.org/curriculum/labs/past-event2.jpg`。
-```
-
-```
-# 构建结账页面
-
-构建一个功能与此示例项目类似的应用程序。尽量不要照搬示例项目，要融入你自己的风格。
-
-**目标：**完成以下用户故事，并通过所有测试以完成实验。
-
-**用户故事：**
-
-1. 你应该有一个`h1`包含文本的元素`Checkout`。
-2. `section`该元素之后应该紧跟两个元素`h1`。
-3. 第一部分中应该包含一个`h2`带有文本的元素。`Your Cart`
-4. 第一部分应该包含一张物品图片，并配上合适的替代文字。您可以使用这张图片：`https://cdn.freecodecamp.org/curriculum/labs/cube.jpg`
-5. 你应该在第二个部分中添加一个`h2`包含文本的元素。`Payment Information`
-6. `form`第二部分中应该包含一个元素。
-7. 你的表单中应该有一个带有 ` `id`and`和 ` `name`of` 的输入框，以及一个与它关联的 ` a` 。`card-name``type``text``label`
-8. 你的表单中应该有一个带有 ` `id`and`和 ` `name`of` 的输入框，以及一个与它关联的 ` a` 。`card-number``type``text``label`
-9. 至少应该有两个`input`元素具有该`required`属性。
-10. 您应该在每个必填输入框的元素内添加一个包含`span`文本的元素`*`，并将`aria-hidden`其设置为，以便直观地显示必填字段。`true``label`
-11. 您应该`p`在卡号输入框后紧跟一个包含帮助文本的元素，解释所需的卡号格式。该元素`p`应该有一个`id`属性`card-number-help`，并由卡号输入框引用`aria-describedby`。
-```
-```
-# 设计电影评论页面
-
-构建一个功能与此示例项目类似的应用程序。尽量不要照搬示例项目，要融入你自己的风格。
-
-**目标：**完成以下用户故事，并通过所有测试以完成实验。
-
-**用户故事：**
-
-1. 你应该有一个`main`元素。
-2. 在元素内部`main`，应该有一个`h1`用于显示电影标题的元素。
-3. 在元素下方`h1`，您应该添加一个`img`显示电影封面的元素。该`img`元素应包含描述`alt`图片的文字说明。您可以随意使用以下图片`https://cdn.freecodecamp.org/curriculum/labs/rise-beyond-2.png`：
-4. 你应该添加一个`p`包含简短电影介绍的元素。
-5. 您应该添加另一个`p`元素来显示电影评分。在该元素内，您应该按以下顺序包含这些项目：
-    - `strong`包含文本的元素`Movie Rating:`。
-    - 一个`span`元素，其`aria-hidden`属性设置为`true`包含使用星级的评分的视觉表示`⭐⭐⭐⭐⭐⭐⭐⭐⭐☆`。
-    - `9.2/10`跨度后的括号内为数值，表示评分（例如）。
-6. 你应该有一个`h2`包含文本的元素`Cast Members`。
-7. 你应该有一个`ul`元素。
-8. 在元素内部`ul`，你应该有多个`li`元素，每个元素都包含一个`strong`演员姓名元素，后跟相应的角色名称，前面加上文本`as`。（例如，`James Holloway as Ethan Carter`）。
-```
-```
-调试 Camperbot 的个人资料页面
-
-Camperbot 正在尝试构建一个个人资料页面。他们请一位朋友检查了他们的代码，结果发现有一些错误。
-
-你的任务是修复 Camperbot 的所有错误，以便他们能够继续构建个人资料页面。请完成以下用户故事中的项目，然后点击“运行测试”来查看是否已修复所有错误。
-
-**用户故事：**
-
-1. Camperbot 正在尝试使用某个`heading2`元素，但该元素不存在。请修复这些标签，使其使用正确的二级标题元素。
-2. Camperbot 正在尝试添加两个带有 的段落`pp`，但它们也不存在。请修复它们，使其使用正确的段落标签。
-3. Camperbot 正在使用一个`h3`元素作为`Background and Interests`副标题，但该元素存在语法错误。请找出问题并解决。
-```html
-<h1>Hello from Camperbot!</h1>
-
-  
-
-<heading2>About</heading2>
-
-  
-
-<pp>My name is Camperbot and I love learning new things.</pp>
-
-  
-
-<h3>Background and Interests<h3/>
-
-<pp>I enjoy solving puzzles.</pp>
-```
-
-```
-
-# 构建多媒体播放器
-
-构建一个功能与此示例项目类似的应用程序。尽量不要照搬示例项目，要融入你自己的风格。
-
-在之前的课程中，你已经学习了如何使用音频`audio`和`video`文本元素。在本实验中，你将构建一个多媒体播放器，用于显示`audio`音频文件及其`video`对应的文字稿。
-
-对于该`audio`元素，您需要包含一个`source`用于指定所用媒体的元素。
-
-以下是一个例子：
-
-```html
-<audio controls aria-label="descriptive label goes here">
-  <source src="url-to-audio-goes-here" type="audio/mpeg">
-</audio>
-```
-
-该元素也可以像这样在元素`source`中使用：`video`
-
-```html
-<video controls width="600" aria-label="descriptive label goes here">
-  <source src="link-to-mp4-goes-here" type="video/mp4">
-  <!-- Remaining code goes here -->  
-</video>
-```
-
-**目标：**完成以下用户故事，并通过所有测试以完成实验。
-
-**用户故事：**
-
-1. `h1`页面主标题应该有一个元素。
-2. 你应该包含三个`section`要素。
-3. 在第一个`section`元素中，应该有一个`h2`用于显示正在播放歌曲标题的元素。
-4. 该元素下方`h2`应该有一个带有属性和另一个属性的`audio`元素。`controls``aria-label`
-5. 在元素内部`audio`，您应该有一个`source`元素，该元素带有一个`src`指向音频文件的属性和一个`type`属性。您可以随意使用此音频 URL：`https://cdn.freecodecamp.org/curriculum/js-music-player/sailing-away.mp3`
-6. 在第二个`section`元素中，应该有一个`h2`用于显示正在播放视频标题的元素。
-7. 在元素下方`h2`，应该有一个带有属性和属性的`video`元素。`controls``width``aria-label`
-8. 在元素内部`video`，您应该有一个`source`元素，该元素带有一个`src`指向视频文件的属性和一个`type`属性。您可以随意使用此视频 URL：`https://cdn.freecodecamp.org/curriculum/labs/what-is-the-map-method-and-how-does-it-work.mp4`
-9. 在元素下方`source`，您应该有一个`track`元素，该元素具有`src`指向字幕文件的属性、一个`kind`属性、一个`srclang`属性和一个`label`属性。
-10. 在第三个`section`元素中，您应该有一个`h2`用于显示章节标题的元素，例如“成绩单”。
-11. 该元素下方`h2`应该有一个`p`包含视频文字稿的元素。
