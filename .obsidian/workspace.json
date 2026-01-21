@@ -13,12 +13,24 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "前端/css/Css.md",
+                "file": "前端/css/CSS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Css"
+              "title": "CSS"
+            }
+          },
+          {
+            "id": "d1fb823f5f14a7c8",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "前端/css/images/渐变.png"
+              },
+              "icon": "lucide-image",
+              "title": "渐变"
             }
           }
         ]
@@ -142,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "前端/css/Css.md",
+                "file": "前端/css/CSS.md",
                 "followCursor": false,
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Css 的大纲"
+              "title": "CSS 的大纲"
             }
           }
         ],
@@ -171,26 +183,26 @@
   },
   "active": "31e6536f9775764f",
   "lastOpenFiles": [
+    "前端/css/images/渐变.png",
+    "前端/css/CSS.md",
+    "前端/css/images/渐变3.png",
+    "前端/css/images/渐变2.png",
+    "前端/css/images/背景原点.png",
+    "前端/css/images/背景综合.png",
+    "前端/css/images/色盘.png",
+    "前端/css/images/多行垂直居中.png",
+    "前端/css/images/行高.png",
     "前端/css/文章.md",
     "前端/html/html5.md",
     "前端/html/HTML.md",
     "前端/html/html文章.md",
     "前端/html/images/拖拽2.gif",
     "前端/html/images/拖拽1.gif",
-    "前端/html/images/拖拽.gif",
     "前端/html/案例.md",
     "前端/Javascript/Javascript.md",
     "前端/Javascript/images",
     "未命名",
     "前端/Javascript",
-    "未命名.md",
-    "前端/html/images/Pasted image 20260118201000.png",
-    "前端/html/images/Pasted image 20260118155642.png",
-    "前端/html/images/Pasted image 20260118151955.png",
-    "前端/html/images/20200322_2220.gif",
-    "Pasted image 20260118144734.png",
-    "前端/html/images/Pasted image 20260118144705.png",
-    "前端/html/images/Pasted image 20260118144623.png",
-    "前端/css/Css.md"
+    "未命名.md"
   ]
 }

@@ -216,7 +216,7 @@ p {
 
 ## 单位
 ### 绝对单位
-在设计页面时，您会用到各种属性，例如宽度、高度、内边距、外边距等等。定义这些属性时，您需要指定要使用的长度单位。
+1 `in`=2.54`cm`=25.4`mm`=72`pt`=6`pc`
 对长度单位的长度是固定的，不与其他任何事物相关。
 - **`px`像素（Pixels）**：这是 CSS 中的一个绝对单位，用于精确控制尺寸。这意味着 1 像素始终等于 1/96 英寸。
 - **`in`（英寸）**：此绝对单位等于 96px。
@@ -240,14 +240,23 @@ p {
 
 ## CSS中处理颜色的不同方法
 
-- **命名颜色**：这些颜色是浏览器可识别的预定义颜色名称。例如`blue`， 100% `darkred`、`lightgreen`...
-- **`rgb()`功能**：RGB 代表红色、绿色和蓝色——光的三原色。这三种颜色以不同的强度组合，可以创造出丰富的色彩。该`rgb()`功能允许您使用 RGB 颜色模型定义颜色。
+- **命名颜色**：这些颜色是浏览器可识别的预定义颜色名称。例如`blue`， `darkred`、`lightgreen`...
+```css
+background-color: red;
+```
+- **`rgb()`功能**：RGB 代表红色、绿色和蓝色——光的三原色。。r、g、b的值，每个值的取值范围0~255，一共256个值。这三种颜色以不同的强度组合，可以创造出丰富的色彩。该`rgb()`功能允许您使用 RGB 颜色模型定义颜色。
 ```css
 element {
   color: rgb(red, green, blue);
 }
 ```
-每种颜色的强度范围从 0 `0`（表示无光）到 1 `255`（表示全亮）。通过混合不同强度的红色、绿色和蓝色，您可以生成屏幕上看到的任何颜色。
+> **RGB色彩模式：**
+> - 自然界中绝大部分颜色都可以用红、绿、蓝(RGB)这三种颜色波长的不同强度组合而得，这就是人们常说的三原色原理。
+> - RGB三原色也叫加色模式，这是因为当我们把不同光的波长加到一起的时候，可以得到不同的混合色。例：红+绿=黄色，红+蓝＝紫色，绿+蓝=青。
+> - RGB各有256级(0-255)亮度，256级的RGB色彩总共能组合出约1678万种色彩，即256×256×256=16777216。
+> 在数字视频中，对RGB三基色各进行8位编码就构成了大约1678万种颜色，这就是我们常说的真彩色。所有显示设备都采用的是RGB色彩模式。
+
+
 - **`rgba()`功能**：此函数添加了第四个值——alpha——来控制颜色的透明度。`alpha` 值的范围从`0` （完全透明）到`1`（完全不透明）。
 - **`hsl()`功能**：HSL 代表色相、饱和度和亮度——定义颜色的三个关键组成部分。
 ```css
@@ -262,8 +271,25 @@ element {
   background-color: hsla(hue, saturation, lightness, alpha);
 }
 ```
-- **十六进制**：十六进制代码（简称十六进制代码）是一个六字符字符串，用于表示 RGB 颜色模型中的颜色。“十六进制”指的是以 16 为基数的计数系统，该系统使用数字 0 到 9 和字母 A 到 F。#rrggbbaa(aa 透明度可省略)
+>- `H` 色调，取值范围 0~360。0或360表示红色、120表示绿色、240表示蓝色。
+>- `S` 饱和度，取值范围 0%~100%。值越大，越鲜艳。
+>- `L` 亮度，取值范围 0%~100%。亮度最大时为白色，最小时为黑色。
+>- `A` 透明度，取值范围 0~1。
+![[色盘.png]]
 
+[配色宝典](https://www.uisdc.com/how-to-create-color-palettes)
+
+- **十六进制**：十六进制代码（简称十六进制代码）是一个六字符字符串，用于表示 RGB 颜色模型中的颜色。“十六进制”指的是以 16 为基数的计数系统，该系统使用数字 0 到 9 和字母 A 到 F。
+**十六进制可以简化为3位，所有#aabbcc的形式，能够简化为#abc**。
+```css
+	background-color:#ff0000;
+```
+
+等价于：
+
+```css
+	background-color:#f00;
+```
 ##  CSS 选择器
 ### id选择器
 ID 选择器是 CSS 中最强大的选择器之一，它允许开发人员使用唯一标识符将样式应用于特定元素。这使得它们在针对需要独特样式设计的单个元素方面非常有效。
@@ -637,12 +663,36 @@ selector::pseudo-element {
 ```
 
 ## 字体样式
-font-size 字体大小，单位:像素、百分比
-font-family 字体
-color 字体颜色
 
 ### 字体
-font-style
+- 字号 font-size
+- 字体：（font-family就是“字体”，family是“家庭”的意思）
+须将英语字体放在最前面，这样所有的中文，就不能匹配英语字体，就自动的变为后面的中文字体
+- color 颜色
+
+
+```css
+	font-size: 50px; 		/*字体大小*/
+	line-height: 30px;      /*行高*/
+	font-family: 幼圆,黑体; 	/*字体类型：如果没有幼圆就显示黑体，没有黑体就显示默认*/
+	font-style: italic ;		/*italic表示斜体，normal表示不倾斜*/
+	font-weight: bold;	/*粗体*/
+	font-variant: small-caps;  /*小写变大写*/
+```
+
+- font-weight 字体粗细
+属性值
+
+| 值                                                                             | 描述                                       |
+| ----------------------------------------------------------------------------- | ---------------------------------------- |
+| normal                                                                        | 默认值。定义标准的字符。                             |
+| bold                                                                          | 定义粗体字符。                                  |
+| bolder                                                                        | 定义更粗的字符。                                 |
+| lighter                                                                       | 定义更细的字符。                                 |
+| - 100<br>- 200<br>- 300<br>- 400<br>- 500<br>- 600<br>- 700<br>- 800<br>- 900 | 定义由细到粗的字符。400 等同于 normal，而 700 等同于 bold。 |
+| inherit                                                                       | 规定应该从父元素继承字体的粗细。                         |
+
+- font-style
 
 | 值       | 描述                  |
 | ------- | ------------------- |
@@ -650,22 +700,29 @@ font-style
 | italic  | 浏览器会显示一个斜体的字体样式。    |
 | oblique | 浏览器会显示一个倾斜的字体样式。    |
 | inherit | 规定应该从父元素继承字体样式。     |
-
+- font-weight 字体加粗
+```css
+font-weight: normal; /*正常*/
+	font-weight: bold;  /*加粗*/
+	font-weight: 100;
+	font-weight: 200;
+	font-weight: 900;
+```
+在设置字体是否加粗时，属性值既可以填写`normal`、`bold`这样的加粗字体，也可以直接填写 100至900 这样的数字。`normal`的值相当于400，`bold`的值相当于700。
 ### 文本
 
-
-
-letter-spacing
-字符间距
+- letter-spacing 字符间距
 
 | 值        | 描述                              |
 | -------- | ------------------------------- |
 | normal   | 默认。规定字符间没有额外的空间。                |
 | _length_ | 定义字符间的固定空间（允许使用负值）。             |
 | inherit  | 规定应该从父元素继承 letter-spacing 属性的值。 |
+|          |                                 |
 
-text-align
-水平对齐
+- word-spacing 单词之间的间距
+- 
+- text-align 水平对齐
 属性值
 
 | 值       | 描述                          |
@@ -676,8 +733,11 @@ text-align
 | justify | 实现两端对齐文本效果。                 |
 | inherit | 规定应该从父元素继承 text-align 属性的值。 |
 
-vertical-align
-垂直对齐
+- vertical-align 垂直对齐
+小技巧：如果一段文本只有一行，如果此时设置**行高 = 盒子高**，就可以保证单行文本垂直居中。这个很好理解。
+
+上面这个小技巧，只适用于单行文本垂直居中，不适用于多行。如果想让多行文本垂直居中，还需要计算盒子的padding。
+![[多行垂直居中.png]]
 属性值
 
 | 值           | 描述                                     |
@@ -694,20 +754,8 @@ vertical-align
 | %           | 使用 "line-height" 属性的百分比值来排列此元素。允许使用负值。 |
 | inherit     | 规定应该从父元素继承 vertical-align 属性的值         |
 
-font-weight
-字体粗细
-属性值
 
-| 值                                                                             | 描述                                       |
-| ----------------------------------------------------------------------------- | ---------------------------------------- |
-| normal                                                                        | 默认值。定义标准的字符。                             |
-| bold                                                                          | 定义粗体字符。                                  |
-| bolder                                                                        | 定义更粗的字符。                                 |
-| lighter                                                                       | 定义更细的字符。                                 |
-| - 100<br>- 200<br>- 300<br>- 400<br>- 500<br>- 600<br>- 700<br>- 800<br>- 900 | 定义由细到粗的字符。400 等同于 normal，而 700 等同于 bold。 |
-| inherit                                                                       | 规定应该从父元素继承字体的粗细。                         |
-text-indent
-缩进
+- text-indent 缩进
 属性值
 
 | 值        | 描述                          |
@@ -716,8 +764,7 @@ text-indent
 | _%_      | 定义基于父元素宽度的百分比的缩进。           |
 | inherit  | 规定应该从父元素继承 text-indent 属性的值 |
 
-text-shadow
-文本阴影属性
+- text-shadow 文本阴影属性
 语法
 
 ```
@@ -733,8 +780,7 @@ text-shadow: _h-shadow v-shadow blur color_;
 | _模糊_       | 任选。模糊的距离。                                                                             |
 | _颜色_       | 任选。阴影的颜色。参见[CSS颜色值](https://www.runoob.com/cssref/css-colors-legal.html "CSS 合法颜色值")。 |
 
-text-transform
-文本转换属性
+- text-transform  文本转换属性
 属性值
 
 | 值          | 描述                              |
@@ -745,18 +791,19 @@ text-transform
 | lowercase  | 定义无大写字母，仅有小写字母。                 |
 | inherit    | 规定应该从父元素继承 text-transform 属性的值。 |
 
-`text-decoration` 设置文字的装饰效果
+- `text-decoration` 设置文字的装饰效果
 `none`：默认值，不设置任何装饰效果。  
 `underline`：设置文字`下方`显示下划线  
 `overline`：设置文字`上方`显示划线  
 `line-through`：设置文字`中间`显示删除线  
 `blink`：设置文字闪烁
 
-`line-height`属性。
+- `line-height`属性。
 该`line-height`属性用于调整单个列表项内文本行之间的垂直间距。
 
 虽然它主要影响每个项目内文本行之间的间距，但如果项目仅包含一行文本，它也可以间接影响列表项之间的整体间距。
-
+![[行高.png]]
+为了严格保证字在行里面居中，我们的工程师有一个约定： **行高、字号，一般都是偶数**。这样可以保证，它们的差一定偶数，就能够被2整除。
 如果列表项有多行文本，`line-height`则会影响这些行之间的间距，但不会直接调整各个列表项之间的间距。
 ```html
 <link rel="stylesheet" href="styles.css">
@@ -775,14 +822,10 @@ li {
 ```
 
 
-
 ## 列表样式
-**`line-height`属性**：
-此属性用于在文本行之间创建空格。可接受的`line-height`值包括关键字`normal`、数字、百分比和长度单位（例如`em`单位）。
-
-list-style
+- list-style
  CSS 中，该`list-style`属性用于控制网页上列表的外观。
-无论你使用的是有序列表（`ol`）还是无序列表（`ul`），该`list-style`属性都允许你自定义列表项的显示方式。
+该`list-style`属性都允许列表项的显示方式。
 该`list-style`房产实际上是另外三个房产的简称：
 
 - `list-style-type`
@@ -790,7 +833,6 @@ list-style
 - `list-style-image`
 
 它们各自在定义列表外观方面发挥着不同的作用。
-
 该`list-style-type`属性允许您定义列表中使用的项目符号或数字类型。
 
 对于无序列表，您可以从多种项目符号样式中进行选择，例如圆点、圆形或方形。
@@ -879,80 +921,9 @@ list-style
 在这个例子中，列表项使用方形项目符号，位于内容内部，项目符号为自定义图像。
 
 但是，如果图像不可用或无法渲染，则会使用方形圆点作为备用。
+
 ## 表格样式
 创建一个表格选择器以定位您的表格。将"border-collapse"属性设为"collapse"，这将使单元格边框合并为一个整体边框，而非每个单元格周围都有边框。同时，将"border"属性设为0以隐藏边框本身。
-## 布局
-### 溢出
-
-overflow溢出是指元素处理超出其自身大小的内容的方式。例如，`div`元素的文本内容可能会溢出其边界。
-
-溢出是二维的，x 轴决定水平溢出，y 轴决定垂直溢出。
-- `overflow-x` 轴决定水平溢出范围。
-- `overflow-y` 轴决定垂直溢出量。
-CSS overflow 属性可以控制内容溢出元素框时在对应的元素区间内添加滚动条。
-
-overflow属性有以下值：
-
-| 值       | 描述                           |
-| ------- | ---------------------------- |
-| visible | 默认值。内容不会被修剪，会呈现在元素框之外。       |
-| hidden  | 内容会被修剪，并且其余内容是不可见的。          |
-| scroll  | 内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。 |
-| auto    | 如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。 |
-| inherit | 规定应该从父元素继承 overflow 属性的值。    |
-|         |                              |
-**注意:**overflow 属性只工作于指定高度的块元素上
-
-
-###  使用浮动
-
-- **定义**：浮动用于将元素从其在页面上的正常流中移除，并将其定位到容器的左侧或右侧。发生这种情况时，文本会环绕浮动内容。
-- ```css
-float: left;
-float: right;
-```
-- **清除浮动**：此`clear`属性用于确定元素是否需要移动到浮动内容下方。当多个浮动元素并排堆叠时，布局中可能会出现重叠和折叠问题。因此，`clearfix`我们创建了一个变通方法来解决这个问题。
-```css
-.clearfix::after {
-  content: "";
-  display: block;
-  clear: both;
-}
-```
-### 定位
-####  静态定位、相对定位和绝对定位
-position：`static`, `absolute`, `relative`, `sticky` or `fixed`
-CSS定位允许你设置元素在浏览器中的位置。它有一个position属性，你可以将其设为static、absolute、relative、sticky或fixed。
-一旦你设置了元素的position属性，就可以通过设置一个像素或百分比值来移动该元素，这些值可以针对top、right、left或bottom属性中的一个或多个进行调整。
-static是所有元素的默认定位方式。如果你将它分配给一个元素，你将无法通过 top、right、left 或 bottom 属性来移动该元素。
-
-- **静态定位**：这是文档的正常布局流程。元素从上到下、从左到右依次排列。
-- **相对定位**：您可以使用`top``--location` `left`、`--location``right`和`bottom``--location` 属性在正常的文档流中定位元素。您还可以使用相对定位使元素与其他页面上的元素重叠。
-- **绝对定位**：这允许您将一个元素从正常的文档流中取出，使其独立于其他元素运行。
-
-####  固定和粘性定位
-
-- **固定定位**：当元素使用 `position: fixed` 定位时`position: fixed`，它会脱离正常的文档流，并相对于视口进行定位，这意味着即使用户滚动页面，它的位置也保持不变。这通常用于需要始终保持可见的元素，例如标题或导航栏。
-- ```css
-.navbar {
-  position: fixed; 
-  top: 0; 
-  width: 100%; 
-}
-```
-- **粘性定位**：这种定位方式会使元素在页面向下滚动时表现得像相对定位元素一样。如果指定了 `--sticky` `top`、`left``--fixed``right`或`bottom``--fixed` 属性，则元素将不再表现得像相对定位元素，而是表现得像固定定位元素一样。
-```css
-.positioned {
-  position: sticky;
-  top: 30px;
-  left: 30px;
-}
-```
-####  `z-index`与房产打交道
-
-- **定义**：`z-index`CSS 中的该属性用于控制页面上重叠的定位元素的垂直堆叠顺序。
-
-
 
 ## 背景样式
 CSS 背景属性用于定义HTML元素的背景。
@@ -992,28 +963,20 @@ background-image 属性描述了元素的背景图像.
 ### 背景图像大小
 background-size  设置背景图像的大小
 利用此功能`contain`将图像放大到尽可能大的尺寸，而不会裁剪或拉伸。
-以下是一个例子`background-size: contain`：
-```html
-<style>
-  body {
-    background-image: url("https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg");
-    background-size: contain;
-    min-height: 100px;
-  }
-</style>
-```
+```css
+/* 宽、高的具体数值 */
+	background-size: 500px 500px;
 
-我们设置了高度`min-height`，`100px`以便背景图像可见，布局保持基线高度，从而确保即使内容很少，设计也能显得平衡且具有视觉吸引力。
-如果我们更改`background-size`属性以使用该`cover`值，则背景图像将缩放以覆盖整个`body`元素，同时保持其宽高比。
+	/* 宽高的百分比（相对于容器的大小） */
+	background-size: 50% 50%;   // 如果两个属性值相同，可以简写成：background-size: 50%;
 
-```html
-<style>
-  body {
-    background-image: url("https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg");
-    background-size: cover;
-    min-height: 100px;
-  }
-</style>
+	background-size: 100% auto;  //这个属性可以自己试验一下。
+
+	/* cover：图片始终填充满容器，且保证长宽比不变。图片如果有超出部分，则超出部分会被隐藏。 */
+	background-size: cover;
+
+	/* contain：将图片完整地显示在容器中，且保证长宽比不变。可能会导致容器的部分区域为空白。  */
+	background-size: contain;
 ```
 ### 水平或垂直平铺
 background-repeat  背景图像重复出现
@@ -1055,60 +1018,227 @@ background-repeat  背景图像重复出现
 ```
 ### 背景图像定位
 background-position  背景图像定位
-该`background-position`属性允许您设置背景图像在元素中的显示位置。您可以使用诸如`top`、 `bottom`  `right`和 ` `center之类的关键字，也可以使用特定的像素值或百分比值。
+**1、用像素值描述属性值：**
+格式如下：
 
-`center`以下是使用and`top`的示例`background-position`：
-
-```html
-<style>
-  body {
-    background-image: url("https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center top;
-    min-height: 100px;
-  }
-</style>
+```
+	background-position:向右偏移量 向下偏移量;
 ```
 
-这段 CSS 代码将背景图像水平放置在元素的中心，垂直放置在元素的顶部。
+属性值可以是正数，也可以是负数。比如：`100px 200px`、`-50px -120px`。
+**2、用单词描述属性值：**
 
+格式如下：
+
+```
+	background-position: 描述左右的词 描述上下的词;
+```
+
+- 描述左右的词：left、center、right
+- 描述上下的词：top 、center、bottom
+
+### 背景原点
+`background-origin` 属性：控制背景从什么地方开始显示。
+```css
+/* 从 padding-box 内边距开始显示背景图 */
+	background-origin: padding-box;           //默认值
+
+	/* 从 border-box 边框开始显示背景图  */
+	background-origin: border-box;
+
+	/* 从 content-box 内容区域开始显示背景图  */
+	background-origin: content-box;
+```
+![[背景原点.png]]
+### 背景固定
 background-attachment  确定背景图像是随内容滚动还是在页面滚动时保持固定。
-主要值有`scroll`（默认值），其中背景图像随内容滚动，以及`fixed`，其中背景图像保持在屏幕上的同一位置。
+- `background-attachment:scroll;` 设置背景图片是否固定。属性值可以是：
+    - `fixed`（背景就会被固定住，不会被滚动条滚走）。
+    - `scroll`（与fixed属性相反，默认属性）
 
-`fixed`以下是使用该属性值的示例`background-attachment`：
+### 背景延伸
+`background-clip`属性：设置元素的背景（背景图片或颜色）是否延伸到边框下面
+`background-clip: content-box;` 超出的部分，将裁剪掉。属性值可以是：
 
-```html
-<style>
-  body {
-    background-image: url("https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg");
-    background-position: center top;
-    background-attachment: fixed;
-  }
-</style>
-```
-
-这段 CSS 代码使背景图像即使在页面滚动时也保持固定位置。
-
-如果你想将几个属性合并到一行中，可以使用简写`background`属性来实现。
-```html
-<style>
-  body {
-    background: center top fixed
-      url("https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg");
-  }
-</style>
-```
-
+- `border-box` 超出 border-box 的部分，将裁剪掉
+    
+- `padding-box` 超出 padding-box 的部分，将裁剪掉
+    
+- `content-box` 超出 content-box 的部分，将裁剪掉
 ### 背景渐变
 CSS中的背景渐变是指两种或多种颜色之间的平滑过渡，可以应用于元素的背景。渐变效果使您无需使用图片即可创建美观的背景。
 
 CSS 中有两种主要类型的渐变：线性渐变和径向渐变。
-- **线性渐变**：这种渐变方式沿着直线创建颜色之间的渐变过渡。您可以控制这条线的方向和使用的颜色。- **`linear-gradient()`功能**：此 CSS 函数用于创建沿直线的多种颜色之间的过渡效果。
-- repeating-linear-gradient
+- **线性渐变**：这种渐变方式沿着直线创建颜色之间的渐变过渡。您可以控制这条线的方向和使用的颜色。 **`linear-gradient()`功能**：此 CSS 函数用于创建沿直线的多种颜色之间的过渡效果。
+```css
+
+    background-image: linear-gradient(方向, 起始颜色, 终止颜色);
+
+    background-image: linear-gradient(to right, yellow, green);
+```
+>- 方向可以是：`to left`、`to right`、`to top`、`to bottom`、角度`30deg`（指的是顺时针方向30°）。
+
+```html
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div {
+            width: 500px;
+            height: 100px;
+            margin: 10px auto;
+            border: 1px solid #000;
+        }
+
+        /* 语法：
+            linear-gradient(方向，起始颜色，终止颜色);
+            方向：to left   to right  to top   to bottom 　角度　30deg
+            起始颜色
+            终止颜色
+        */
+        div:nth-child(1) {
+            background-image: linear-gradient(to right, yellow, green);
+        }
+
+        /* 不写方向，表示默认的方向是：从上往下 */
+        div:nth-child(2) {
+            background-image: linear-gradient(yellow, green);
+        }
+
+        /* 方向可以指定角度 */
+        div:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background-image: linear-gradient(135deg, yellow, green);
+        }
+
+        /* 0%的位置开始出现黄色，40%的位置开始出现红色的过度。70%的位置开始出现绿色的过度，100%的位置开始出现蓝色 */
+        div:nth-child(4) {
+            background-image: linear-gradient(to right,
+            yellow 0%,
+            red 40%,
+            green 70%,
+            blue 100%);
+
+        }
+
+        /* 颜色之间，出现突变 */
+        div:nth-child(5) {
+            background-image: linear-gradient(45deg,
+            yellow 0%,
+            yellow 25%,
+            blue 25%,
+            blue 50%,
+            red 50%,
+            red 75%,
+            green 75%,
+            green 100%
+            );
+        }
+
+        div:nth-child(6) {
+            background-image: linear-gradient(to right,
+            #000 0%,
+            #000 25%,
+            #fff 25%,
+            #fff 50%,
+            #000 50%,
+            #000 75%,
+            #fff 75%,
+            #fff 100%
+            );
+
+        }
+
+    </style>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</body>
+</html>
+```
+
+![[渐变2.png]]
 - **径向梯度**：这些梯度会形成从中心点向外辐射的圆形或椭圆形梯度。- **`radial-gradient()`功能**：此 CSS 函数创建一个从特定点（如圆形或椭圆形）辐射的图像，并在多种颜色之间逐渐过渡。
+```css
+background-image: radial-gradient(辐射的半径大小, 中心的位置, 起始颜色, 终止颜色);
+
+	background-image: radial-gradient(100px at center,yellow ,green);
+```
+>解释：围绕中心点做渐变，半径是150px，从黄色到绿色做渐变。
+>中心点的位置可以是：at left right center bottom top。如果以像素为单位，则中心点参照的是盒子的左上角
+
+```html
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div {
+            width: 250px;
+            height: 250px;
+            border: 1px solid #000;
+            margin: 20px;
+            float: left;
+        }
+
+        /*
+            径向渐变：
+            radial-gradient（辐射的半径大小, 中心的位置，起始颜色，终止颜色）;
+            中心点位置：at  left  right  center bottom  top
+        */
+
+        /*辐射半径为100px，中心点在中间*/
+        div:nth-child(1) {
+            background-image: radial-gradient(100px at center, yellow, green);
+        }
+
+        /*中心点在左上角*/
+        div:nth-child(3) {
+            background-image: radial-gradient(at left top, yellow, green);
+        }
+
+        div:nth-child(2) {
+            background-image: radial-gradient(at 50px 50px, yellow, green);
+        }
+
+        /*设置不同的颜色渐变*/
+        div:nth-child(4) {
+            background-image: radial-gradient(100px at center,
+            yellow 0%,
+            green 30%,
+            blue 60%,
+            red 100%);
+        }
+
+        /*如果辐射半径的宽高不同，那就是椭圆*/
+        div:nth-child(5) {
+            background-image: radial-gradient(100px 50px at center, yellow, green);
+        }
+
+    </style>
+</head>
+<body>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+<div class="box"></div>
+</body>
+</html>
+```
+![[渐变3.png]]
 
 
+![[渐变.png]]
 线性渐变是指颜色沿直线过渡。您可以定义渐变的方向和涉及的颜色。
 
 以下是基本语法：
@@ -1213,7 +1343,125 @@ gradient2(
 
 ### 不透明度
 不透明度描述了某物的不透明程度或非透明性。例如，实心墙是不透明的，没有光线可以穿透。但一个喝水用的玻璃杯则透明得多，你可以透过玻璃看到另一侧。
-使用CSS`opacity'属性，你可以控制元素的半透明程度。当值为0或0%时，元素是完全透明的;当值为1.0或100%时，元素是完全不透明的，就像默认设置一样。
+使用CSS`opacity`属性，你可以控制元素的半透明程度。当值为0或0%时，元素是完全透明的;当值为1.0或100%时，元素是完全不透明的，就像默认设置一样。
+`background: transparent;` 可以单独设置透明度，但设置的是完全透明（不可调节透明度）。
+### 裁剪
+`clip-path`属性可以创建一个只有元素的部分区域可以显示的剪切区域。区域内的部分显示，区域外的隐藏。
+```css
+.div1 {
+        width: 320px;
+        height: 320px;
+        border: 1px solid red;
+        background: url(http://img.smyhvae.com/20191006_1410.png) no-repeat;
+        background-size: cover;
+
+        /* 裁剪出圆形区域 */
+        clip-path: circle(50px at 100px 100px);
+        transition: clip-path .4s;
+    }
+    .div1:hover{
+        /* 鼠标悬停时，裁剪出更大的圆形 */
+        clip-path: circle(80px at 100px 100px);
+    }
+```
+### 综合属性
+如果你想将几个属性合并到一行中，可以使用简写`background`属性来实现。
+```css
+background:red url(1.jpg) no-repeat 100px 100px fixed;
+```
+
+等价于：
+
+```css
+	background-color:red;
+	background-image:url(1.jpg);
+	background-repeat:no-repeat;
+	background-position:100px 100px;
+	background-attachment:fixed;
+```
+![[背景综合.png]]
+### 设置多个背景
+```css
+/* 给盒子加多个背景，按照背景语法格式书写，多个背景使用逗号隔开 */
+            background: url(images/bg1.png) no-repeat left top,
+            url(images/bg2.png) no-repeat right top,
+            url(images/bg3.png) no-repeat right bottom,
+            url(images/bg4.png) no-repeat left bottom,
+            url(images/bg5.png) no-repeat center;
+```
+## 布局
+### overflow 溢出
+overflow溢出是指元素处理超出其自身大小的内容的方式。例如，`div`元素的文本内容可能会溢出其边界。
+
+溢出是二维的，x 轴决定水平溢出，y 轴决定垂直溢出。
+- `overflow-x` 轴决定水平溢出范围。
+- `overflow-y` 轴决定垂直溢出量。
+CSS overflow 属性可以控制内容溢出元素框时在对应的元素区间内添加滚动条。
+
+overflow属性有以下值：
+
+| 值       | 描述                           |
+| ------- | ---------------------------- |
+| visible | 默认值。内容不会被修剪，会呈现在元素框之外。       |
+| hidden  | 内容会被修剪，并且其余内容是不可见的。          |
+| scroll  | 内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。 |
+| auto    | 如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。 |
+| inherit | 规定应该从父元素继承 overflow 属性的值。    |
+|         |                              |
+**注意:**overflow 属性只工作于指定高度的块元素上
+
+
+###  使用浮动
+
+- **定义**：浮动用于将元素从其在页面上的正常流中移除，并将其定位到容器的左侧或右侧。发生这种情况时，文本会环绕浮动内容。
+- ```css
+float: left;
+float: right;
+```
+- **清除浮动**：此`clear`属性用于确定元素是否需要移动到浮动内容下方。当多个浮动元素并排堆叠时，布局中可能会出现重叠和折叠问题。因此，`clearfix`我们创建了一个变通方法来解决这个问题。
+```css
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+```
+### 定位
+####  静态定位、相对定位和绝对定位
+position：`static`, `absolute`, `relative`, `sticky` or `fixed`
+CSS定位允许你设置元素在浏览器中的位置。它有一个position属性，你可以将其设为static、absolute、relative、sticky或fixed。
+一旦你设置了元素的position属性，就可以通过设置一个像素或百分比值来移动该元素，这些值可以针对top、right、left或bottom属性中的一个或多个进行调整。
+static是所有元素的默认定位方式。如果你将它分配给一个元素，你将无法通过 top、right、left 或 bottom 属性来移动该元素。
+
+- **静态定位**：这是文档的正常布局流程。元素从上到下、从左到右依次排列。
+- **相对定位**：您可以使用`top``--location` `left`、`--location``right`和`bottom``--location` 属性在正常的文档流中定位元素。您还可以使用相对定位使元素与其他页面上的元素重叠。
+- **绝对定位**：这允许您将一个元素从正常的文档流中取出，使其独立于其他元素运行。
+
+####  固定和粘性定位
+
+- **固定定位**：当元素使用 `position: fixed` 定位时`position: fixed`，它会脱离正常的文档流，并相对于视口进行定位，这意味着即使用户滚动页面，它的位置也保持不变。这通常用于需要始终保持可见的元素，例如标题或导航栏。
+- ```css
+.navbar {
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
+}
+```
+- **粘性定位**：这种定位方式会使元素在页面向下滚动时表现得像相对定位元素一样。如果指定了 `--sticky` `top`、`left``--fixed``right`或`bottom``--fixed` 属性，则元素将不再表现得像相对定位元素，而是表现得像固定定位元素一样。
+```css
+.positioned {
+  position: sticky;
+  top: 30px;
+  left: 30px;
+}
+```
+####  `z-index`与房产打交道
+
+- **定义**：`z-index`CSS 中的该属性用于控制页面上重叠的定位元素的垂直堆叠顺序。
+
+
+
+
 ## 盒子模型
 
 在 CSS 盒模型中，每个元素都被一个盒子包裹。这个盒子由四个部分组成：内容区域、边框`padding`、内边距、边框`border`。`margin`
@@ -1819,6 +2067,88 @@ grid-template-areas:
 - **`align-items`**：用于设置网格容器中项目的对齐方式。
 与Flexbox非常相似，借助CSS网格,您可以将网格项的内容进行对齐，具体可通过align-items和justify-items 属性实现。 align-items 会沿列轴对齐子元素，而justify-items会沿行轴对齐子元素。
 您的.text元素不是CSS网格，但您可以通过使用column-width属性在不使用Grid的情况下创建元素内的列。
+
+## 响应式网页设计
+
+- **定义**：响应式设计的核心原则是适应性——网站能够根据浏览设备的屏幕尺寸和功能调整其布局和内容。
+- **流式网格**：这种网格使用百分比等相对单位，而不是像素等固定单位，允许内容根据屏幕尺寸调整大小和重新排列。
+- **弹性图像**：这些图像会根据其包含元素的大小自动调整大小，确保它们在较小的屏幕上不会超出容器范围。
+
+
+
+## 媒体查询
+CSS 中媒体查询的基本语法如下所示：
+
+```css
+@media mediatype and (feature: value) {
+  /* CSS rules go here */
+}
+```
+在此结构中，mediatype 指定查询适用的媒体类型，而 feature: value 对定义应用样式必须满足的条件。
+- **定义**：这允许开发者根据设备的特性（主要是视口宽度）应用不同的样式。
+- **`all`媒体类型**：适用于所有设备。如果未指定媒体类型，则使用此默认值。
+- **`print`媒体类型**：这适用于在打印预览模式下在屏幕上查看的分页材料和文档。
+- **`screen`媒体类型**：主要用于屏幕。
+```css
+@media screen and (min-width: 768px) {
+  /* Styles for screens at least 768px wide */
+}
+```
+- **`aspect-ratio`**这描述了视口的宽度和高度之间的比例。
+- ```css
+@media screen and (aspect-ratio: 16/9) {
+  /* Styles for screens with a 16:9 aspect ratio */
+}
+```
+- **`orientation`**这用于指示设备是横向还是纵向显示。
+- ```css
+@media screen and (orientation: landscape) {
+  /* Styles for landscape orientation */
+}
+```
+- **`resolution`**这用于描述输出设备的分辨率，单位为每英寸点数 (dpi) 或每厘米点数 (dpcm)。
+- ```css
+@media screen and (min-resolution: 300dpi) {
+  /* Styles for high-resolution screens */
+}
+```
+- **`hover`**这是用来测试主要输入机制是否可以悬停在元素上。
+- ```css
+@media (hover: hover) {
+  /* Styles for devices that support hover */
+}
+```
+- **`prefers-color-scheme`**：用于检测用户是否请求了浅色或深色主题。
+```css
+@media (prefers-color-scheme: dark) {
+  /* Styles for dark mode */
+}
+```
+媒体查询还可以使用逻辑运算符组合多个条件。`and`运算符用于组合多个媒体特征，而`not``and``only`运算符可用于否定或隔离媒体查询。以下是一个组合多个特征的示例：
+
+```css
+@media screen and (min-width: 768px) and (orientation: landscape) {
+  /* Styles for landscape screens at least 768px wide */
+}
+```
+
+也可以用逗号分隔的列表来指定多个查询，其作用类似于“或”运算符：
+
+```css
+@media screen and (min-width: 768px), print {
+  /* Styles for screens at least 768px wide OR for print */
+}
+```
+### 通用媒体断点
+
+- **定义**：媒体断点是指网站设计中布局和内容会根据不同屏幕尺寸进行调整的特定点。有一些通用的断点可用于针对手机、平板电脑和台式电脑屏幕进行优化。但试图涵盖所有可能的设备屏幕尺寸是不明智的。
+- **小型设备（智能手机）**：最大 640 像素
+- **中等尺寸设备（平板电脑）**：641像素至1024像素
+- **大型设备（台式机）**：1025像素及以上
+
+### 移动优先方法
+
+- **定义**：该`mobile-first`方法是一种响应式网页设计的设计理念和开发策略，优先考虑为移动设备创建网站，然后再为更大的屏幕进行设计。
 ## 过渡
 transition
 ```css
@@ -1889,19 +2219,20 @@ div {
 transform-origin
 变换原点属性用于指定CSS变换操作所作用的基点。例如，当你应用旋转变换(如本项目中稍后将要进行的操作)时，变换原点就决定了元素将围绕哪个点进行旋转。
 
-## 常见问题样式`datetime-local`和`color`属性
 
-- **常见问题**：这些特殊类型的输入框依赖于复杂的伪元素来创建日期和颜色选择器等元素。这给这些输入框的样式设计带来了很大的挑战。其中一个挑战是，默认样式完全取决于浏览器，因此您编写的 CSS 代码在不同的浏览器上可能完全不同，即使您编写的代码能够使选择器呈现出您想要的效果。
+## CSS动画
 
-
-
-
-## CSS重置
-
-- **定义**：CSS 重置样式表会移除网页浏览器应用于 HTML 元素的全部或部分默认格式。第三方 CSS 重置选项包括`sanitize.css`和`normalize.css`。
-
-用于`appearance: none`输入
-- **`appearance: none`**浏览器会对很多元素应用默认样式。CSS`appearance: none`属性可以让你完全控制样式，但也有一些注意事项。为输入元素创建自定义样式时，你需要确保焦点和错误指示器仍然可见。
+- **定义**：CSS动画允许您在网页上创建动态、引人入胜的视觉效果，而无需使用JavaScript或复杂的编程。它们提供了一种在指定时间内平滑过渡不同样式元素的方法。
+- **规则：此`@keyframes`规则**定义了动画的各个阶段和样式。它指定了元素在动画过程中各个阶段应具有的样式。
+- **`animation`属性**：这是用于应用动画的简写属性。
+- **`animation-name`**：这指定要使用的规则名称`@keyframes`。
+- **`animation-duration`**：这设置动画完成所需的时间。
+- **`animation-timing-function`**：这定义了动画如何随时间推移而进行（例如缓动、线性、缓入缓出）。
+- **`animation-delay`**：这指定动画开始前的延迟时间。
+- **`animation-iteration-count`**：此设置动画应重复播放的次数。
+- **`animation-direction`**：这决定了动画应该正向播放、反向播放还是交替播放。
+- **`animation-fill-mode`**：这指定了元素在动画之前和之后的样式应该如何设置。
+- **`animation-play-state`**这样就可以暂停和恢复动画。
 
 ## CSS 滤镜
 
@@ -1917,8 +2248,45 @@ selector {
 - **`grayscale()`功能**：此函数将元素转换为灰度图像。转换程度以百分比表示，100% 表示完全灰度，0% 表示图像保持不变。
 - **`sepia()`功能**：此函数将元素应用棕褐色调。与灰度模式类似，它使用百分比值。
 - **`hue-rotate()`功能**：此函数对元素应用色调旋转。该值以度为单位，表示围绕色环的旋转角度。
+## 常见问题样式`datetime-local`和`color`属性
+
+- **常见问题**：这些特殊类型的输入框依赖于复杂的伪元素来创建日期和颜色选择器等元素。这给这些输入框的样式设计带来了很大的挑战。其中一个挑战是，默认样式完全取决于浏览器，因此您编写的 CSS 代码在不同的浏览器上可能完全不同，即使您编写的代码能够使选择器呈现出您想要的效果。
+
+
+
+
+## CSS重置
+
+- **定义**：CSS 重置样式表会移除网页浏览器应用于 HTML 元素的全部或部分默认格式。第三方 CSS 重置选项包括`sanitize.css`和`normalize.css`。
+
+用于`appearance: none`输入
+- **`appearance: none`**浏览器会对很多元素应用默认样式。CSS`appearance: none`属性可以让你完全控制样式，但也有一些注意事项。为输入元素创建自定义样式时，你需要确保焦点和错误指示器仍然可见。
+
+
 
 ## 其他
+### 鼠标的属性
+鼠标的属性`cursor`有以下几个属性值：
+- `auto`：默认值。浏览器根据当前情况自动确定鼠标光标类型。
+- `pointer`：IE6.0，竖起一只手指的手形光标。就像通常用户将光标移到超链接上时那样。
+- `hand`：和`pointer`的作用一样：竖起一只手指的手形光标。就像通常用户将光标移到超链接上时那样。
+- all-scroll :　 IE6.0 有上下左右四个箭头，中间有一个圆点的光标。用于标示页面可以向上下左右任何方向滚动。
+- col-resize :　 IE6.0 有左右两个箭头，中间由竖线分隔开的光标。用于标示项目或标题栏可以被水平改变尺寸。
+- crosshair :　 简单的十字线光标。
+- default :　 客户端平台的默认光标。通常是一个箭头。
+- move :　 十字箭头光标。用于标示对象可被移动。
+- help :　 带有问号标记的箭头。用于标示有帮助信息存在。
+- no-drop :　 IE6.0 带有一个被斜线贯穿的圆圈的手形光标。用于标示被拖起的对象不允许在光标的当前位置被放下。
+- not-allowed :　 IE6.0 禁止标记(一个被斜线贯穿的圆圈)光标。用于标示请求的操作不允许被执行。
+- progress :　 IE6.0 带有沙漏标记的箭头光标。用于标示一个进程正在后台运行。
+- row-resize :　 IE6.0 有上下两个箭头，中间由横线分隔开的光标。用于标示项目或标题栏可以被垂直改变尺寸。
+- text :　 用于标示可编辑的水平文本的光标。通常是大写字母 I 的形状。
+- vertical-text :　 IE6.0 用于标示可编辑的垂直文本的光标。通常是大写字母 I 旋转90度的形状。
+- wait :　 用于标示程序忙用户需要等待的光标。通常是沙漏或手表的形状。
+- *-resize :　 用于标示对象可被改变尺寸方向的箭头光标
+
+
+
 object-fit cover object-fit属性，并将其设置为cover。这将告诉图片在保持宽高比的同时填充img容器，从而实现裁剪以适应尺寸。
 
 aspect-ratio: 35 / 4; 规定目标显示区域的宽度/高度比
@@ -1992,85 +2360,7 @@ clip-path属性决定了clip属性应呈现的形状。将clip-path属性设置�
 <p hidden>This paragraph is hidden from both sighted users and assistive technology.</p>
 ```
 
-## 响应式网页设计
 
-- **定义**：响应式设计的核心原则是适应性——网站能够根据浏览设备的屏幕尺寸和功能调整其布局和内容。
-- **流式网格**：这种网格使用百分比等相对单位，而不是像素等固定单位，允许内容根据屏幕尺寸调整大小和重新排列。
-- **弹性图像**：这些图像会根据其包含元素的大小自动调整大小，确保它们在较小的屏幕上不会超出容器范围。
-
-## 媒体查询
-CSS 中媒体查询的基本语法如下所示：
-
-```css
-@media mediatype and (feature: value) {
-  /* CSS rules go here */
-}
-```
-在此结构中，mediatype 指定查询适用的媒体类型，而 feature: value 对定义应用样式必须满足的条件。
-- **定义**：这允许开发者根据设备的特性（主要是视口宽度）应用不同的样式。
-- **`all`媒体类型**：适用于所有设备。如果未指定媒体类型，则使用此默认值。
-- **`print`媒体类型**：这适用于在打印预览模式下在屏幕上查看的分页材料和文档。
-- **`screen`媒体类型**：主要用于屏幕。
-```css
-@media screen and (min-width: 768px) {
-  /* Styles for screens at least 768px wide */
-}
-```
-- **`aspect-ratio`**这描述了视口的宽度和高度之间的比例。
-- ```css
-@media screen and (aspect-ratio: 16/9) {
-  /* Styles for screens with a 16:9 aspect ratio */
-}
-```
-- **`orientation`**这用于指示设备是横向还是纵向显示。
-- ```css
-@media screen and (orientation: landscape) {
-  /* Styles for landscape orientation */
-}
-```
-- **`resolution`**这用于描述输出设备的分辨率，单位为每英寸点数 (dpi) 或每厘米点数 (dpcm)。
-- ```css
-@media screen and (min-resolution: 300dpi) {
-  /* Styles for high-resolution screens */
-}
-```
-- **`hover`**这是用来测试主要输入机制是否可以悬停在元素上。
-- ```css
-@media (hover: hover) {
-  /* Styles for devices that support hover */
-}
-```
-- **`prefers-color-scheme`**：用于检测用户是否请求了浅色或深色主题。
-```css
-@media (prefers-color-scheme: dark) {
-  /* Styles for dark mode */
-}
-```
-媒体查询还可以使用逻辑运算符组合多个条件。`and`运算符用于组合多个媒体特征，而`not``and``only`运算符可用于否定或隔离媒体查询。以下是一个组合多个特征的示例：
-
-```css
-@media screen and (min-width: 768px) and (orientation: landscape) {
-  /* Styles for landscape screens at least 768px wide */
-}
-```
-
-也可以用逗号分隔的列表来指定多个查询，其作用类似于“或”运算符：
-
-```css
-@media screen and (min-width: 768px), print {
-  /* Styles for screens at least 768px wide OR for print */
-}
-```
-## 通用媒体断点
-
-- **定义**：媒体断点是指网站设计中布局和内容会根据不同屏幕尺寸进行调整的特定点。有一些通用的断点可用于针对手机、平板电脑和台式电脑屏幕进行优化。但试图涵盖所有可能的设备屏幕尺寸是不明智的。
-- **小型设备（智能手机）**：最大 640 像素
-- **中等尺寸设备（平板电脑）**：641像素至1024像素
-- **大型设备（台式机）**：1025像素及以上
-
-## 移动优先方法
-
-- **定义**：该`mobile-first`方法是一种响应式网页设计的设计理念和开发策略，优先考虑为移动设备创建网站，然后再为更大的屏幕进行设计。
 
 ## CSS 变量
 
@@ -2219,19 +2509,6 @@ body {
 ```
 
 
-## CSS动画
-
-- **定义**：CSS动画允许您在网页上创建动态、引人入胜的视觉效果，而无需使用JavaScript或复杂的编程。它们提供了一种在指定时间内平滑过渡不同样式元素的方法。
-- **规则：此`@keyframes`规则**定义了动画的各个阶段和样式。它指定了元素在动画过程中各个阶段应具有的样式。
-- **`animation`属性**：这是用于应用动画的简写属性。
-- **`animation-name`**：这指定要使用的规则名称`@keyframes`。
-- **`animation-duration`**：这设置动画完成所需的时间。
-- **`animation-timing-function`**：这定义了动画如何随时间推移而进行（例如缓动、线性、缓入缓出）。
-- **`animation-delay`**：这指定动画开始前的延迟时间。
-- **`animation-iteration-count`**：此设置动画应重复播放的次数。
-- **`animation-direction`**：这决定了动画应该正向播放、反向播放还是交替播放。
-- **`animation-fill-mode`**：这指定了元素在动画之前和之后的样式应该如何设置。
-- **`animation-play-state`**这样就可以暂停和恢复动画。
 
 ### 辅助功能和`prefers-reduced-motion`媒体查询
 
