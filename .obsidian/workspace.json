@@ -20,18 +20,6 @@
               "icon": "lucide-file",
               "title": "CSS"
             }
-          },
-          {
-            "id": "d1fb823f5f14a7c8",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "前端/css/images/渐变.png"
-              },
-              "icon": "lucide-image",
-              "title": "渐变"
-            }
           }
         ]
       }
@@ -183,21 +171,24 @@
   },
   "active": "31e6536f9775764f",
   "lastOpenFiles": [
-    "前端/css/images/渐变.png",
+    "前端/css/CSS3的常见边框汇总.md",
+    "前端/css/images/爱心.png",
+    "前端/css/images/CSS3的常见边框.png",
     "前端/css/CSS.md",
-    "前端/css/images/渐变3.png",
-    "前端/css/images/渐变2.png",
-    "前端/css/images/背景原点.png",
-    "前端/css/images/背景综合.png",
-    "前端/css/images/色盘.png",
-    "前端/css/images/多行垂直居中.png",
-    "前端/css/images/行高.png",
+    "前端/css/Sass.md",
+    "前端/css/Web字体.md",
+    "前端/css/images/CSS Flexbox 可视化手册.png",
+    "前端/css/images/flex布局.png",
+    "前端/css/images/默认布局.png",
+    "前端/css/images/边框图片1.png",
+    "前端/css/images/渐变.png",
+    "前端/css/images/边框图片3.png",
+    "前端/css/images/边框图片2.png",
+    "前端/css/images/画圆形.png",
     "前端/css/文章.md",
     "前端/html/html5.md",
     "前端/html/HTML.md",
     "前端/html/html文章.md",
-    "前端/html/images/拖拽2.gif",
-    "前端/html/images/拖拽1.gif",
     "前端/html/案例.md",
     "前端/Javascript/Javascript.md",
     "前端/Javascript/images",
