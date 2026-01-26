@@ -13,15 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "前端/css/CSS.md",
+                "file": "前端/Javascript/文章.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CSS"
+              "title": "文章"
+            }
+          },
+          {
+            "id": "115a2c6fb1751e09",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "前端/Javascript/Javascript基础.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Javascript基础"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -142,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "前端/css/CSS.md",
+                "file": "前端/Javascript/Javascript基础.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "CSS 的大纲"
+              "title": "Javascript基础 的大纲"
             }
           }
         ],
@@ -169,28 +184,31 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "31e6536f9775764f",
+  "active": "115a2c6fb1751e09",
   "lastOpenFiles": [
+    "前端/Javascript/BOM.md",
+    "前端/Javascript/DOM.md",
+    "前端/Javascript/Javascript基础.md",
+    "前端/Javascript/文章.md",
+    "前端/Javascript/images/变量的初始化.png",
+    "前端/Javascript/images/编译2.png",
+    "前端/Javascript/images/编译1.png",
+    "前端/Javascript/images/计算机语言分类.png",
+    "前端/Javascript/images/计算机语言的分类.png",
+    "前端/html/HTML.md",
+    "前端/html/html文章.md",
+    "前端/css/CSS.md",
+    "前端/css/文章.md",
+    "前端/html/html5.md",
     "前端/css/CSS3的常见边框汇总.md",
     "前端/css/images/爱心.png",
     "前端/css/images/CSS3的常见边框.png",
-    "前端/css/CSS.md",
     "前端/css/Sass.md",
     "前端/css/Web字体.md",
     "前端/css/images/CSS Flexbox 可视化手册.png",
     "前端/css/images/flex布局.png",
     "前端/css/images/默认布局.png",
-    "前端/css/images/边框图片1.png",
-    "前端/css/images/渐变.png",
-    "前端/css/images/边框图片3.png",
-    "前端/css/images/边框图片2.png",
-    "前端/css/images/画圆形.png",
-    "前端/css/文章.md",
-    "前端/html/html5.md",
-    "前端/html/HTML.md",
-    "前端/html/html文章.md",
     "前端/html/案例.md",
-    "前端/Javascript/Javascript.md",
     "前端/Javascript/images",
     "未命名",
     "前端/Javascript",
