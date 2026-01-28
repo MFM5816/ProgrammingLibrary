@@ -184,8 +184,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "115a2c6fb1751e09",
+  "active": "6a2e563d83cd6035",
   "lastOpenFiles": [
+    "前端/Javascript/images/switch.png",
+    "前端/Javascript/images/if 语句的嵌套.png",
+    "前端/Javascript/images/顺序结构.png",
     "前端/Javascript/BOM.md",
     "前端/Javascript/DOM.md",
     "前端/Javascript/Javascript基础.md",
@@ -206,8 +209,6 @@
     "前端/css/Sass.md",
     "前端/css/Web字体.md",
     "前端/css/images/CSS Flexbox 可视化手册.png",
-    "前端/css/images/flex布局.png",
-    "前端/css/images/默认布局.png",
     "前端/html/案例.md",
     "前端/Javascript/images",
     "未命名",

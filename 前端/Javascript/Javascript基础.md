@@ -2356,3 +2356,1378 @@ const res1 = (1 + 2, 3 + 4, 5 + 6); // 打印结果：11
     
 
 备注：在实际写代码的时候，如果不清楚哪个优先级更高，可以先尝试把括号用上。
+## 选择语句
+- 代码块
+用`{}`包围起来的代码，就是代码块。
+在 ES5 语法中，代码块，只具有**分组**的作用，没有其他的用途。代码块中的内容，在外部是完全可见的。
+```
+{
+    var a = 2;
+    alert('qianguyihao');
+    console.log('千古壹号');
+}
+
+console.log('a = ' + a);
+```
+
+打印结果：（可以看出，虽然变量 a 是定义在代码块中的，但是在外部依然可以访问）
+ - 顺序结构
+按照代码的先后顺序，依次执行。
+![[顺序结构.png]]
+### if 语句
+#### if 语句三种形式。
+形式1：（条件成立才执行。如果条件不成立，那就什么都不做）
+
+```
+if (条件表达式) {
+    // 条件为真时，做的事情
+}
+```
+
+对于非布尔类型的数据，会先转换成布尔类型再判断。下同。
+
+形式 2：
+
+```
+if (条件表达式) {
+    // 条件为真时，做的事情
+} else {
+    // 条件为假时，做的事情
+}
+```
+
+形式3：（多分支的 if 语句）
+
+```
+if (条件表达式1) {
+    // 条件1为真时，做的事情
+} else if (条件表达式2) {
+    // 条件1不满足，条件2满足时，做的事情
+} else if (条件表达式3) {
+    // 条件1、2不满足，条件3满足时，做的事情
+} else {
+    // 条件1、2、3都不满足时，做的事情
+}
+```
+
+#### if 语句的嵌套
+```
+一个加油站为了鼓励车主多加油，所以加的多有优惠。
+92号汽油，每升6元；如果大于等于20升，那么每升5.9；
+97号汽油，每升7元；如果大于等于30升，那么每升6.95
+编写JS程序，用户输入自己的汽油编号，然后输入自己加多少升，弹出价格。
+```
+![[if 语句的嵌套.png]]
+### switch 语句（条件分支语句）
+```
+switch(表达式) {
+	case 值1：
+		语句体1;
+		break;
+
+	case 值2：
+		语句体2;
+		break;
+
+	...
+	...
+
+	default：
+		语句体 n+1;
+		break;
+}
+```
+switch 可以理解为“开关、转换” 。case 可以理解为“案例、选项”。
+![[switch.png]]
+执行流程如下：
+
+（1）首先，计算出表达式的值，和各个 case 依次比较，一旦有对应的值，就会执行相应的语句，在执行的过程中，遇到 break 就会结束。
+
+（2）然后，如果所有的 case 都和表达式的值不匹配，就会执行 default 语句体部分。
+
+**switch 语句的结束条件【非常重要】**
+
+- 情况 a：遇到 break 就结束（而不是遇到 default 就结束）。因为 break 在此处的作用是，立即结束并退出整个 switch 语句。
+- 情况 b：执行到程序的末尾就结束。
+
+**注意点**
+
+1、switch 后面的括号里可以是变量、常量、表达式， 通常是一个**变量**（一般做法是：先把表达式存放到变量中）。
+
+case 后面的值可以是变量、常量、表达式。
+
+2、**case的判断逻辑是`===`，不是`==`**。因此，字符串`'6'`和 数字 `6` 是不一样的。
+```js
+let msg = 'notice';
+
+switch (msg) {
+    case 'notice':
+        console.log('提示');
+        break;
+    case 'warning':
+        console.log('警告');
+        break;
+    case 'error':
+        console.log('错误');
+        break;
+    default:
+        console.log('默认文案');
+        break;
+}
+```
+
+```js
+let age = 28;
+
+switch (true) {
+    case age < 18:
+        console.log('未成年人');
+        break;
+    case age >= 18 && age <= 65:
+        console.log('还能干活儿');
+        break;
+    case age > 65:
+        console.log('该退休了');
+        break;
+    default:
+        console.log('默认文案');
+        break;
+}
+```
+**case 穿透**
+switch 语句中的`break`可以省略，但一般不建议（对于新手而言）。否则结果可能不是你想要的，会出现一个现象：**case 穿透**。
+```
+const num = 4;
+
+//switch判断语句
+switch (num) {
+    case 1:
+        console.log('星期一');
+        break;
+    case 2:
+        console.log('星期二');
+        break;
+    case 3:
+        console.log('星期三');
+        break;
+    case 4:
+        console.log('星期四');
+    //break;
+    case 5:
+        console.log('星期五');
+    //break;
+    case 6:
+        console.log('星期六');
+        break;
+    case 7:
+        console.log('星期日');
+        break;
+    default:
+        console.log('你输入的数据有误');
+        break;
+}
+```
+
+上方代码的运行结果，可能会令你感到意外：
+
+```
+星期四
+星期五
+星期六
+```
+
+上方代码的解释：因为在 case 4 和 case 5 中都没有 break，那语句走到 case 6 的 break 才会停止。
+
+### switch 语句的实战举例：替换 if 语句
+
+我们实战开发中，经常需要根据接口的返回码 retCode ，来让前端做不同的展示。
+
+这种场景是业务开发中经常出现的，请一定要掌握。然而，很多人估计会这么写：
+
+#### 写法 1（不推荐。这种写法太挫了）
+
+```
+let retCode = 1003; // 返回码 retCode 的值可能有很多种情况
+
+if (retCode == 0) {
+    alert('接口联调成功');
+} else if (retCode == 101) {
+    alert('活动不存在');
+} else if (retCode == 103) {
+    alert('活动未开始');
+} else if (retCode == 104) {
+    alert('活动已结束');
+} else if (retCode == 1001) {
+    alert('参数错误');
+} else if (retCode == 1002) {
+    alert('接口频率限制');
+} else if (retCode == 1003) {
+    alert('未登录');
+} else if (retCode == 1004) {
+    alert('（风控用户）提示 活动太火爆啦~军万马都在挤，请稍后再试');
+} else {
+    // 其他异常返回码
+    alert('系统君失联了，请稍候再试');
+}
+```
+
+如果你是按照上面的 `if else`的方式来写各种条件判断，说明你的代码水平太初级了，会被人喷的，千万不要这么写。这种写法，容易导致**嵌套太深，可读性很差**。
+
+那要怎么改进呢？继续往下看。
+
+#### 写法 2（推荐。通过 return 的方式，将上面的写法进行改进）
+
+```
+let retCode = 1003; // 返回码 retCode 的值可能有很多种情况
+handleRetCode(retCode);
+
+// 方法：根据接口不同的返回码，处理前端不同的显示状态
+function handleRetCode(retCode) {
+    if (retCode == 0) {
+        alert('接口联调成功');
+        return;
+    }
+
+    if (retCode == 101) {
+        alert('活动不存在');
+        return;
+    }
+
+    if (retCode == 103) {
+        alert('活动未开始');
+        return;
+    }
+
+    if (retCode == 104) {
+        alert('活动已结束');
+        return;
+    }
+
+    if (retCode == 1001) {
+        alert('参数错误');
+        return;
+    }
+
+    if (retCode == 1002) {
+        alert('接口频率限制');
+        return;
+    }
+
+    if (retCode == 1003) {
+        alert('未登录');
+        return;
+    }
+
+    if (retCode == 1004) {
+        alert('（风控用户）提示 活动太火爆啦~军万马都在挤，请稍后再试');
+        return;
+    }
+
+    // 其他异常返回码
+    alert('系统君失联了，请稍候再试');
+    return;
+}
+```
+
+上面的写法 2，是比较推荐的写法：直接通过 return 的方式，让 function 里的代码不再继续往下走，这就达到目的了。对了，因为要用到 return ，所以整段代码是封装到一个 function 里的。
+
+如果你以后看到有前端小白采用的是**写法 1**，请一定要把**写法 2**传授给他：不需要那么多的 if else，直接用 return 返回就行了。
+
+#### 写法 3（推荐。将 if else 改为 switch）
+
+```
+let retCode = 1003; // 返回码 retCode 的值可能有很多种情况
+
+switch (retCode) {
+    case 0:
+        alert('接口联调成功');
+        break;
+    case 101:
+        alert('活动不存在');
+        break;
+
+    case 103:
+        alert('活动未开始');
+        break;
+
+    case 104:
+        alert('活动已结束');
+        break;
+
+    case 1001:
+        alert('参数错误');
+        break;
+
+    case 1002:
+        alert('接口频率限制');
+        break;
+
+    case 1003:
+        alert('未登录');
+        break;
+
+    case 1004:
+        alert('（风控用户）提示 活动太火爆啦~军万马都在挤，请稍后再试');
+        break;
+
+    // 其他异常返回码
+    default:
+        alert('系统君失联了，请稍候再试');
+        break;
+}
+```
+
+在实战开发中，方式 3 是非常推荐的写法，甚至比方式 2 还要好。我们尽量不要写太多的 if 语句，避免代码嵌套过深。
+
+#### switch 语句的优雅写法：适时地去掉 break
+
+我们先来看看下面这段代码：（不推荐）
+
+```
+let day = 2;
+
+switch (day) {
+    case 1:
+        console.log('work');
+        break;
+
+    case 2:
+        console.log('work');
+        break;
+
+    case 3:
+        console.log('work');
+        break;
+
+    case 4:
+        console.log('work');
+        break;
+
+    case 5:
+        console.log('work');
+        break;
+
+    case 6:
+        console.log('relax');
+        break;
+
+    case 7:
+        console.log('relax');
+        break;
+
+    default:
+        break;
+}
+```
+
+上面的代码，咋一看，好像没啥毛病。但你有没有发现，重复代码太多了？
+
+实战开发中，凡是有重复的地方，我们都必须要想办法简化。写代码就是在不断重构的过程。
+
+上面的代码，可以改进如下：（推荐，非常优雅）
+
+```
+let day = 2;
+
+switch (day) {
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+        console.log('work');
+        break; // 在这里放一个 break
+
+    case 6:
+    case 7:
+        console.log('relax');
+        break; // 在这里放一个 break
+
+    default:
+        break;
+}
+}
+```
+
+你没看错，就是上面的这种写法，能达到同样的效果，非常优雅。
+
+小白可能认为这样的写法可读性不强，所以说他是小白。我可以明确告诉你，改进后的这种写法，才是最优雅的、最简洁、可读性最好的。
+
+### if 和 switch如何选择
+
+如果是对区间进行判断，则建议用 if。如果是对几个固定的值进行判断，那么，数量少的话用 if，数量多的话用switch。
+
+
+- 用 return 代替 if else
+
+业务场景举例：
+
+我们在实战业务中涉及到调接口时，一般会这样做：
+
+- 接口返回码为 0 时，前端 resolve。
+    
+- 接口返回未登录时，前端跳转到登录页面。
+    
+- 接口返回其他情况，或者无返回时，前端 reject。
+    
+
+写法 1、if else 的写法：（不推荐）
+
+```
+if (res) {
+    if (+res.retCode == 0) {
+        resolve(res);
+    } else if (+res.retCode == 8888) {
+        goLogin();
+    } else {
+        reject(res);
+    }
+} else {
+    reject();
+}
+```
+
+写法 2、 return 的写法：（推荐）
+
+```
+if (!res || +res.retCode !== 0) {
+    if (+res.retCode === 8888) {
+        // 未登录
+        goLogin();
+        return;
+    }
+    reject(res);
+    return;
+}
+resolve(res);
+```
+## 循环语句
+通过循环语句可以反复执行一段代码多次
+### for 循环
+语法：
+
+```
+for(①初始化表达式; ②条件表达式; ④更新表达式){
+	③语句...
+}
+```
+执行流程：
+
+```
+①执行初始化表达式，初始化变量（初始化表达式只会执行一次）
+
+②执行条件表达式，判断是否执行循环：
+	如果为true，则执行循环③
+	如果为false，终止循环
+
+④执行更新表达式，更新表达式执行完毕继续重复②
+```
+
+```
+for (let i = 1; i <= 100; i++) {
+    console.log(i);
+}
+```
+
+上方代码的解释：i 是循环变量，1 是初始值，i<100是执行条件，i++是步长。
+
+```
+for (let i = 1; i < 13; i = i + 4) {
+    console.log(i);
+}
+```
+
+上方代码的遍历步骤：
+
+```
+程序一运行，将执行let i = 1;这条语句， 所以i的值是1。
+然后程序会验证一下i < 13是否满足，1<13是真，所以执行一次循环体（就是大括号里面的语句）。
+执行完循环体之后，会执行i=i+4这条语句，所以i的值，是5。
+
+程序会会验证一下i < 13是否满足，5<13是真，所以执行一次循环体（就是大括号里面的语句）。
+执行完循环体之后，会执行i=i+4这条语句，所以i的值，是9。
+
+程序会会验证一下i < 13是否满足，9<13是真，所以执行一次循环体（就是大括号里面的语句）。
+执行完循环体之后，会执行i=i+4这条语句，所以i的值，是13。
+
+程序会会验证一下i < 13是否满足，13<13是假，所以不执行循环体了，将退出循环。
+
+最终输出输出结果为：1、5、9
+```
+
+### while 循环语句
+语法：
+
+```
+while(条件表达式){
+	语句...
+}
+```
+
+执行流程：
+
+```
+while语句在执行时，先对条件表达式进行求值判断：
+
+	如果值为true，则执行循环体：
+		循环体执行完毕后，继续对表达式进行判断
+		如果为true，则继续执行循环体，以此类推
+
+	如果值为false，则终止循环
+```
+
+### do...while 循环
+
+语法：
+
+```
+do{
+	语句...
+}while(条件表达式)
+
+```
+
+执行流程：
+
+```
+do...while语句在执行时，会先执行循环体：
+
+	循环体执行完毕以后，再对while后的条件表达式进行判断：
+		如果结果为true，则继续执行循环体，执行完毕继续判断，以此类推
+		如果结果为false，则终止循环
+```
+
+
+while 循环和 do...while 循环的区别
+这两个语句的功能类似，不同的是：
+
+- while：先判断后执行。只有条件表达式为真，才会执行循环体。
+- do...while：先执行后判断。无论条件表达式是否为真，循环体至少会被执行一次。
+
+### break
+
+
+- break 可以用来退出 switch 语句或退出**整个**循环语句（循环语句包括 for 循环、while 循环。不包括 if。单独的 if 语句里不能用 break 和 continue，否则会报错）。
+    
+- break 会立即终止离它**最近**的那个循环语句。
+    
+- 可以为循环语句创建一个 label，来标识当前的循环（格式：label:循环语句）。使用 break 语句时，可以在 break 后跟着一个 label，这样 break 将会结束指定的循环，而不是最近的。
+**举例 1**：通过 break 终止循环语句
+
+```
+for (let i = 0; i < 5; i++) {
+    console.log('i的值:' + i);
+    if (i == 2) {
+        break; // 注意，虽然在 if 里 使用了 break，但这里的 break 是服务于外面的 for 循环。
+    }
+}
+```
+**举例 2**：label 的使用
+
+```
+outer: for (let i = 0; i < 5; i++) {
+    console.log('外层循环 i 的值：' + i);
+    for (let j = 0; j < 5; j++) {
+        break outer; // 直接跳出outer所在的外层循环（这个outer是我自定义的label）
+        console.log('内层循环 j 的值:' + j);
+    }
+}
+```
+
+### continue
+
+- continue 只能用于循环语句（包括 for 循环、while 循环，不包括 if。单独的 if 语句里不能用 break 和 continue，否则会报错）。可以用来跳过**当次**循环，继续下一次循环。
+    
+- 同样，continue 默认只会离他**最近**的循环起作用。
+    
+- 同样，如果需要跳过指定的当次循环，可以使用 label 标签。
+举例：
+
+```
+for (let i = 0; i < 10; i++) {
+    if (i % 2 == 0) {
+        continue;
+    }
+    console.log('i的值:' + i);
+}
+```
+## 对象
+### 对象简介
+
+在 JavaScript 中，对象是一组**无序**的相关属性和方法的集合。
+**对象的作用是：封装信息**。比如 Student 类里可以封装学生的姓名、年龄、成绩等。对象属于一种复合的数据类型，在对象中可以保存多个不同数据类型的属性。
+对象具有**特征**（属性）和**行为**（方法）。
+
+### 对象的分类
+
+1、内置对象：
+
+- 由 ES 标准中定义的对象，在任何的 ES 的实现中都可以使用。
+**JavaScript的内置对象**：
+
+|内置对象|对象说明|
+|---|---|
+|Arguments|函数参数集合|
+|Array|数组|
+|Boolean|布尔对象|
+|Math|数学对象|
+|Date|日期时间|
+|Error|异常对象|
+|Function|函数构造器|
+|Number|数值对象|
+|Object|基础对象|
+|RegExp|正则表达式对象|
+|String|字符串对象|
+
+2、宿主对象：
+
+- 由 JS 的运行环境提供的对象，目前来讲主要指由浏览器提供的对象。
+    
+- 比如 BOM、DOM，比如`console`、`document`。
+    
+
+3、自定义对象：
+
+- 由开发人员自己创建的对象。
+
+通过 new 关键字创建出来的对象实例，都是属于对象类型。
+
+
+ ****为什么需要自定义对象**
+
+保存一个值时，可以使用**变量**，保存多个值（一组值）时，可以使用**数组**。
+
+比如，如果要保存一个人的信息，通过数组的方式可以这样保存：
+
+```
+const arr = ['王二', 35, '男', '180'];
+```
+
+上面这种表达方式比较乱。而如果用 JS 中的**自定义对象**来表达，**结构会更清晰**。如下：
+
+```
+const person = {
+    name: 'qianguyihao',
+    age: 30,
+    sex: '男',
+    favor: ['阅读', '羽毛球'],
+    sayHi: function () {
+        console.log('qianguyihao');
+    },
+};
+```
+
+由此可见，自定义对象里面的属性均是**键值对（key: value）**，表示属性和值的映射关系：
+
+- 键/属性：属性名。
+    
+- 值：属性值，可以是任意类型的值（数字类型、字符串类型、布尔类型，函数类型等）。
+    
+
+**定义对象的语法**
+
+语法如下：
+
+```
+const obj = {
+    key: value,
+    key: value,
+    key: value,
+};
+```
+
+key 和 value 之间用冒号分隔，每组 key:vaue 之间用逗号分隔，最后一对 key:value 的末尾可以写逗号，也可以不写逗号。
+
+问：对象的属性名是否需要加引号？
+
+答：如果属性名不符合 JS 标识符的命名规范，则需要用引号包裹。比如：
+
+```
+const person = {
+    'my-name': 'qianguyihao',
+};
+```
+
+补充：其实，JS 的内置对象、宿主对象，底层也是通过自定义对象的形式（也就是键值对的形式）进行封装的。
+
+对象的属性值可以是任意的数据类型，也可以是个**函数**（也称之为方法）。换而言之，**如果对象的属性值是函数，则这个函数可被称之为对象的“方法”**。
+
+```js
+const obj = new Object();
+obj.sayName = function () {
+    console.log('qianguyihao');
+};
+
+// 没加括号，就是获取方法
+console.log(obj.sayName);
+console.log('-----------');
+// 加了括号，就是调用方法。即：执行函数内容，并执行函数体的内容
+console.log(obj.sayName());
+```
+
+**对象中的属性值，也可以是一个对象**
+
+举例：
+
+```
+//创建对象 obj1
+var obj1 = new Object();
+obj1.test = undefined;
+
+//创建对象 obj2
+var obj2 = new Object();
+obj2.name = 'qianguyihao';
+
+//将整个 obj2 对象，设置为 obj1 的属性
+obj1.test = obj2;
+
+console.log(obj1.test.name);
+```
+
+
+**传值和传址的区别**
+对象保存在哪里
+
+1、基本数据类型的值直接保存在**栈内存**中，变量与变量之间是独立的，值与值之间是独立的，修改一个变量不会影响其他的变量。
+
+2、对象是保存到**堆内存**中的，每创建一个新的对象，就会在堆内存中开辟出一个新的空间。变量保存的是对象的内存地址（对象的引用）。换而言之，对象的值是保存在**堆内存**中的，而对象的引用（即变量）是保存在**栈内存**中的。
+
+**如果两个变量保存的是同一个对象引用，当一个通过一个变量修改属性时，另一个也会受到影响**。
+
+传值
+
+```
+let a = 1;
+
+let b = a; // 将 a 赋值给 b
+
+b = 2; // 修改 b 的值
+```
+
+上方代码中，当我修改 b 的值之后，a 的值并不会发生改变。这个大家都知道。我们继续往下看。
+
+传址（一个经典的例子）
+
+
+```
+var obj1 = new Object();
+obj1.name = '孙悟空';
+
+var obj2 = obj1; // 将 obj1 的地址赋值给 obj2。从此， obj1 和 obj2 指向了同一个堆内存空间
+
+//修改obj2的name属性
+obj2.name = '猪八戒';
+```
+
+上面的代码中，当我修改 obj2 的 name 属性后，会发现，obj1 的 name 属性也会被修改。因为 obj1 和 obj2 指向的是堆内存中的同一个地址。
+### 内置对象 String
+**字符串的所有方法，都不会改变原字符串**（字符串的不可变性），操作完成后会返回一个新的值。
+#### 查找字符串
+1、 indexOf()/lastIndexOf()：获取字符串中指定内容的索引
+`indexOf()` 是从前向后查找字符串的位置。同理，`lastIndexOf()`是从后向前寻找。
+**语法 1**：
+```
+索引值 = str.indexOf(想要查询的字符串);
+```
+可以检索一个字符串中是否含有指定内容。如果字符串中含有该内容，则会返回其**第一次出现**的索引；如果没有找到指定的内容，则返回 -1。
+**语法 2**：
+这个方法还可以指定第二个参数，用来指定查找的**起始位置**。语法如下：
+
+```
+索引值 = str.indexOf(想要查询的字符串, [起始位置]);
+```
+2、search()：获取字符串中指定内容的索引（参数里一般是正则）
+`search()` 方法里的参数，既可以传字符串，也可以传正则表达式。
+**语法**：
+
+```
+索引值 = str.search(想要查找的字符串);
+索引值 = str.search(正则表达式);
+```
+可以检索一个字符串中是否含有指定内容。如果字符串中含有该内容，则会返回其**第一次出现**的索引；如果没有找到指定的内容，则返回 -1。
+```js
+const name = 'qianguyihao';
+
+console.log(name.search('yi')); // 打印结果：6
+console.log(name.search(/yi/i)); // 打印结果：6
+```
+备注：上方的`/yi/i`采用的是正则表达式的写法，意思是，让 name去匹配字符`yi`，忽略大小写。
+
+3、includes()：字符串中是否包含指定的内容
+**语法**：
+
+```
+布尔值 = str.includes(想要查找的字符串, [position]);
+```
+
+**解释**：判断一个字符串中是否含有指定内容。如果字符串中含有该内容，则会返回 true；否则返回 false。
+
+参数中的 `position`：如果不指定，则默认为0；如果指定，则规定了检索的起始位置。
+```js
+const name = 'qianguyihao';
+
+console.log(name.includes('yi')); // 打印结果：true
+console.log(name.includes('haha')); // 打印结果：false
+
+console.log(name.includes('yi',7)); // 打印结果：false
+```
+
+4、startsWith()：字符串是否以指定的内容开头
+
+**语法**：
+
+```
+布尔值 = str.startsWith(想要查找的内容, [position]);
+```
+
+**解释**：判断一个字符串是否以指定的子字符串开头。如果是，则返回 true；否则返回 false。
+
+**参数中的position**：
+
+- 如果不指定，则默认为0。
+    
+- 如果指定，则规定了**检索的起始位置**。检索的范围包括：这个指定位置开始，直到字符串的末尾。即：[position, str.length)
+    
+
+举例：
+
+```
+const name = 'abcdefg';
+
+console.log(name.startsWith('a')); // 打印结果：true
+console.log(name.startsWith('b')); // 打印结果：false
+
+// 因为指定了起始位置为3，所以是在 defg 这个字符串中检索。
+console.log(name.startsWith('d',3)); // 打印结果：true
+console.log(name.startsWith('c',3)); // 打印结果：false
+```
+
+5、endsWith()：字符串是否以指定的内容结尾
+
+**语法**：
+
+```
+布尔值 = str.endsWith(想要查找的内容, [position]);
+```
+
+**解释**：判断一个字符串是否以指定的子字符串结尾。如果是，则返回 true；否则返回 false。
+
+**参数中的position**：
+
+- 如果不指定，则默认为 str.length。
+    
+- 如果指定，则规定了**检索的结束位置**。检索的范围包括：从第一个字符串开始，直到这个指定的位置。即：[0, position)
+    
+- 或者你可以这样简单理解：endsWith() 方法里的position，表示**检索的长度**。
+    
+
+注意：startsWith() 和 endsWith()这两个方法，他们的 position 的含义是不同的，请仔细区分。
+
+举例：
+
+```
+const name = 'abcdefg';
+
+console.log(name.endsWith('g')); // 打印结果：true
+console.log(name.endsWith('f')); // 打印结果：false
+
+// 因为指定了截止位置为3，所以是在 abc 这个长度为3字符串中检索
+console.log(name.endsWith('c', 3)); // 打印结果：true
+console.log(name.endsWith('d', 3)); // 打印结果：false
+```
+####  获取指定位置的字符
+1、charAt(index)
+语法：
+
+```
+字符 = str.charAt(index);
+```
+
+解释：返回字符串指定位置的字符。这里的 `str.charAt(index)`和`str[index]`的效果是一样的。
+
+注意：字符串中第一个字符的下标是 0。如果参数 index 不在` [0, string.length) `之间，该方法将返回一个空字符串。
+
+**代码举例**：
+
+```
+var str = new String('smyhvae');
+
+for (var i = 0; i < str.length; i++) {
+    console.log(str.charAt(i));
+}
+```
+2、`str[index]`
+
+`str.charAt(index)`和`str[index]`的效果是一样的，不再赘述。区别在于：`str[index]`是 H5 标准里新增的特性。
+
+3、charCodeAt(index)
+语法：
+
+```
+字符 = str.charCodeAt(index);
+```
+
+解释：返回字符串指定位置的字符的 Unicode 编码。不会修改原字符串。
+
+在实际应用中，通过这个方法，我们可以判断用户按下了哪个按键。
+#### 字符串截取
+1、slice()
+> slice() 方法用的最多。
+
+语法：
+
+```
+新字符串 = str.slice(开始索引, 结束索引); //两个参数都是索引值。包左不包右。
+```
+
+解释：从字符串中截取指定的内容。不会修改原字符串，而是将截取到的内容返回。
+
+注意：上面的参数，包左不包右。参数举例如下：
+
+- `(2, 5)` 截取时，包左不包右。
+    
+- `(2)` 表示**从指定的索引位置开始，截取到最后**。
+    
+- `(-3)` 表示从倒数第三个开始，截取到最后。
+    
+- `(1, -1)` 表示从第一个截取到倒数第一个。
+    
+- `(5, 2)` 表示前面的大，后面的小，返回值为空。
+    
+
+2、substring()
+
+语法：
+
+```
+新字符串 = str.substring(开始索引, 结束索引); //两个参数都是索引值。包左不包右。
+```
+
+解释：从字符串中截取指定的内容。和`slice()`类似。
+
+`substring()`和`slice()`是类似的。但不同之处在于：
+
+- `substring()`不能接受负值作为参数。如果传递了一个**负值**，则默认使用 0。
+    
+- `substring()`还会自动调整参数的位置，如果第二个参数小于第一个，则自动交换。比如说， `substring(1, 0)`相当于截取的是第一个字符。
+    
+
+3、substr()
+
+语法：
+
+```
+字符串 = str.substr(开始索引, 截取的长度);
+```
+
+解释：从字符串中截取指定的内容。不会修改原字符串，而是将截取到的内容返回。
+
+注意，这个方法的第二个参数**截取的长度**，不是结束索引。
+
+参数举例：
+
+- `(2,4)` 从索引值为 2 的字符开始，截取 4 个字符。
+    
+- `(1)` 从指定位置开始，截取到最后。
+    
+- `(-3)` 从倒数第几个开始，截取到最后。
+    
+
+备注：ECMAscript 没有对 `substr()` 方法进行标准化，因此不建议使用它。
+#### String.fromCharCode()
+
+`String.fromCharCode()`：根据字符的 Unicode 编码获取字符。
+
+代码举例：
+
+```
+var result1 = String.fromCharCode(72);
+var result2 = String.fromCharCode(20013);
+
+console.log(result1); // 打印结果：H
+console.log(result2); // 打印结果：中
+```
+#### concat()
+
+语法：
+
+```
+    新字符串 = str1.concat(str2)； //连接两个字符串
+```
+
+解释：字符串的连接。
+
+这种方法基本不用，直接把两个字符串相加就好。
+#### split()
+字符串转换为数组 【重要】
+
+语法：
+
+```
+新的数组 = str.split(分隔符);
+```
+
+解释：通过指定的分隔符，将一个字符串拆分成一个**数组**。不会改变原字符串。
+#### replace()
+
+语法：
+
+```
+新的字符串 = str.replace(被替换的子串，新的子串);
+```
+
+解释：将字符串中的指定内容，替换为新的内容并返回。不会修改原字符串。
+
+注意：这个方法，默认只会替换第一个被匹配到的字符。如果要全局替换，需要使用正则。
+
+代码举例：
+
+```
+//replace()方法：替换
+var str2 = 'Today is fine day,today is fine day !';
+console.log(str2);
+
+console.log(str2.replace('today', 'tomorrow')); //只能替换第一个today
+console.log(str2.replace(/today/gi, 'tomorrow')); //这里用到了正则，才能替换所有的today
+```
+
+#### repeat()：重复字符串
+
+语法：
+
+```
+newStr = str.repeat(重复的次数);
+```
+
+解释：将字符串重复指定的次数。会返回新的值，不会修改原字符串。
+
+举例1：
+
+```
+const name = 'qianguyihao';
+
+console.log(name.repeat(2)); // 打印内容：qianguyihaoqianguyihao
+```
+
+举例2：（模糊字符串的后四位）
+
+```
+const telephone = '13088889999';
+const mix_telephone = telephone.slice(0, -4) + '*'.repeat(4); // 模糊电话号码的后四位
+
+console.log(telephone); // 打印结果：13088889999
+console.log(mix_telephone); // 打印结果：1308888****
+```
+
+#### trim()
+
+`trim()`：去除字符串前后的空白。
+
+代码举例：
+
+```
+//去除字符串前后的空格，trim();
+let str = '   a   b   c   ';
+console.log(str);
+console.log(str.length);
+
+console.log(str.trim());
+console.log(str.trim().length);
+```
+
+#### 大小写转换
+
+举例：
+
+```
+var str = 'abcdEFG';
+
+//转换成小写
+console.log(str.toLowerCase());
+
+//转换成大写
+console.log(str.toUpperCase());
+```
+### 内置对象：Number
+
+- Number.isInteger() 判断是否为整数
+
+语法：
+
+```
+布尔值 = Number.isInteger(数字);
+```
+
+- toFixed() 小数点后面保留多少位
+
+语法：
+
+```
+字符串 = myNum.toFixed(num);
+```
+
+解释：将数字 myNum 的小数点后面保留 num 位小数（四舍五入），并返回。不会改变原数字。注意，**返回结果是字符串**。
+
+参数 num：指定了小数点后面的位数。
+
+举例：
+
+```
+let num = 3.456;
+let num2 = num.toFixed(2);
+
+console.log(num); // 打印结果：3.456
+console.log(num2); // 打印结果：3.46
+
+console.log(typeof num); // number
+console.log(typeof num2); // string
+```
+
+上方代码中，`num2`的结果是3.46，但是请注意，`num`的类型Number型，而`num2`的类型却是String型。
+
+另外需要注意的是，数字常量不能直接调 toFixed 方法。比如 `1.toFixed(2)`在 JS 中会引发语法错误。因为点号（.）被解释为数字字面量的一部分，而不是方法调用的分隔符。为了正确调用 toFixed 方法，可以使用括号或额外的点号。
+
+toFixed()在这一点上，跟前面讲的 toString() 是类似的，推荐的做法是先把数字放到变量中存起来，然后通过变量调用 toFixed()。
+
+
+### 内置对象：Math
+Math 和其他的对象不同，它不是一个构造函数，不需要创建对象。所以我们不需要 通过 new 来调用，而是直接使用里面的属性和方法即可。
+
+Math属于一个工具类，里面封装了数学运算相关的属性和方法。如下：
+
+| 方法                | 描述                                                              | 备注          |
+| ----------------- | --------------------------------------------------------------- | ----------- |
+| Math.PI           | 圆周率                                                             | Math对象的属性   |
+| Math.abs()        | **返回绝对值**    参数中可以接收字符串类型的数字，此时会将字符串做隐式类型转换，然后再调用 Math.abs() 方法 |             |
+| Math.random()     | 生成0-1之间的**随机浮点数**                                               | 取值范围是 [0，1) |
+| Math.floor()      | **向下取整**（往小取值）                                                  |             |
+| Math.ceil()       | **向上取整**（往大取值）                                                  |             |
+| Math.round()      | 四舍五入取整（正数四舍五入，负数五舍六入）                                           |             |
+| Math.max(x, y, z) | 返回多个数中的最大值                                                      |             |
+| Math.min(x, y, z) | 返回多个数中的最小值                                                      |             |
+| Math.pow(x,y)     | 乘方：返回 x 的 y 次幂                                                  |             |
+| Math.sqrt()       | 开方：对一个数进行开方运算                                                   |             |
+```js
+var num = -0.6;
+
+    console.log(Math.abs(num));        //取绝对值
+
+    console.log(Math.floor(num));      //向下取整，向小取
+
+    console.log(Math.ceil(num));       //向上取整，向大取
+
+    console.log(Math.round(num));      //四舍五入取整（正数四舍五入，负数五舍六入）
+
+    console.log(Math.random());        //生成0-1之间的随机数
+```
+
+ 
+ url 编码和解码
+URI (Uniform ResourceIdentifiers,通用资源标识符)进行编码，以便发送给浏览器。有效的URI中不能包含某些字符，例如空格。而这URI编码方法就可以对URI进行编码，它们用特殊的UTF-8编码替换所有无效的字符，从而让浏览器能够接受和理解。
+
+```
+    encodeURIComponent();   //把字符串作为 URI 组件进行编码
+    decodeURIComponent();   //把字符串作为 URI 组件进行解码
+```
+
+举例：
+
+```
+    var url = "http://www.cnblogs.com/smyhvae/";
+
+    var str = encodeURIComponent(url);
+    console.log(str);                           //打印url的编码
+    console.log(decodeURIComponent(str));       ```
+//对url进行编码后，再解码，还原为url
+```
+
+### 内置对象：Date
+内置对象 Date 用来处理日期和时间。
+
+**需要注意的是**：与 Math 对象不同，Date 对象是一个**构造函数** ，需要**先实例化**后才能使用。
+
+#### 创建Date对象
+ 写法一：不传递参数时，则获取系统的当前时间对象
+
+代码举例：
+
+```
+var date1 = new Date();
+console.log(date1);
+console.log(typeof date1);
+```
+
+代码解释：不传递参数时，表示的是获取系统的当前时间对象。也可以理解成是：获取当前代码执行的时间。
+
+打印结果：
+
+```
+Mon Feb 17 2020 21:57:22 GMT+0800 (中国标准时间)
+object
+```
+
+写法二：传递参数
+
+传递参数时，表示获取指定时间的时间对象。参数中既可以传递字符串，也可以传递数字，也可以传递时间戳。
+
+通过传参的这种写法，我们可以把时间字符串/时间数字/时间戳，按照指定的格式，转换为时间对象。
+
+举例1：（参数是字符串）
+
+```
+const date11 = new Date('2020/02/17 21:00:00');
+console.log(date11); // Mon Feb 17 2020 21:00:00 GMT+0800 (中国标准时间)
+
+const date12 = new Date('2020/04/19'); // 返回的就是四月
+console.log(date12); // Sun Apr 19 2020 00:00:00 GMT+0800 (中国标准时间)
+
+const date13 = new Date('2020-05-20');
+console.log(date13); // Wed May 20 2020 08:00:00 GMT+0800 (中国标准时间)
+
+const date14 = new Date('Wed Jan 27 2017 12:00:00 GMT+0800 (中国标准时间)');
+console.log(date14); // Fri Jan 27 2017 12:00:00 GMT+0800 (中国标准时间)
+```
+
+举例2：（参数是多个数字）
+
+```
+const date21 = new Date(2020, 2, 18); // 注意，第二个参数返回的是三月，不是二月
+console.log(date21); // Wed Mar 18 2020 00:00:00 GMT+0800 (中国标准时间)
+
+const date22 = new Date(2020, 3, 18, 22, 59, 58);
+console.log(date22); // Sat Apr 18 2020 22:59:58 GMT+0800 (中国标准时间)
+
+const params = [2020, 06, 12, 16, 20, 59];
+const date23 = new Date(...params);
+console.log(date23); // Sun Jul 12 2020 16:20:59 GMT+0800 (中国标准时间)
+```
+
+举例3：（参数是时间戳）
+
+```
+const date31 = new Date(1591950413388);
+console.log(date31); // Fri Jun 12 2020 16:26:53 GMT+0800 (中国标准时间)
+
+// 先把时间对象转换成时间戳，然后把时间戳转换成时间对象
+const timestamp = new Date().getTime();
+const date32 = new Date(timestamp);
+console.log(date32); // Fri Jun 12 2020 16:28:21 GMT+0800 (中国标准时间)
+```
+
+#### 日期的格式化
+
+Date对象的方法
+Date对象 有如下方法，可以获取日期和时间的**指定部分**：
+
+|方法名|含义|备注|
+|---|---|---|
+|getFullYear()|获取年份||
+|getMonth()|**获取月： 0-11**|0代表一月|
+|getDate()|**获取日：1-31**|获取的是几号|
+|getDay()|**获取星期：0-6**|0代表周日，1代表周一|
+|getHours()|获取小时：0-23||
+|getMinutes()|获取分钟：0-59||
+|getSeconds()|获取秒：0-59||
+|getMilliseconds()|获取毫秒|1s = 1000ms|
+```js
+	// 我在执行这行代码时，当前时间为 2019年2月4日，周一，13:23:52
+	var myDate = new Date();
+
+	console.log(myDate); // 打印结果：Mon Feb 04 2019 13:23:52 GMT+0800 (中国标准时间)
+
+	console.log(myDate.getFullYear()); // 打印结果：2019
+	console.log(myDate.getMonth() + 1); // 打印结果：2
+	console.log(myDate.getDate()); // 打印结果：4
+
+	var dayArr  = ['星期日', '星期一', '星期二', '星期三', '星期四','星期五', '星期六'];
+	console.log(myDate.getDay()); // 打印结果：1
+	console.log(dayArr[myDate.getDay()]); // 打印结果：星期一
+
+	console.log(myDate.getHours()); // 打印结果：13
+	console.log(myDate.getMinutes()); // 打印结果：23
+	console.log(myDate.getSeconds()); // 打印结果：52
+	console.log(myDate.getMilliseconds()); // 打印结果：393
+
+	console.log(myDate.getTime()); // 获取时间戳。打印结果：1549257832393
+```
+
+获取了日期和时间的指定部分之后，我们把它们用字符串拼接起来，就可以按照自己想要的格式，来展示日期。
+
+#### 获取时间戳
+
+时间戳的定义和作用
+
+**时间戳**：指的是从格林威治标准时间的`1970年1月1日，0时0分0秒`到当前日期所花费的**毫秒数**（1秒 = 1000毫秒）。
+
+计算机底层在保存时间时，使用的都是时间戳。时间戳的存在，就是为了**统一**时间的单位。
+
+我们经常会利用时间戳来计算时间，因为它更精确。而且，在实战开发中，接口返回给前端的日期数据，都是以时间戳的形式。
+
+我们再来看下面这样的代码：
+
+```
+	var myDate = new Date("1970/01/01 0:0:0");
+
+	console.log(myDate.getTime()); // 获取时间戳
+```
+
+打印结果（可能会让你感到惊讶）
+
+```
+	-28800000
+```
+
+为啥打印结果是`-28800000`，而不是`0`呢？这是因为，我们的当前代码，是在中文环境下运行的，与英文时间会存在**8个小时的时差**（中文时间比英文时间早了八个小时）。如果代码是在英文环境下运行，打印结果就是`0`。
+
+getTime()：获取时间戳
+
+`getTime()` 获取日期对象的**时间戳**（单位：毫秒）。这个方法在实战开发中，用得比较多。但还有比它更常用的写法，我们往下看。
+
+获取 Date 对象的时间戳
+
+代码演示：
+
+```
+// 方式一：获取 Date 对象的时间戳（最常用的写法）
+const timestamp1 = +new Date();
+console.log(timestamp1); // 打印结果举例：1589448165370
+
+// 方式二：获取 Date 对象的时间戳（较常用的写法）
+const timestamp2 = new Date().getTime();
+console.log(timestamp2); // 打印结果举例：1589448165370
+
+// 方式三：获取 Date 对象的时间戳
+const timestamp3 = new Date().valueOf();
+console.log(timestamp3); // 打印结果举例：1589448165370
+
+// 方式4：获取 Date 对象的时间戳
+const timestamp4 = new Date() * 1;
+console.log(timestamp4); // 打印结果举例：1589448165370
+
+// 方式5：获取 Date 对象的时间戳
+const timestamp5 = Number(new Date());
+console.log(timestamp5); // 打印结果举例：1589448165370
+```
+
+上面这五种写法都可以获取任意 Date 对象的时间戳，最常见的写法是**方式一**，其次是方式二。
+
+根据前面所讲的关于「时间戳」的概念，上方代码获取到的时间戳指的是：从 `1970年1月1日，0时0分0秒` 到现在所花费的总毫秒数。
+
+获取当前时间的时间戳
+
+如果我们要获取**当前时间**的时间戳，除了上面的几种方式之外，还有另一种方式。代码如下：
+
+```
+// 方式六：获取当前时间的时间戳（很常用的写法）
+console.log(Date.now()); // 打印结果举例：1589448165370
+```
+
+上面这种方式六，用得也很多。只不过，`Date.now()`是H5标准中新增的特性，如果你的项目需要兼容低版本的IE浏览器，就不要用了。这年头，谁还用IE呢？
+
+利用时间戳检测代码的执行时间
+
+我们可以在业务代码的前面定义 `时间戳1`，在业务代码的后面定义 `时间戳2`。把这两个时间戳相减，就能得出业务代码的执行时间。
+
+#### format()
+
+将时间对象转换为指定格式。
