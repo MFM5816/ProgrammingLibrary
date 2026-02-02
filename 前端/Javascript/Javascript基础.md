@@ -1,22 +1,3 @@
-### 获取元素
-
-- document.querySelector("selector") 通过CSS选择器获取符合条件的第一个元素。
-    
-- document.querySelectorAll("selector") 通过CSS选择器获取符合条件的所有元素，以类数组形式存在。
-### 类名操作
-
-- Node.classList.add("class") 添加class
-    
-- Node.classList.remove("class") 移除class
-    
-- Node.classList.toggle("class") 切换class，有则移除，无则添加
-    
-- Node.classList.contains("class") 检测是否存在class
-### 自定义属性
-
-js 里可以通过 `box1.index=100;` `box1.title` 来自定义属性和获取属性。
-
-H5可以直接在标签里添加自定义属性，**但必须以 `data-` 开头**。
 
 ## JavaScript基础
 
@@ -3731,3 +3712,5868 @@ console.log(Date.now()); // 打印结果举例：1589448165370
 #### format()
 
 将时间对象转换为指定格式。
+## 数组
+数组（Array）是属于**内置对象**，数组和普通对象的功能类似，都可以用来存储一些值。不同的是：
+
+- 普通对象是使用字符串作为属性名，而数组是使用数字作为**索引**来操作元素。索引：从 0 开始的整数就是索引。
+
+数组的存储性能比普通对象要好。在实际开发中我们经常使用数组存储一些数据（尤其是**列表数据**），使用频率非常高。
+数组中的元素可以是任意的数据类型，可以是对象，可以是函数，也可以是数组。数组的元素中，如果存放的是数组，我们就称这种数组为二维数组。
+### 创建数组对象
+方式一：使用字面量创建数组
+
+举例：
+
+```
+let arr1 = []; // 创建一个空的数组
+
+let arr2 = [1, 2, 3]; // 创建带初始值的数组
+```
+
+方式二：使用构造函数创建数组
+
+语法：
+
+```
+let arr = new Array(参数);
+
+let arr = Array(参数);
+```
+
+如果**参数为空**，表示创建一个空数组；如果参数是**一个数值**，表示数组的长度；如果**有多个参数**，表示数组中的元素内容。
+
+
+```
+// 方式一
+let arr1 = [11, 12, 13];
+
+// 方式二
+let arr2 = new Array(); // 参数为空：创建空数组
+let arr3 = new Array(4); // 参数为 size
+let arr4 = new Array(15, 16, 17); // 参数为多个数值：创建一个带数据的数组
+
+console.log(typeof arr1); // 打印结果：object
+
+console.log('arr1 = ' + JSON.stringify(arr1));
+console.log('arr2 = ' + JSON.stringify(arr2));
+console.log('arr3 = ' + JSON.stringify(arr3));
+console.log('arr4 = ' + JSON.stringify(arr4));
+```
+
+### 数组的基本操作
+#### 数组的索引
+
+**索引** (下标) ：用来访问数组元素的序号，代表的是数组中的元素在数组中的位置（下标从 0 开始算起）。
+
+数组可以通过索引来访问、修改对应的数组元素。
+#### 向数组中添加元素
+
+语法：
+
+```
+数组[索引] = 值;
+```
+
+代码举例：
+
+```
+const arr = [];
+
+// 向数组中添加元素
+arr[0] = 10;
+arr[1] = 20;
+arr[2] = 30;
+arr[3] = 40;
+arr[5] = 50;
+
+console.log(JSON.stringify(arr));
+```
+#### 获取数组中的元素
+
+语法：
+
+```
+数组[索引];
+```
+
+如果读取不存在的索引（比如元素没那么多），系统不会报错，而是返回 undefined。
+```
+const arr = [21, 22, 23];
+
+console.log(arr[0]); // 打印结果：21
+console.log(arr[5]); // 打印结果：undefined
+```
+#### 获取数组的长度
+
+可以使用`length`属性来获取数组的长度(即“元素的个数”)。
+
+数组的长度是元素个数，不要跟索引号混淆。
+
+语法：
+
+```
+数组的长度 = 数组名.length；
+```
+
+代码举例：
+
+```
+const arr = [21, 22, 23];
+
+console.log(arr.length); // 打印结果：3
+```
+
+补充：
+
+对于连续的数组，使用 length 可以获取到数组的长度（元素的个数）；对于非连续的数组（即“稀疏数组”，本文稍后会讲），length 的值会大于元素的个数。因此，尽量不要创建非连续的数组。
+#### 修改数组的长度
+
+可以通过修改length属性修改数组的长度。
+
+- 如果修改的 length 大于原长度，则多出部分会空出来，置为 null。
+    
+- 如果修改的 length 小于原长度，则多出的元素会被删除，数组将从后面删除元素。
+#### 遍历数组
+
+**遍历**: 就是把数组中的每个元素从头到尾都访问一次。
+
+最简单的做法是通过 for 循环，遍历数组中的每一项。举例：
+
+```
+const arr = [10, 20, 30, 40, 50];
+
+for (let i = 0; i < arr.length; i++) {
+    console.log(arr[i]); // 打印出数组中的每一项
+}
+```
+#### 数组的解构赋值
+
+解构赋值是ES6中新增的一种赋值方式。
+
+ES5中，如果想把数组中的元素赋值给其他变量，是这样做的：
+
+```
+const arr = [1, 2, [3,4]];
+let a = arr[0]; // 1
+let b = arr[1]; // 2
+let c = arr[2]; // [3, 4]
+```
+
+上面这种写法比较啰嗦。通过ES6中的结构复制，我们可以像下面这样做。
+
+1、数组解构赋值，代码举例：
+
+```
+let [a, b, c] = [1, 2, [3, 4]];
+console.log(a); // 1
+console.log(b); // 2
+console.log(c); // [3, 4]
+```
+
+注意点：
+
+（1）等号左边的个数和格式，必须和右边的一模一样，才能完全解构。
+
+（2）当然，左边的个数和右边的个数，可以不一样。
+
+2、默认值。在赋值之前，我们可以给左边的变量指定**默认值**：
+
+```
+let [a, b = 3, c = 4] = [1, 2];
+console.log(a); // 1
+console.log(b); // 2。默认值被覆盖。
+console.log(c); // 4。继续保持默认值。
+```
+
+3、我们可以使用ES6中新增的**扩展运算符**打包剩余的数据。如果使用了扩展运算符, 那么扩展运算符只能写在最后。代码举例：
+
+```
+let [a, ...b] = [1, 2, 3];
+console.log(a); // 1
+console.log(b); // [2, 3]
+```
+### 数组的常见方法
+#### 数组的类型相关
+| 方法                               | 描述                         | 备注       |
+| -------------------------------- | -------------------------- | -------- |
+| Array.isArray()                  | 判断是否为数组                    |          |
+| toString()                       | 将数组转换为字符串                  | 不会改变原数组  |
+| join()                           | 将数组转换为字符串，返回结果为**转换后的字符串** | 不会改变原数组  |
+| 字符串的方法：split()                   | 将字符串按照指定的分隔符，组装为数组         | 不会改变原字符串 |
+|                                  |                            |          |
+| Array.from(arrayLike)            | 将**伪数组**转化为**真数组**         |          |
+| Array.of(value1, value2, value3) | 创建数组：将**一系列值**转换成数组        |          |
+获取数组的长度是用`length`属性，不是方法。
+
+ - isArray()：判断是否为数组
+
+语法：
+```
+布尔值 = Array.isArray(被检测的数组);
+```
+
+- 数组转换为字符串
+
+数组转为字符串，有三种方式。
+
+方式1、toString()
+
+```
+// 语法
+字符串 = 数组.toString();
+
+// 举例
+const result = [1, 3, 5].toString(); // 转换结果 result 为字符串 '1, 3, 5'
+```
+
+解释：把数组转换成字符串，每一项用英文逗号`,`分割。
+
+备注：大多数的数据类型都可以使用`.toString()`方法，将其转换为字符串。
+
+方式 2
+
+```
+// 语法
+字符串 = String(数组);
+
+// 举例
+const result = String([1, 3, 5]); // 转换结果 result 为字符串 '1, 3, 5'
+```
+
+方式 3：join()方法
+
+```
+字符串 = 数组.join(','); // 将数组转为字符串，每一项用 英文逗号 分隔
+```
+  
+语法：
+
+```
+新的字符串 = 原数组.join(参数); // 参数选填
+```
+
+代码举例：
+
+```
+const arr = ['a', 'b', 'c'];
+
+const result1 = arr.join(); // 这里没有指定连接符，所以默认使用 , 作为连接符
+
+const result2 = arr.join('-'); // 使用指定的字符串作为连接符
+
+console.log(typeof arr); // 打印结果：object
+console.log(typeof result1); // 打印结果：string
+
+console.log('arr =' + JSON.stringify(arr));
+console.log('result1：' + result1);
+console.log('result2：' + result2);
+```
+
+-  split()
+
+> 注意，`split()`是字符串的方法，不是数组的方法。
+
+语法：
+
+```
+新的数组 = str.split(分隔符);
+```
+
+解释：通过指定的分隔符，将一个字符串拆分成一个**数组**。不会改变原字符串。
+
+备注：`split()`这个方法在实际开发中用得非常多。一般来说，从接口拿到的 json 数据中，经常会收到类似于`"q, i, a, n"`这样的字符串，前端需要将这个字符串拆分成`['q', 'i', 'a', 'n']`数组，这个时候`split()`方法就派上用场了。
+
+- Array.from()：将伪数组转换为真数组
+
+**语法**：
+
+```
+array = Array.from(arrayLike);
+```
+
+**作用**：将**伪数组**或可遍历对象转换为**真数组**。
+
+代码举例：
+
+```
+const name = 'qianguyihao';
+console.log(Array.from(name)); // 打印结果是数组：["q","i","a","n","g","u","y","i","h","a","o"]
+```
+**伪数组**：包含 length 属性的对象或可迭代的对象。
+
+另外，伪数组的原型链中没有 Array.prototype，而真数组的原型链中有 Array.prototype。因此伪数组没有数组的一般方法，比如 pop()、join() 等方法。
+```
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+
+    <script>
+        let btnArray = document.getElementsByTagName('button');
+        console.log(btnArray);
+        console.log(btnArray[0]);
+    </script>
+</body>
+```
+上面的布局中，有三个 button 标签，我们通过`getElementsByTagName`获取到的`btnArray`实际上是**伪数组**，并不是真实的数组
+解决办法：采用Array.from方法将btnArray这个伪数组转换为真数组即可：
+```
+Array.from(btnArray);
+```
+
+- Array.of()：创建数组
+**语法**：
+
+```
+Array.of(value1, value2, value3);
+```
+
+**作用**：根据参数里的内容，创建数组。
+
+**举例**：
+
+```
+const arr = Array.of(1, 'abc', true);
+console.log(arr); // 打印结果是数组：[1, "abc", true]
+```
+
+补充：`new Array()`和 `Array.of()`的区别在于：当参数只有一个时，前者表示数组的长度，后者表示数组中的内容。
+#### 数组元素的添加和删除
+| 方法        | 描述                                        | 备注      |
+| --------- | ----------------------------------------- | ------- |
+| push()    | 向数组的**最后面**插入一个或多个元素，返回结果为新数组的**长度**      | 会改变原数组  |
+| pop()     | 删除数组中的**最后一个**元素，返回结果为**被删除的元素**          | 会改变原数组  |
+| unshift() | 在数组**最前面**插入一个或多个元素，返回结果为新数组的**长度**       | 会改变原数组  |
+| shift()   | 删除数组中的**第一个**元素，返回结果为**被删除的元素**           | 会改变原数组  |
+|           |                                           |         |
+| splice()  | 从数组中**删除**指定的一个或多个元素，返回结果为**被删除元素组成的新数组** | 会改变原数组  |
+| slice()   | 从数组中**提取**指定的一个或多个元素，返回结果为**新的数组**        | 不会改变原数组 |
+|           |                                           |         |
+| concat()  | 合并数组：连接两个或多个数组，返回结果为**新的数组**              | 不会改变原数组 |
+| fill()    | 填充数组：用固定的值填充数组，返回结果为**新的数组**              | 会改变原数组  |
+- push()
+
+`push()`：向数组的**最后面**插入一个或多个元素，返回结果为新数组的**长度**。会改变原数组，因为原数组变成了新数组。
+
+语法：
+
+```
+新数组的长度 = 数组.push(元素);
+新数组的长度 = 数组.push(元素1，元素2 ...);
+```
+
+```
+var arr = ['王一', '王二', '王三'];
+
+var result1 = arr.push('王四'); // 末尾插入一个元素
+var result2 = arr.push('王五', '王六'); // 末尾插入多个元素
+
+console.log(JSON.stringify(arr)); // 打印结果：["王一","王二","王三","王四","王五","王六"]
+console.log(result1); // 打印结果：4
+console.log(result2); // 打印结果：6
+```
+
+-  pop()
+
+`pop()`：删除数组中的**最后一个**元素，返回结果为**被删除的元素**。
+
+语法：
+
+```
+被删除的元素 = 数组.pop();
+```
+
+代码举例：
+
+```
+var arr = ['王一', '王二', '王三'];
+var result1 = arr.pop();
+
+console.log(JSON.stringify(arr)); // 打印结果：["王一","王二"]
+console.log(result1); // 打印结果：王三
+```
+
+- unshift()
+
+`unshift()`：在数组**最前面**插入一个或多个元素，返回结果为新数组的**长度**。会改变原数组，将原数组变成了新数组。插入元素后，其他元素的索引会依次调整。
+
+语法：
+
+```
+新数组的长度 = 数组.unshift(元素);
+新数组的长度 = 数组.unshift(元素1，元素2...);
+```
+
+代码举例：
+
+```
+var arr = ['王一', '王二', '王三'];
+
+var result1 = arr.unshift('王四'); // 最前面插入一个元素
+var result2 = arr.unshift('王五', '王六'); // 最前面插入多个元素
+
+console.log(JSON.stringify(arr)); // 打印结果：["王五","王六","王四","王一","王二","王三"]
+console.log(result1); // 打印结果：4
+console.log(result2); // 打印结果：6
+```
+
+- shift()
+
+`shift()`：删除数组中的**第一个**元素，返回结果为**被删除的元素**。
+
+语法：
+
+```
+被删除的元素 = 数组.shift();
+```
+
+代码举例：
+
+```
+var arr = ['王一', '王二', '王三'];
+
+var result1 = arr.shift();
+
+console.log(JSON.stringify(arr)); // 打印结果：["王二","王三"]
+console.log(result1); // 打印结果：王一
+```
+
+- splice()
+
+`splice()`：从数组中**删除**指定的一个或多个元素，返回结果为**被删除元素组成的新数组**（会改变原来的数组）。
+
+备注：该方法会改变原数组，会将指定元素从原数组中删除；被删除的元素会封装到一个新的数组中返回。
+
+语法：
+
+```
+新数组 = 原数组.splice(起始索引index);
+
+新数组 = 原数组.splice(起始索引index, 需要删除的个数);
+
+新数组 = 原数组.splice(起始索引index, 需要删除的个数, 新的元素1, 新的元素2...);
+```
+
+上方语法中，第三个及之后的参数，表示：删除元素之后，向原数组中添加新的元素，这些元素将会自动插入到起始位置索引的前面。也可以理解成：删除了哪些元素，就在那些元素的所在位置补充新的内容。
+
+`slice()`方法和`splice()`方法很容易搞混，请一定要注意区分。
+
+举例 1：
+
+```
+var arr1 = ['a', 'b', 'c', 'd', 'e', 'f'];
+var result1 = arr1.splice(1); //从第index为1的位置开始，删除元素
+
+console.log('arr1：' + JSON.stringify(arr1));
+console.log('result1：' + JSON.stringify(result1));
+```
+
+打印结果：
+
+```
+    arr1：["a"]
+    result1：["b","c","d","e","f"]
+```
+
+举例 2：
+
+```
+var arr2 = ['a', 'b', 'c', 'd', 'e', 'f'];
+var result2 = arr2.splice(-2); //删除最后两个元素
+
+console.log('arr2：' + JSON.stringify(arr2));
+console.log('result2：' + JSON.stringify(result2));
+```
+
+打印结果：
+
+```
+    arr2：["a","b","c","d"]
+    result2：["e","f"]
+```
+
+举例 3：
+
+```
+var arr3 = ['a', 'b', 'c', 'd', 'e', 'f'];
+var result3 = arr3.splice(1, 3); //从第index为1的位置开始删除元素，一共删除三个元素
+
+console.log('arr3：' + JSON.stringify(arr3));
+console.log('result3：' + JSON.stringify(result3));
+```
+
+打印结果：
+
+```
+    arr3：["a","e","f"]
+    result3：["b","c","d"]
+```
+
+举例4：（删除指定元素，用得很多）
+
+```
+const arr4 = ['a', 'b', 'c', 'd'];
+arr4.splice(arr4.indexOf('c'), 1); // 删除数组中的'c'这个元素
+
+console.log('arr4：' + JSON.stringify(arr4));
+```
+
+举例 5：（**第三个参数**的用法）
+
+```
+var arr5 = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+//从第index为1的位置开始删除元素,一共删除三个元素。并且在index=1的位置前面追加两个元素"千古壹号"、"vae"（其实就是将index为1的元素改为"千古壹号"，index为2的元素改为"vae"）。
+var result5 = arr5.splice(1, 3, '千古壹号', 'vae');
+
+console.log('arr5：' + JSON.stringify(arr5));
+console.log('result5：' + JSON.stringify(result5));
+```
+
+打印结果：
+
+```
+arr5：["a","千古壹号","vae","e","f"]
+result5：["b","c","d"]
+```
+
+我们再看个类似的例子：
+
+```
+// 需求：针对数组 [a, b, c, d] 将索引为1的数据修改为e, 索引为2的修改为f
+
+// 写法1：普通写法
+const arr = [a, b, c ,d];
+arr[1] = 'e';
+arr[2] = 'f';
+
+// 写法2：通过 splice() 实现
+const arr = [a, b, c ,d];
+arr.splice(1,2, 'e', 'f');
+```
+
+- concat()
+
+`concat()`：连接两个或多个数组，返回结果为**新的数组**。不会改变原数组。`concat()`方法的作用是**数组合并**。
+
+语法：
+
+```
+    新数组 = 数组1.concat(数组2, 数组3 ...);
+```
+
+举例：
+
+```
+const arr1 = [1, 2, 3];
+const arr2 = ['a', 'b', 'c'];
+const arr3 = ['千古壹号', 'vae'];
+
+const result1 = arr1.concat(arr2);
+
+const result2 = arr2.concat(arr1, arr3);
+
+console.log('arr1 =' + JSON.stringify(arr1));
+console.log('arr2 =' + JSON.stringify(arr2));
+console.log('arr3 =' + JSON.stringify(arr3));
+
+console.log('result1 =' + JSON.stringify(result1));
+console.log('result2 =' + JSON.stringify(result2));
+```
+
+打印结果：
+
+```
+arr1 = [1, 2, 3];
+arr2 = ['a', 'b', 'c'];
+arr3 = ['千古壹号', 'vae'];
+
+result1 = [1, 2, 3, 'a', 'b', 'c'];
+result2 = ['a', 'b', 'c', 1, 2, 3, '千古壹号', 'vae'];
+```
+
+从打印结果中可以看到，原数组并没有被修改。
+
+**数组合并的另一种方式**：
+
+我们可以使用`...`这种扩展运算符，将两个数组进行合并。举例如下：
+
+```
+const arr1 = [1, 2, 3];
+
+const result = ['a', 'b', 'c', ...arr1];
+console.log(JSON.stringify(result)); // 打印结果：["a","b","c",1,2,3]
+```
+
+备注：数组不能使用加号进行拼接。如果使用加号进行拼接会先转换成字符串再拼接。
+
+- slice()
+
+`slice()`：从数组中**提取**指定的一个或者多个元素，返回结果为**新的数组**（不会改变原来的数组）。
+
+备注：该方法不会改变原数组，而是将截取到的元素封装到一个新数组中返回。
+
+**语法**：
+
+```
+新数组 = 原数组.slice(开始位置的索引);
+
+新数组 = 原数组.slice(开始位置的索引, 结束位置的索引);  //注意：提取的元素中，包含开始位置，不包含结束位置
+```
+
+举例：
+
+```
+const arr = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+const result1 = arr.slice(); // 不加参数时，则获取所有的元素。相当于数组的整体赋值
+const result2 = arr.slice(2); // 从第二个值开始提取，直到末尾
+const result3 = arr.slice(-2); // 提取最后两个元素
+const result4 = arr.slice(2, 4); // 提取从第二个到第四个之间的元素（不包括第四个元素）
+const result5 = arr.slice(4, 2); // 空
+
+console.log('arr:' + JSON.stringify(arr));
+console.log('result1:' + JSON.stringify(result1));
+console.log('result2:' + JSON.stringify(result2));
+console.log('result3:' + JSON.stringify(result3));
+console.log('result4:' + JSON.stringify(result4));
+console.log('result5:' + JSON.stringify(result5));
+```
+
+打印结果：
+
+```
+arr: ['a', 'b', 'c', 'd', 'e', 'f'];
+result1: ['a', 'b', 'c', 'd', 'e', 'f'];
+result2: ['c', 'd', 'e', 'f'];
+result3: ['e', 'f'];
+result4: ['c', 'd'];
+result5: [];
+```
+
+**补充**：
+
+很多前端开发人员会用 slice()将伪数组，转化为真数组。写法如下：
+
+```
+// 方式1
+array = Array.prototype.slice.call(arrayLike);
+
+// 方式2
+array = [].slice.call(arrayLike);
+```
+
+ES6 看不下去这种蹩脚的转化方法，于是出了一个新的 API：（专门用来将伪数组转化成真数组）
+
+```
+array = Array.from(arrayLike);
+```
+
+关于这个 API 的详细介绍，上面的内容已经讲了，请往前翻。
+
+- fill()
+
+`fill()`：用一个固定值填充数组，返回结果为**新的数组**。会改变原数组。
+
+语法：
+
+```
+// 用一个固定值填充数组。数组里的每个元素都会被这个固定值填充
+新数组 = 数组.fill(固定值);
+
+// 从 startIndex 开始的数组元素，用固定值填充
+新数组 = 数组.fill(固定值, startIndex);
+
+// 从 startIndex 到 endIndex 之间的元素（包左不包右），用固定值填充
+新数组 = 数组.fill(固定值, startIndex, endIndex);
+```
+
+举例1：
+
+```
+// 创建一个长度为4的空数组，然后用 'f' 来填充这个空数组
+console.log(Array(4).fill('f')); // ['f', 'f', 'f,' 'f']
+
+// 将现有数组的每一个元素都进行填充
+console.log(['a', 'b', 'c', 'd'].fill('f')); // ['f', 'f', 'f,' 'f']
+
+```
+
+举例2：
+
+```
+// 指定位置进行填充
+let arr1 = ['a', 'b', 'c', 'd'];
+let arr2 = arr1.fill('f', 1, 3);
+
+console.log(arr1); // ['a', 'f', 'f,' 'd']
+console.log(arr2); // ['a', 'f', 'f,' 'd']
+```
+
+
+#### 数组排序
+
+|方法|描述|备注|
+|---|---|---|
+|reverse()|反转数组，返回结果为**反转后的数组**|会改变原数组|
+|sort()|对数组的元素,默认按照**Unicode 编码**，从小到大进行排序|会改变原数组|
+- reverse()
+
+`reverse()`：反转数组，返回结果为**反转后的数组**（会改变原来的数组）。
+
+语法：
+
+```
+反转后的数组 = 数组.reverse();
+```
+
+举例：
+
+```
+var arr = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+var result = arr.reverse(); // 将数组 arr 进行反转
+
+console.log('arr =' + JSON.stringify(arr));
+console.log('result =' + JSON.stringify(result));
+```
+
+打印结果：
+
+```
+arr =["f","e","d","c","b","a"]
+result =["f","e","d","c","b","a"]
+```
+
+从打印结果可以看出，原来的数组已经被改变了。
+
+- sort()
+
+> sort()方法需要好好理解。
+
+`sort()`：对数组的元素进行从小到大来排序（会改变原来的数组）。
+无参时
+
+如果在使用 sort() 方法时不带参，则默认按照元素的**Unicode 编码**，从小到大进行排序。
+
+**举例 1**：（当数组中的元素为字符串时）
+
+```
+let arr1 = ['e', 'b', 'd', 'a', 'f', 'c'];
+
+let result = arr1.sort(); // 将数组 arr1 进行排序
+
+console.log('arr1 =' + JSON.stringify(arr1));
+console.log('result =' + JSON.stringify(result));
+```
+
+打印结果：
+
+```
+    arr1 =["a","b","c","d","e","f"]
+    result =["a","b","c","d","e","f"]
+```
+
+从上方的打印结果中，我们可以看到，sort 方法会改变原数组，而且方法的返回值也是同样的结果。
+
+**举例 2**：（当数组中的元素为数字时）
+
+```
+let arr2 = [5, 2, 11, 3, 4, 1];
+
+let result = arr2.sort(); // 将数组 arr2 进行排序
+
+console.log('arr2 =' + JSON.stringify(arr2));
+console.log('result =' + JSON.stringify(result));
+```
+
+打印结果：
+
+```
+arr2 =[1,11,2,3,4,5]
+result =[1,11,2,3,4,5]
+```
+
+上方的打印结果中，你会发现，使用 sort() 排序后，数字`11`竟然在数字`2`的前面。这是为啥呢？因为上面讲到了，`sort()`方法是按照**Unicode 编码**进行排序的。
+
+那如果我想让 arr2 里的数字，完全按照从小到大排序，怎么操作呢？继续往下看。
+
+带参时，自定义排序规则
+
+如果在 sort()方法中带参，我们就可以**自定义**排序规则。具体做法如下：
+
+我们可以在 sort()的参数中添加一个回调函数，来指定排序规则。回调函数中需要定义两个形参，JS将会分别使用数组中的元素作为实参去调用回调函数。
+
+JS根据回调函数的返回值来决定元素的排序：（重要）
+
+- 如果返回一个大于 0 的值，则元素会交换位置
+    
+- **如果返回一个小于 0 的值，则不交换位置**。
+    
+- 如果返回一个等于 0 的值，则认为两个元素相等，则不交换位置
+    
+
+如果只是看上面的文字，可能不太好理解，我们来看看下面的例子，你肯定就能明白。
+
+举例：将数组中的数字按照从小到大排序
+
+**写法 1**：
+
+```
+var arr = [5, 2, 11, 3, 4, 1];
+
+// 自定义排序规则
+var result = arr.sort(function (a, b) {
+    if (a > b) {
+        // 如果 a 大于 b，则交换 a 和 b 的位置
+        return 1;
+    } else if (a < b) {
+        // 如果 a 小于 b，则位置不变
+        return -1;
+    } else {
+        // 如果 a 等于 b，则位置不变
+        return 0;
+    }
+});
+
+console.log('arr =' + JSON.stringify(arr));
+console.log('result =' + JSON.stringify(result));
+```
+
+打印结果：
+
+```
+arr = [1, 2, 3, 4, 5, 11];
+result = [1, 2, 3, 4, 5, 11];
+```
+
+上方代码的写法太啰嗦了，其实也可以简化为如下写法：
+
+**写法 2**：（ES5写法）
+
+```
+var arr = [5, 2, 11, 3, 4, 1];
+
+// 自定义排序规则
+var result = arr.sort(function (a, b) {
+    return a - b; // 升序排列
+    // return b - a; // 降序排列
+});
+
+console.log('arr =' + JSON.stringify(arr));
+console.log('result =' + JSON.stringify(result));
+```
+
+打印结果不变。
+
+上方代码还可以写成 ES6 的形式，也就是将 function 改为箭头函数，其写法如下。
+
+**写法 3**：（ES6写法，箭头函数）
+
+```
+let arr = [5, 2, 11, 3, 4, 1];
+
+// 自定义排序规则
+let result = arr.sort((a, b) => {
+    return a - b; // 升序排列
+});
+
+console.log('arr =' + JSON.stringify(arr));
+console.log('result =' + JSON.stringify(result));
+```
+
+上方代码，因为函数体内只有一句话，所以可以去掉 return 语句，继续简化为如下写法。
+
+**写法 4**：（推荐写法）
+
+```
+let arr = [5, 2, 11, 3, 4, 1];
+
+// 自定义排序规则：升序排列
+let result = arr.sort((a, b) => a - b);
+
+console.log('arr =' + JSON.stringify(arr));
+console.log('result =' + JSON.stringify(result));
+```
+
+上面的各种写法中，写法 4 是我们在实战开发中用得最多的。
+
+为了确保代码的简洁优雅，接下来的讲解中，凡是涉及到函数，我们将尽量采用 ES6 中的箭头函数来写。
+
+举例：将数组从小到大排序
+
+将数组从小到大排序，这个例子很常见。但在实际开发中，总会有一些花样。
+
+下面这段代码，在实际开发中，经常用到，一定要掌握。完整代码如下：
+
+```
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            let dataList = [
+                {
+                    title: '品牌鞋子，高品质低价入手',
+                    publishTime: 200,
+                },
+                {
+                    title: '不是很贵，但是很暖',
+                    publishTime: 100,
+                },
+                {
+                    title: '无法拒绝的美食，跟我一起吃',
+                    publishTime: 300,
+                },
+            ];
+
+            console.log('qianguyihao 排序前的数组：' + JSON.stringify(dataList));
+
+            // 将dataList 数组，按照 publishTime 字段，从小到大排序。（会改变原数组）
+            dataList.sort((a, b) => parseInt(a.publishTime) - parseInt(b.publishTime));
+
+            console.log('qianguyihao 排序后的数组：' + JSON.stringify(dataList));
+        </script>
+    </body>
+</html>
+```
+
+打印结果：
+
+```
+qianguyihao 排序前的数组：[
+    {"title":"品牌鞋子，高品质低价入手","publishTime":200},
+    {"title":"不是很贵，但是很暖","publishTime":100},
+    {"title":"无法拒绝的美食，跟我一起吃","publishTime":300}
+]
+
+qianguyihao 排序后的数组：[
+    {"title":"不是很贵，但是很暖","publishTime":100},
+    {"title":"品牌鞋子，高品质低价入手","publishTime":200},
+    {"title":"无法拒绝的美食，跟我一起吃","publishTime":300}
+]
+```
+
+上方代码中，肯定有人会问： publishTime 字段已经是 int 类型了，为啥在排序前还要做一次 parseInt() 转换？这是因为，这种数据，一般是后台接口返回给前端的，数据可能是 int 类型、也可能是字符串类型，所以前端还是统一先做一下 partInt() 比较保险。这是一种良好的工作习惯和风险意识。
+#### 查找数组的元素
+
+| 方法                    | 描述                                           | 备注                                |
+| --------------------- | -------------------------------------------- | --------------------------------- |
+| indexOf(value)        | 从前往后索引，检索一个数组中是否含有指定的元素                      |                                   |
+| lastIndexOf(value)    | 从后往前索引，检索一个数组中是否含有指定的元素                      |                                   |
+| includes(item)        | 数组中是否包含指定的内容                                 |                                   |
+| find(function())      | 找出**第一个**满足「指定条件返回 true」的元素                  |                                   |
+| findIndex(function()) | 找出**第一个**满足「指定条件返回 true」的元素的 index           |                                   |
+| every()               | 确保数组中的每个元素都满足「指定条件返回 true」，则停止遍历，此方法才返回 true | 全真才为真。要求每一项都返回 true，最终的结果才返回 true |
+| some()                | 数组中只要有一个元素满足「指定条件返回 true」，则停止遍历，此方法就返回 true  | 一真即真。只要有一项返回 true，最终的结果就返回 true   |
+- indexOf() 和 lastIndexOf()：获取元素的索引
+
+**语法 1**：
+
+```
+元素的索引 = 数组.indexOf(想要查询的元素);
+
+元素的索引 = 数组.lastIndexOf(想要查询的元素);
+```
+
+备注：`indexOf()` 是从左往右查找元素的位置。同理，`lastIndexOf()`是从右往左寻找。
+
+**解释**：可以检索一个数组中是否含有指定的元素。如果数组中含有该元素，则会返回其**第一次出现**的索引，并立即停止查找；如果没有找到指定的内容，则返回 -1。
+
+这个方法的作用：
+
+- 如果找到了指定的元素，就返回元素对应的位置。
+    
+- 如果没有找到指定的元素，就会返回-1。
+    
+
+**注意**：`indexOf()`在检索时，是严格类型约束，类似于`===`。
+
+**举例** ：
+
+```
+const arr = ['a', 'b', 'c', 'd', 'e', 'd', 'c'];
+
+console.log(arr.indexOf('c')); //从前往后，找第一个"c"在哪个位置
+console.log(arr.lastIndexOf('d')); //从后往前，找第一个"d"在哪个位置
+```
+**语法 2**：
+
+这个方法还可以指定第二个参数，用来指定查找的**起始位置**。语法如下：
+
+```
+索引值 = 数组.indexOf(想要查找的元素, [查找的起始位置]);
+```
+
+这个方法的第二个参数非常巧妙，数据结构与算法的面试题中，时常出现。
+
+举例：（两个参数时，需要特别注意）
+
+```
+let arr = ['q', 'i', 'a', 'n', 'g', 'u', 'y', 'i', 'h', 'a', 'o'];
+result = str.indexOf('a', 3); // 从下标为3的位置开始查找 'a'这个元素 【重要】
+
+console.log(result); // 打印结果：9
+```
+
+-  includes()
+
+**语法**：
+
+```
+布尔值 = arr.includes(想要查找的元素, [position]);
+```
+
+**解释**：判断一个数组中是否包含指定的元素。如果是，则会返回 true；否则返回 false。
+
+参数中的 `position`：如果不指定，则默认为0；如果指定，则规定了检索的起始位置。
+
+```
+const arr = [11, 12, 13, 14, 15];
+console.log(arr.includes(12)); // 打印结果：true
+console.log(arr.includes(20)); // 打印结果：false
+
+console.log(arr.includes(11, 1)); // 打印结果：false
+```
+
+- find()
+
+**语法**：
+
+```
+const itemResult = arr.find((currentItem, currentIndex, currentArray) => {
+    return true;
+});
+```
+
+**作用**：找出**第一个**满足「指定条件返回 true」的元素，并立即停止查找；如果没找到，则返回 undefined。
+
+备注：一旦找到符合条件的第一个元素，将不再继续往下遍历。
+
+举例1：
+
+```
+let arr = [2, 3, 2, 5, 7, 6];
+
+let result = arr.find((item, index) => {
+    return item > 4; //遍历数组arr，一旦发现有第一个元素大于4，就把这个元素返回
+  	// 上面这行代码是简写方式；完整写法也可以这样写：ccif (item > 4) {return true}
+});
+
+console.log(result); //打印结果：5
+```
+
+重要提醒：如果改变了 itemResult 内部的值，则 arr 里的对应元素，它的值也会被改变。举例如下。
+
+举例2：todo
+
+- findIndex()
+
+**语法**：
+
+```
+const indexResult = arr.findIndex((currentItem, currentIndex, currentArray) => {
+    return true;
+});
+```
+
+**作用**：找出**第一个**满足「指定条件返回 true」的元素的索引，并立即停止遍历；如果没找到，则返回 -1。
+
+举例：
+
+> 我们直接把上面find 方法的代码示例改成 findIndex，看看效果。
+
+```
+let arr = [2, 3, 2, 5, 7, 6];
+
+let result = arr.findIndex((item, index) => {
+    return item > 4; //遍历数组arr，一旦发现有第一个元素大于4，就把这个元素的index返回
+});
+
+console.log(result); //打印结果：3
+```
+
+- every()
+
+**语法**：
+
+```
+const boolResult = arr.every((currentItem, currentIndex, currentArray) => {
+    return true;
+});
+```
+
+`every()`：对数组中每一项运行回调函数，如果都返回 true，every 就返回 true；如果有一项返回 false，则停止遍历，此方法返回 false。
+
+注意：every()方法的返回值是 boolean 值，参数是回调函数。
+
+举例：
+
+```
+var arr1 = ['千古', '宿敌', '南山忆', '素颜'];
+var bool1 = arr1.every(function (item, index, array) {
+    if (item.length > 2) {
+        return false;
+    }
+    return true;
+});
+console.log(bool1); //输出结果：false。只要有一个元素的长度是超过两个字符的，就返回false
+
+var arr2 = ['千古', '宿敌', '南山', '素颜'];
+var bool2 = arr2.every(function (item, index, array) {
+    if (item.length > 2) {
+        return false;
+    }
+    return true;
+});
+console.log(bool2); //输出结果：true。因为每个元素的长度都是两个字符。
+```
+
+- some()
+
+`some()`：对数组中每一个元素运行回调函数，只要有一个元素返回 true，则停止遍历，此方法返回 true。
+
+注意：some()方法的返回值是 boolean 值。
+
+- every() 和 some() 的使用场景
+
+every() 和 some() 这两个方法，初学者很容易搞混。要怎么区分呢？你可以这样记：
+
+- every()：全部真，才为真。当你需要让数组中的每一个元素都满足指定条件时，那就使用 every()。
+    
+- some()：一个真，则为真，点到为止。数组中只要有一个元素满足指定条件时，就停止遍历。那就使用 some()。
+    
+- valueOf()：返回数组本身
+
+```
+数组本身 = 数组.valueOf();
+```
+#### 遍历数组
+获取并操作数组中的每一个元素，然后得到想要的返回结果。
+
+| 方法        | 描述                                       | 备注                                            |
+| --------- | ---------------------------------------- | --------------------------------------------- |
+| for 循环    | 最传统的方式遍历数组，这个大家都懂                        |                                               |
+| forEach() | 遍历数组，但需要兼容 IE8 以上                        | 不会改变原数组。forEach() 没有返回值。也就是说，它的返回值是 undefined |
+| for of    | 遍历数组（ES6语法）                              | 不会改变原数组。另外，不要使用 for in 遍历数组                   |
+| map()     | 对原数组中的每一项进行加工，将组成新的数组                    | 不会改变原数组                                       |
+| filter()  | 过滤数组：返回结果是 true 的项，将组成新的数组，返回结果为**新的数组** | 不会改变原数组                                       |
+| reduce    | 接收一个函数作为累加器，返回值是回调函数累计处理的结果              | 比较复杂                                          |
+语法：
+
+```
+// ES5语法
+数组/boolean/无 = 数组.forEach/map/filter(function (item, index, arr) {
+   相关代码和返回值；
+})
+
+// ES6语法
+数组/boolean/无 = 数组.forEach/map/filter((item, index, arr) => {
+   相关代码和返回值；
+})
+```
+-  for 循环遍历
+
+举例：
+
+```
+const arr = ['千古壹号', '许嵩', 'vae'];
+for (let i = 0; i < arr.length; i++) {
+    console.log(arr[i]); // arr[i]代表的是数组中的每一个元素i
+}
+
+console.log(JSON.stringify(arr));
+```
+-  forEach()
+
+> `forEach()` 这种遍历方法只支持 IE8 以上的浏览器。IE8 及以下的浏览器均不支持该方法。所以如果需要兼容 IE8，则不要使用 forEach，改为使用 for 循环来遍历即可。
+
+语法
+
+```
+// ES5语法
+arr.forEach(function (currentItem, currentIndex, currentArray) {
+	console.log(currentValue);
+});
+
+// ES6语法
+arr.forEach((currentItem, currentIndex, currentArray) => {
+	console.log(currentValue);
+});
+```
+
+forEach()方法需要一个函数作为参数。这种函数，是由我们创建但是不由我们调用的，我们称为回调函数。
+
+数组中有几个元素，该回调函数就会执行几次。
+
+回调函数中传递三个参数：
+
+- 参数1：当前正在遍历的元素
+    
+- 参数2：当前正在遍历的元素的索引
+    
+- 参数3：正在遍历的数组
+    
+
+注意，forEach() 没有返回值。也可以理解成：forEach() 的返回值是 undefined。如果你尝试 `newArray = currentArray.forEach()`这种方式来接收，是达不到效果的。
+
+代码举例：
+
+```
+let myArr = ['王一', '王二', '王三'];
+
+myArr.forEach((currentItem, currentIndex, currentArray) => {
+    console.log('item:' + currentItem);
+    console.log('index:' + currentIndex);
+    console.log('arr:' + JSON.stringify(currentArray));
+    console.log('----------');
+});
+```
+- forEach() 会不会改变原数组？
+
+forEach() 会不会改变原数组？关于这个问题，大部分人会搞错。我们来看看下面的代码。
+
+**1、数组的元素是基本数据类型**：（无法改变原数组）
+
+```
+let numArr = [1, 2, 3];
+
+numArr.forEach((item) => {
+    item = item * 2;
+});
+console.log(JSON.stringify(numArr)); // 打印结果：[1, 2, 3]
+```
+
+上面这段代码，你可要看仔细了，打印结果是 `[1, 2, 3]`，不是 `[2, 4, 6]`。
+
+**2、数组的元素是引用数据类型**：（直接修改整个元素对象时，无法改变原数组）
+
+```
+let objArr = [
+    { name: '千古壹号', age: 20 },
+    { name: '许嵩', age: 30 },
+];
+
+objArr.forEach((item) => {
+    item = {
+        name: '邓紫棋',
+        age: '29',
+    };
+});
+console.log(JSON.stringify(objArr)); // 打印结果：[{"name":"千古壹号","age":20},{"name":"许嵩","age":30}]
+```
+
+**3、数组的元素是引用数据类型**：（修改元素对象里的某个属性时，可以改变原数组）
+
+```
+let objArr = [
+    { name: '千古壹号', age: 28 },
+    { name: '许嵩', age: 30 },
+];
+
+objArr.forEach((item) => {
+    item.name = '邓紫棋';
+});
+console.log(JSON.stringify(objArr)); // 打印结果：[{"name":"邓紫棋","age":28},{"name":"邓紫棋","age":30}]
+```
+
+如果你需要通过 forEach 修改原数组，建议用 forEach 里面的参数 2 和参数 3 来做，具体请看下面的标准做法。
+
+**4、forEach() 通过参数 2、参数 3 修改原数组**：（标准做法，一定要看）
+
+```
+// 1、数组的元素是基本数据类型
+let numArr = [1, 2, 3];
+
+numArr.forEach((item, index, arr) => {
+    arr[index] = arr[index] * 2;
+});
+console.log(JSON.stringify(numArr)); // 打印结果：[2,4,6]
+
+// 2、数组的元素是引用数据类型时，直接修改对象
+let objArr = [
+    { name: '千古壹号', age: 28 },
+    { name: '许嵩', age: 34 },
+];
+
+objArr.forEach((item, index, arr) => {
+    arr[index] = {
+        name: '小明',
+        age: '10',
+    };
+});
+console.log(JSON.stringify(objArr)); // 打印结果：[{"name":"小明","age":"10"},{"name":"小明","age":"10"}]
+
+// 3、数组的元素是引用数据类型时，修改对象的某个属性
+let objArr2 = [
+    { name: '千古壹号', age: 28 },
+    { name: '许嵩', age: 34 },
+];
+
+objArr2.forEach((item, index, arr) => {
+    arr[index].name = '小明';
+});
+console.log(JSON.stringify(objArr2)); // 打印结果：[{"name":"小明","age":28},{"name":"小明","age":34}]
+```
+
+**总结**：
+
+如果纯粹只是遍历数组，那么，可以用 forEach() 方法。但是，如果你想在遍历数组的同时，去改变数组里的元素内容，那么，最好是用 map() 方法来做，不要用 forEach()方法，避免出现一些低级错误。
+
+- for of
+
+ES6语法推出了 for of，可用于循环遍历数组。
+
+语法
+
+```
+for(let value of arr) {
+	console.log(value);
+}
+```
+
+- 不要使用 for in 遍历数组
+
+for in 是专门用于遍历对象的。对象的属性是无序的（而数组的元素有顺序），for in循环就是专门用于遍历无序的对象。所以，不要用 for in 遍历数组。
+
+for in语法：
+
+```
+for (let key in obj) {
+	console.log(key);
+	console.log(obj.key);
+}
+```
+
+- map()
+
+语法
+
+```
+// ES5语法
+const newArr =  arr.map(function (currentItem, currentIndex, currentArray) {
+    return newItem;
+});
+
+// ES6语法
+const newArr = arr.map((currentItem, currentIndex, currentArray) => {
+    return newItem;
+});
+```
+
+解释：对数组中每一项运行回调函数，返回该函数的结果，组成的新数组（返回的是**加工后**的新数组）。不会改变原数组。
+
+作用：对数组中的每一项进行加工。
+
+**举例 1**：（拷贝的过程中改变数组元素的值）
+
+有一个已知的数组 arr1，我要求让 arr1 中的每个元素的值都加 10，这里就可以用到 map 方法。代码举例：
+
+```
+const arr1 = [1, 3, 6, 2, 5, 6];
+const arr2 = arr1.map(item => {
+  return item + 10; //让arr1中的每个元素加10
+});
+console.log(arr2); // 数组 arr2 的值：[11, 13, 16, 12, 15, 16]
+```
+
+**举例 2**：【重要案例，实际开发中经常用到】
+
+将 A 数组中某个属性的值，存储到 B 数组中。代码举例：
+
+```
+const arr1 = [
+    { name: '千古壹号', age: '28' },
+    { name: '许嵩', age: '32' },
+];
+
+// 举例2.1、将数组 arr1 中的 name 属性，存储到 数组 arr2 中
+const arr2 = arr1.map(item => item.name);
+
+// 上面的代码是简写的方式。完整写法是下面这样：（这两种写法是等价的）
+const _arr2 = arr1.map(item => {
+  return item.name;
+});
+
+// 举例2.2、将数组 arr1 中的 name、age这两个属性，改一下“键”的名字，存储到 arr3中
+const arr3 = arr1.map(item => ({
+    myName: item.name,
+    myAge: item.age,
+})); // 将数组 arr1 中的 name 属性，存储到 数组 arr2 中
+
+console.log('arr1:' + JSON.stringify(arr1));
+console.log('arr2:' + JSON.stringify(arr2));
+console.log('arr3:' + JSON.stringify(arr3));
+```
+map() 方法会不会改变原数组？
+
+答案：不一定。
+
+举例：
+
+```
+      const arr = [
+        {
+          name: "qianguyihao1",
+          age: 22,
+        },
+        {
+          name: "qianguyihao2",
+          age: 23,
+        },
+      ];
+
+      arr.map((item) => {
+        item.name = "haha"; // 修改 item 里的某个属性
+        return item;
+      });
+      console.log(JSON.stringify(arr));
+```
+
+打印结果：
+
+```
+[{"name":"haha","age":22},{"name":"haha","age":23}]
+```
+
+总结：map方法如果是修改整个item的值，则不会改变原数组。但如果是修改 item 里面的某个属性，那就会改变原数组。
+
+map()在遍历时，如果不写 return 会怎么样
+
+举例：
+
+```
+const arr1 = [{ name: 'hehe1' }, { name: 'hehe2' }];
+
+const arr2 = arr1.map(item => {
+  item.name = 'haha';
+});
+
+console.log(arr1);
+console.log(arr2);
+```
+
+代码执行完成后：
+
+- arr1 的结果：[{ name: 'haha' }, { name: 'haha' }]
+    
+- arr2 的结果：[undefined, undefined]
+    
+
+由此可见，如果 map() 方法中没有 return 语句也是合法的，它会默认返回 `undefined`。
+
+所以，针对对象数组，**如果你只是想修改对象中的某个属性值，而不想创建新数组的话，建议使用 forEach() 方法，而不是 map() 方法**。map() 方法的初衷是创建一个新数组。
+-  filter()
+
+语法
+
+```
+const newArr = arr.filter((currentItem, currentIndex, currentArray) => {
+    return true;
+});
+```
+
+解释：对数组中的**每一项**运行回调函数，该函数返回结果是 true 的项，将组成新的数组（返回值就是这个新数组）。不会改变原数组。
+
+作用：对数组进行过滤。
+
+举例
+
+**举例 1**：找出数组 arr1 中大于 4 的元素，返回一个新的数组。代码如下：
+
+```
+let arr1 = [1, 3, 6, 2, 5, 6];
+
+let arr2 = arr1.filter(item => {
+    if (item > 4) {
+        return true; // 将arr1中大于4的元素返回，组成新的数组
+    }
+    return false;
+});
+
+console.log(JSON.stringify(arr1)); // 打印结果：[1,3,6,2,5,6]
+console.log(JSON.stringify(arr2)); // 打印结果：[6,5,6]
+```
+**举例 2**：
+
+获取对象数组 arr1 中指定类型的对象，放到数组 arr2 中。代码举例如下：
+
+```
+const arr1 = [
+  { name: '许嵩', type: '一线' },
+  { name: '周杰伦', type: '退居二线' },
+  { name: '邓紫棋', type: '一线' },
+];
+
+const arr2 = arr1.filter(item => item.type == '一线'); // 筛选出一线歌手
+
+console.log(JSON.stringify(arr2));
+```
+- reduce()
+reduce() 语法
+
+> reduce 的发音：[rɪ'djuːs]。中文含义是减少，但这个方法跟“减少”没有任何关系。
+
+reduce() 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。返回值是回调函数累计处理的结果。
+
+**语法**：
+
+```
+arr.reduce(function (previousValue, currentValue, currentIndex, arr) {}, initialValue);
+```
+
+参数解释：
+
+- previousValue：必填，上一次调用回调函数时的返回值
+    
+- currentValue：必填，当前正在处理的数组元素
+    
+- currentIndex：选填，当前正在处理的数组元素下标
+    
+- arr：选填，调用 reduce()方法的数组
+    
+- initialValue：选填，可选的初始值（作为第一次调用回调函数时传给 previousValue 的值）
+    
+
+在以往的数组方法中，匿名的回调函数里是传三个参数：item、index、arr。但是在 reduce() 方法中，前面多传了一个参数`previousValue`，这个参数的意思是上一次调用回调函数时的返回值。第一次执行回调函数时，previousValue 没有值怎么办？可以用 initialValue 参数传给它。
+
+备注：绝大多数人在一开始接触 reduce() 的时候会很懵逼，但是没关系，有事没事多看几遍，自然就掌握了。如果能熟练使用 reduce() 的用法，将能替代很多其他的数组方法，并逐渐走上进阶之路，领先于他人。
+
+为了方便理解 reduce()，我们先来看看下面的简单代码，过渡一下：
+
+```
+let arr1 = [1, 2, 3, 4, 5, 6];
+
+arr1.reduce((prev, item) => {
+    console.log(prev);
+    console.log(item);
+    console.log('------');
+    return 88;
+}, 0);
+```
+上面的代码中，由于`return`的是固定值，所以 prev 打印的也是固定值（只有初始值是 0，剩下的遍历中，都是打印 88）。
+
+现在来升级一下，实际开发中，prev 的值往往是动态变化的，这便是 reduce()的精妙之处。我们来看几个例子就明白了。
+
+reduce() 的常见应用
+
+**举例 1**、求和：
+
+计算数组中所有元素项的总和。代码实现：
+
+```
+const arr = [2, 0, 1, 9, 6];
+// 数组求和
+const total = arr.reduce((prev, item) => {
+    return prev + item;
+});
+
+console.log('total:' + total); // 打印结果：18
+```
+
+**举例 2**、统计某个元素出现的次数：
+
+代码实现：
+
+```
+// 定义方法：统一 value 这个元素在数组 arr 中出现的次数
+function repeatCount(arr, value) {
+    if (!arr || arr.length == 0) return 0;
+
+    return arr.reduce((totalCount, item) => {
+        totalCount += item == value ? 1 : 0;
+        return totalCount;
+    }, 0);
+}
+
+let arr1 = [1, 2, 6, 5, 6, 1, 6];
+
+console.log(repeatCount(arr1, 6)); // 打印结果：3
+```
+
+**举例 3**、求元素的最大值：
+
+代码实现：
+
+```
+const arr = [2, 0, 1, 9, 6];
+// 数组求最大值
+const maxValue = arr.reduce((prev, item) => {
+    return prev > item ? prev : item;
+});
+
+console.log(maxValue); // 打印结果：9
+```
+## 函数
+### 函数简介
+函数：就是一些功能或语句的**封装**。在需要的时候，通过**调用**的形式，执行这些语句。
+
+补充：
+
+- **函数也是一个对象**
+    
+- 使用`typeof`检查一个函数对象时，会返回 function
+    
+
+**函数的作用**：
+
+- 一次定义，多次调用。将大量重复的语句抽取出来，写在函数里，以后需要这些语句时，可以直接调用函数，避免重复劳动。
+    
+- 简化代码，可读性更强，让编程模块化。高内聚、低耦合。
+    
+
+来看个例子：
+
+```
+console.log("你好");
+sayHello();	// 调用函数
+sayHello();	// 再调用一次函数
+
+
+
+// 定义函数
+function sayHello(){
+	console.log("欢迎");
+	console.log("welcome");
+}
+```
+
+#### 函数的定义/声明
+
+我们使用`function`关键字定义函数，中文含义是“函数”、“功能”。可以使用如下方式进行定义。
+
+方式一：函数声明（命名函数）
+
+使用`函数声明`来创建一个函数。语法：
+
+```
+function 函数名([形参1,形参2...形参N]){  // 备注：语法中的中括号，表示“可选”
+	// 函数体语句
+}
+```
+
+举例：
+
+```
+function sum(a, b){
+	return a+b;
+}
+```
+
+解释如下：
+
+- 函数名：命名规定和变量的命名规定一样，必须符合JS标识符的命名规则。只能是字母、数字、下划线、美元符号，不能以数字开头。
+    
+- 圆括号里，是形参列表，可选。即使没有形参，也必须书写圆括号。
+    
+- 大括号里，是函数体语句。
+    
+
+PS：在有些编辑器中，方法写完之后，我们在方法的前面输入`/**`，然后回车，会发现，注释的格式会自动补齐。
+
+方式二：函数表达式（匿名函数）
+
+使用`函数表达式`来创建一个函数。语法：
+
+```
+const 变量名  = function([形参1,形参2...形参N]){
+	语句....
+}
+```
+
+举例：
+
+```
+const fun2 = function() {
+	console.log("我是匿名函数中封装的代码");
+};
+```
+
+解释如下：
+
+- 上面的 fun2 是变量名，不是函数名。
+    
+- 函数表达式的声明方式跟声明变量类似，只不过变量里存的是值，而函数表达式里存的是函数。
+    
+- 函数表达式也可以传递参数。
+    
+
+从方式二的举例中可以看出：所谓的“函数表达式”，其实就是将匿名函数赋值给一个变量。因为，一个匿名函数终究还是要给它一个接收对象，进而方便地调用这个函数。
+
+方式三：使用构造函数 new Function()
+
+使用构造函数`new Function()`来创建一个对象。这种方式，用的少。
+
+语法：
+
+```
+const 变量名/函数名  = new Function('形参1', '形参2', '函数体');
+```
+
+注意，Function 里面的参数都必须是**字符串**格式。也就是说，形参也必须放在**字符串**里；函数体也是放在**字符串**里包裹起来，放在 Function 的最后一个参数的位置。
+
+代码举例：
+
+```
+const fun3 = new Function('a', 'b', 'console.log("我是函数内部的内容");  console.log(a + b);');
+
+fun3(1, 2); // 调用函数
+```
+#### 函数的调用
+
+调用函数即：执行函数体中的语句。函数必须要等到被调用时才执行。
+
+方式1：普通函数的调用
+
+函数调用的语法：
+
+```
+// 写法1（最常用）
+函数名();
+
+// 写法2
+函数名.call();
+```
+
+代码举例：
+
+```
+function fn1() {
+	console.log('我是函数体里面的内容1');
+}
+
+function fn2() {
+	console.log('我是函数体里面的内容2');
+}
+
+fn1(); // 调用函数
+
+fn2.call(); // 调用函数
+
+```
+
+方式2：通过对象的方法来调用
+
+```
+var obj = {
+	a: 'qianguyihao',
+	fn2: function() {
+		console.log('千古壹号，永不止步!');
+	},
+};
+
+obj.fn2(); // 调用函数
+```
+
+如果一个函数是作为一个对象的属性保存，那么，我们称这个函数是这个对象的**方法**。
+
+PS：关于函数和方法的区别，本文的后续内容里有讲到，可以往下面翻。
+
+方式3：立即执行函数
+
+函数定义完，就立即被调用，这种函数叫做立即执行函数。英文是 IIFE（Immediately-invoked function expression），立即调用函数表达式。
+
+**语法格式**
+
+语法1：
+
+```
+(function() {
+  // 函数体
+})();
+```
+
+语法2：（立即执行函数也可以传参）
+
+```
+(function() {
+  // 函数体
+})(a, b);
+```
+
+
+
+方式4：通过构造函数来调用
+
+代码举例：
+
+```
+function Fun3() {
+	console.log('千古壹号，永不止步~');
+}
+
+new Fun3();
+```
+
+这种方式用得不多。
+**方式5：绑定事件函数**
+
+代码举例：
+
+```
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="btn">我是按钮，请点击我</div>
+
+        <script>
+            var btn = document.getElementById('btn');
+            //2.绑定事件
+            btn.onclick = function() {
+                console.log('点击按钮后，要做的事情');
+            };
+        </script>
+    </body>
+</html>
+```
+
+**方式6：定时器函数**
+
+代码举例：（每间隔一秒，将 数字 加1）
+
+```
+    let num = 1;
+   setInterval(function () {
+       num ++;
+       console.log(num);
+   }, 1000);
+```
+
+#### 函数的参数：形参和实参
+函数的参数包括形参和实参。形参是函数内的一些**待定值**。在调用函数时，需传入这些参数的具体值（即实参）。
+可以在函数的`()`中指定一个或多个参数，也可以不指定参数。多个参数之间用英文逗号隔开。
+```
+// a, b 是形参，表示待定值
+function add(a, b) {
+const sum = a + b;
+console.log(sum);
+}
+
+// 1, 2 是实参，表示传入的具体值。调用函数时，传入实参
+add(1, 2);
+```
+**形参：**
+
+- 概念：形式上的参数。定义函数时传递的待定值（此时并不知道是什么值）。
+- 声明形参相当于在函数内部声明了变量，但并不赋值。也可以说，**形参的默认值是 undefined**。
+
+**实参**：
+
+- 概念：实际上的参数。调用函数时传递的具体值。实参将传递给函数中对应的形参。
+
+**形参和实参的个数**
+
+实际参数和形式参数的个数，可以不同。调用函数时，解析器不会检查实参的数量。
+
+- 如果实参个数 > 形参个数，则末尾的实参是多余的，不会被赋值，因为没有形参能接收它。
+- 如果实参个数 < 形参个数，则末尾的形参是多余的，值是 undefined，因为它没有接收到实参。（undefined参与运算时，表达式的运算结果为NaN）
+```
+function sum(a, b) {
+		console.log(a + b);
+	}
+
+	sum(1, 2);
+	sum(1, 2, 3);
+	sum(1);
+```
+
+- 实参的数据类型
+
+函数的实参可以是任意的数据类型。调用函数时，解析器不会检查实参类型，所以要注意，是否有可能会接收到非法的参数，如果有可能则需要对参数进行类型检查。
+#### 函数的返回值
+**return 关键字**
+
+函数体内可以没有返回值，也可以根据需要加返回值。语法格式：`return 函数的返回值`。
+
+举例：
+
+```
+console.log(sum(3, 4)); // 将函数的返回值打印出来
+
+//函数：求和
+function sum(a, b) {
+	return a + b;
+}
+```
+
+return关键字的作用既可以是**终止函数**，也可以给函数添加返回值。
+
+解释：
+
+（1）return 后的返回值将会作为函数的执行结果返回，可以定义一个变量，来接收该返回值。
+
+（2）在函数中，return后的语句都不会执行。也就是说，函数在执行完 return 语句之后，会立即退出函数。
+
+（3）如果return语句后不跟任何值，就相当于返回一个undefined
+
+（4）如果函数中不写return，则也会返回undefined
+
+（5）返回值可以是任意的数据类型，可以是对象，也可以是函数。
+
+（6）return 只能返回一个值。如果用逗号隔开多个值，则以最后一个为准。
+
+**break、continue、return 的区别**
+
+- break ：结束当前的循环体（如 for、while）
+    
+- continue ：跳出本次循环，继续执行下次循环（如 for、while）
+    
+- return ：1、退出循环。2、返回 return 语句中的值，同时结束当前的函数体内的代码，退出当前函数。
+#### 函数名、函数体和函数加载问题
+**函数名 == 整个函数**。举例：
+
+```
+console.log(fn) == console.log(function fn(){alert(1)});
+
+//定义fn方法
+function fn(){
+	alert(1)
+};
+```
+
+我们知道，当我们在调用一个函数时，通常使用`函数()`这种格式；可如果，我们是直接使用`函数`这种格式，它的作用相当于整个函数。
+
+**函数的加载问题**：JS加载的时候，只加载函数名，不加载函数体。所以如果想使用内部的成员变量，需要调用函数。
+
+**fn() 和 fn 的区别【重要】**
+
+- `fn()`：调用函数。调用之后，还获取了函数的返回值。
+    
+- `fn`：函数对象。相当于直接获取了整个函数对象。
+    
+
+**方法**
+
+函数也可以成为对象的属性。**如果一个函数是作为一个对象的属性保存，那么，我们称这个函数是这个对象的方法**。
+
+调用这个函数就说调用对象的方法（method）。函数和方法，有什么本质的区别吗？它只是名称上的区别，并没有其他的区别。
+
+函数举例：
+
+```
+	// 调用函数
+	fn();
+```
+
+方法举例：
+
+```
+	// 调用方法
+	obj.fn();
+```
+#### 类数组对象 arguments
+在调用函数时，浏览器每次都会传递进两个隐含的参数：
+
+- 1.函数的上下文对象 this
+    
+- 2.**封装实参的对象** arguments
+```
+function foo() {
+    console.log(arguments);
+    console.log(typeof arguments);
+}
+
+foo('a', 'b');
+```
+函数内的 arguments 是一个**类数组对象**，里面存储的是它接收到的**实参列表**。所有函数都内置了一个 arguments 对象，有个讲究的地方是：只有函数才有arguments。
+
+具体来说，在调用函数时，我们所传递的实参都会在 arguments 中保存。**arguments 代表的是所有实参**。
+
+arguments 的展示形式是一个**伪数组**。意思是，它和数组有点像，但它并不是数组。它具有以下特点：
+
+- 可以进行遍历；具有数组的 length 属性，可以获取长度。
+    
+- 可以通过索引（从0开始计数）存储数据、获取和操作数据。比如，我们可以通过索引访问某个实参。
+    
+- 不能调用数组的方法。比如push()、pop() 等方法都没有。
+
+
+**arguments.length 返回函数实参的个数**
+
+arguments.length 可以用来获取**实参的个数**。
+
+举例：
+
+```
+fn(2, 4);
+fn(2, 4, 6);
+fn(2, 4, 6, 8);
+
+function fn(a, b) {
+    console.log(arguments);
+    console.log(fn.length); //获取形参的个数
+    console.log(arguments.length); //获取实参的个数
+
+    console.log('----------------');
+}
+```
+此外，即使我们不定义形参，也可以通过 arguments 来获取实参：arguments[0] 表示第一个实参、arguments[1] 表示第二个实参，以此类推。
+**arguments.callee 返回正在执行的函数**
+
+arguments 里边有一个属性叫做 callee，这个属性对应一个函数对象，就是当前正在指向的函数对象。
+
+```
+function fun() {
+    console.log(arguments.callee == fun); // 打印结果为true
+}
+
+fun('hello');
+```
+
+在使用函数**递归**调用时，推荐使用 arguments.callee 代替函数名本身。
+
+**arguments 可以修改元素**
+arguments 还可以**修改元素，但不能改变数组的长度**。举例：
+
+```
+fn(2, 4);
+fn(2, 4, 6);
+fn(2, 4, 6, 8);
+
+function fn(a, b) {
+    arguments[0] = 99; // 将实参的第一个数改为99
+    arguments.push(8); // 此方法不通过，因为无法增加元素
+}
+```
+### 递归函数
+#### 概念
+
+如果一个函数在内部调用这个函数自身，这个函数就是递归函数。
+
+递归在数据结构和算法中经常用到，可以将很多复杂的数据模型拆解为简单问题进行求解。一定要掌握。
+
+#### 递归的要素
+
+- 递归模式：把大问题拆解为小问题进行分析。也称为递归体。
+- 边界条件：需要确定递归到何时结束。也称为递归出口。
+
+#### 代码演示：计算阶乘
+
+提问：求一个正整数的阶乘。
+
+**普通写法：**
+
+```
+// 函数：计算一个正整数的阶乘
+function factorial(n) {
+  let result = 1;
+  for (let i = 1; i <= n; i++) {
+    result *= i;
+  }
+  return result;
+}
+
+console.log(factorial(5)); // 120
+```
+
+现在，我们学习了递归函数之后，会有更简洁的写法。
+
+**递归写法：**
+
+```
+// 递归函数：计算一个正整数的阶乘
+function factorial(n) {
+  // 递归出口：如果计算1的阶乘，就不用递归了
+  if (n == 1) return 1;
+
+  // 开始递归：如果当前这个 n 不是1，就返回 n * (n-1)!
+  return n * factorial(n - 1);
+}
+console.log(factorial(5)); // 120
+```
+
+#### 递归函数的案例
+
+寻找所有的喇叭花数
+
+题目：喇叭花数是一个**三位数**，其每一位数字的阶乘之和恰好等于它本身，即`abc＝a! + b! + c!`，其中abc表示一个三位数。请找出所有的喇叭花数。
+
+思路：将计算某个数字的阶乘封装成函数。
+
+代码实现：
+
+```
+// 递归函数：计算一个数的阶乘
+function factorial(n) {
+  // 递归出口：如果计算1的阶乘，就不用递归了
+  if (n == 1) return 1;
+
+  // 开始递归：如果当前这个 n 不是1，就返回 n * (n-1)!
+  return n * factorial(n - 1);
+}
+
+// 穷举法，从100到999遍历，寻找喇叭花数
+for (let i = 100; i <= 999; i++) {
+  // 将数字i转为字符串
+  const i_str = i.toString();
+  // abc分别表示百位、十位、个位
+  const a = Number(i_str[0]);
+  const b = Number(i_str[1]);
+  const c = Number(i_str[2]);
+
+  // 根据喇叭花数的条件进行判断
+  if (factorial(a) + factorial(b) + factorial(c) == i) {
+    console.log(i);
+  }
+}
+```
+
+打印结果：
+
+```
+145
+```
+
+斐波那契数列
+
+斐波那契数列是这样一个数列：1、1、2、3、5、8、13、21、34......最早是由意大利数学家斐波那契开始研究的。它的规律是：下标为0和1的项，值为1；从下标为2的项开始，每一项等于前面两项之和。
+
+提问：请找出斐波那契数列的前10项。
+
+代码实现：
+
+```
+// 递归函数：返回斐波那契数列中下标为n的那一项的值
+function fib(n) {
+  // 下标为0和1的项，值为1
+  if (n == 0 || n == 1) return 1;
+  // 从下标为2的项开始，每一项等于前面两项之和
+  return fib(n - 1) + fib(n - 2);
+}
+
+// 循环语句：打印斐波那契数列的前10项
+for (let i = 0; i < 15; i++) {
+  console.log(fib(i));
+}
+```
+
+### 作用域、变量提升、函数提升
+
+#### 作用域（Scope）的概念和分类
+
+- **概念**：作用域是一个变量或函数的作用范围。作用域在**函数定义**时，就已经确定了。
+    
+- **目的**：为了提高程序的可靠性，同时减少命名冲突。
+    
+
+在 JS 中，一共有两种作用域：（ES5 中）
+
+- **全局作用域**：作用于整个 script 标签内部，或者作用于一个独立的 JS 文件。
+- **函数作用域**（局部作用域）：作用于函数内的代码环境。
+
+#### 全局作用域 和 window 对象
+
+直接编写在 script 标签中的 JS 代码，都在全局作用域。全局作用域在页面打开时创建，在页面关闭时销毁。
+
+在全局作用域中有一个全局对象 window，它代表的是浏览器的窗口，由浏览器创建，我们可以直接使用。相关知识点如下：
+
+- 创建的**变量**都会作为 window 对象的属性保存。比如在全局作用域内写 `const a = 100`，这里的 `a` 等价于 `window.a`。
+- 创建的**函数**都会作为 window 对象的方法保存。
+#### 作用域的访问关系
+
+在内部作用域中可以访问外部作用域的变量，在外部作用域中无法访问到内部作用域的变量。
+
+代码举例：
+
+```
+const a = 'aaa';
+function foo() {
+    const b = 'bbb';
+    console.log(a); // 打印结果：aaa。说明 内层作用域 可以访问 外层作用域 里的变量
+}
+
+foo();
+console.log(b); // 报错：Uncaught ReferenceError: b is not defined。说明 外层作用域 无法访问 内层作用域 里的变量
+```
+
+#### 变量的作用域
+
+根据作用域的不同，变量可以分为两类：全局变量、局部变量。
+
+**全局变量**：
+
+- 在全局作用域下声明的变量，叫「全局变量」。在全局作用域的任何一地方，都可以访问这个变量。
+- 在全局作用域下声明的变量是全局变量。
+
+**局部变量**：
+
+- 定义在函数作用域的变量，叫「局部变量」。仅限函数内部访问这个变量。
+- 函数的**形参**也是属于局部变量。
+
+从执行效率来看全局变量和局部变量：
+
+- 全局变量：只有浏览器关闭时才会被销毁，比较占内存。
+    
+- 局部变量：当其所在的代码块运行结束后，就会被销毁，比较节约内存。
+    
+
+**特殊情况：**
+
+（1）无论是在函数外还是函数内，变量如果未经声明就赋值（意思是，如果不加var/let/const），这个变量是**全局变量**。
+
+比如：
+
+```
+// 声明变量时如果不加var/let/const，这个变量是全局变量。且可以被修改。
+function fn() {
+  a = 1;
+}
+fn(); // 这行代码必须要写，否则下一行代码执行时会报错：Uncaught ReferenceError: a is not defined
+console.log(a); // 打印结果：1
+```
+
+当然，我们不建议这么用。
+
+（2）如果局部变量和全局变量重名，则在函数内部，变量是以局部变量为准。
+#### 作用域的上下级关系
+
+当在函数作用域操作一个变量时，它会先在自身作用域中寻找，如果有就直接使用（**就近原则**）。如果没有则向上一级作用域中寻找，直到找到全局作用域；如果全局作用域中依然没有找到，则会报错 ReferenceError。
+
+在函数中要访问全局变量可以使用 window 对象。（比如说，全局作用域和函数作用域都定义了变量 a，如果想访问全局变量，可以使用`window.a`）
+#### 全局作用域的预处理
+
+**预处理（预解析）**的概念：JS在解析代码之前，有一个“预处理（预解析）”阶段，将当前 JS 代码中所有变量的定义和函数的定义，放到所有代码的最前面。
+
+（打个比方，学生在学习文言文之前，会扫读整篇文章，做简单的预习。）
+
+这种预解析，也称之为声明提前。
+
+变量的声明提前（变量提升）
+
+使用 var 关键字声明的变量（ 比如 `var a = 1`），**会在所有的代码执行之前被声明**（但是不会赋值）。但是如果声明变量时不是用 var 关键字（比如直接写`a = 1`），则变量不会被声明提前。
+
+**举例 1**：
+
+```
+console.log(a);
+var a = 123;
+```
+
+打印结果：undefined。注意，打印结果并没有报错，而是 undefined，说明变量 a 被提前声明了，只是尚未被赋值。
+
+**举例 2**：
+
+```
+console.log(a);
+a = 123; //此时a相当于window.a
+```
+
+程序会报错：`Uncaught ReferenceError: a is not defined`。
+
+**举例 3**：
+
+```
+a = 123; //此时a相当于window.a
+console.log(a);
+```
+
+打印结果：123。
+
+**举例 4**：
+
+```
+foo();
+
+function foo() {
+    if (false) {
+        var i = 123;
+    }
+    console.log(i);
+}
+```
+
+打印结果：undefined。注意，打印结果并没有报错，而是 undefined。这个例子，再次说明了：变量 i 在函数执行前，就被提前声明了，只是尚未被赋值。
+
+例 4 中， `if(false)`里面的代码虽然不会被执行，但是整个代码有**解析**的环节，解析的时候就已经把 变量 i 给提前声明了。
+
+**函数的声明提前（函数提升**
+
+**函数声明**：
+
+使用`函数声明`的形式创建的函数`function foo(){}`，**会被声明提前**。
+
+也就是说，整个函数会在所有的代码执行之前就被**创建完成**。所以，在代码顺序上，我们可以先调用函数，再定义函数。
+
+代码举例：
+
+```
+fn1(); // 虽然 函数 fn1 的定义是在后面，但是因为被提前声明了， 所以此处可以调用函数
+
+function fn1() {
+    console.log('我是函数 fn1');
+}
+```
+
+**函数表达式**：
+
+使用`函数表达式`创建的函数`const foo = function(){}`，**不会被声明提前**，所以不能在声明前调用。
+
+很好理解，因为此时只是变量 foo 被提升了，且值为 undefined，并没有把 `function(){}` 赋值给 foo。
+
+所以，下面的例子会报错：
+
+```
+// 不会报错，可以正常执行函数，正常打印结果
+fun1();
+
+// 此时 fun2 相当于 undefined。执行时会报错：Uncaught ReferenceError: Cannot access 'fun2' before initialization
+fun2();
+
+// 函数声明，会被提前声明
+function fun1() {
+  console.log('我是 fun1 函数');
+}
+
+// 函数表达式，不会被提前声明
+const fun2 = function () {
+  console.log('我是 fun12 函数');
+};
+```
+
+**函数提升优先于变量提升**
+
+在JS的规则中，函数提升优先于变量提升。来看看下面这段代码，你认为打印结果应该如何：（这是一道经典面试题）
+
+```
+fun(); // 打印 B
+
+// 变量提升
+var fun = function () {
+  console.log('A');
+};
+
+// 函数提升
+function fun() {
+  console.log('B');
+}
+
+fun(); // 打印 A
+```
+
+打印结果：
+
+```
+B
+A
+```
+
+当声明被提前后，上方代码的实际顺序可以这样理解：（把它当成伪代码理解即可）
+
+```
+/*伪代码*/
+
+// 函数提升
+function fun() {
+  console.log('B');
+}
+
+var fun = undefined;
+
+fun(); // 打印 B
+
+fun = function () {
+  console.log('A');
+};
+
+fun(); // 打印A
+```
+
+当然，上方代码是ES5写法，如果把 var 改成ES6中的 let/const，代码会报错`Uncaught SyntaxError: Identifier 'fun' has already been declared`。也就是说，ES6中不需要关心谁优先提升的问题了。
+#### 函数作用域的预处理
+- 函数中，使用 var 关键字声明的变量，会在函数中所有代码执行之前被提前声明。
+    
+- 函数中，没有 var 声明的变量都是**全局变量**，且并不会被提前声明。
+    
+
+举例：
+
+```
+var a = 1;
+
+function foo() {
+    console.log(a);
+    a = 2; // 此处的a相当于window.a
+}
+
+foo();
+console.log(a); //打印结果是2
+```
+
+上方代码中，执行 foo() 后，函数里面的打印结果是`1`。如果去掉第一行代码，执行 foo() 后，函数里面的打印结果是`Uncaught ReferenceError: a is not defined`。
+
+**补充**：定义形参就相当于在函数作用域中声明了变量。举例如下：
+
+```
+function fun(e) {
+    // 这个函数中，因为有了形参 e，此时相当于在函数内部的第一行代码里，写了 var e;
+    console.log(e);
+}
+
+fun(); //打印结果为 undefined
+fun(123); //打印结果为123
+```
+#### 作用域链
+
+先来认识函数的嵌套：
+
+- 只要是代码，就至少有一个作用域
+    
+- 函数内部有局部作用域
+    
+- 如果函数内部还嵌套了函数，那么在这个作用域中就又诞生了另一个作用域。
+    
+
+基于上面几条内容，我们可以得出作用域链的概念。
+
+**作用域链**：在嵌套函数中，变量会从内到外逐层寻找它的定义（查找时，采用**就近原则**）。也就是说，采用的是链式查找的方式来决定取哪个值，这种结构称之为作用域链。
+
+代码举例：
+
+```
+var num = 10;
+
+function fn() {
+    // 外部函数
+    var num = 20;
+
+    function fun() {
+        // 内部函数
+        console.log(num);
+    }
+    fun();
+}
+fn();
+```
+
+### 预编译
+**规律1：任何变量，如果未经声明就赋值，此变量是属于 window 的属性**，而且不会做变量提升。（注意，无论在哪个作用域内赋值）
+
+比如说，如果我们直接在代码里写 `console.log(a)`，这肯定会报错的，提示找不到 `a`。但如果我直接写 `a = 100`，这就不会报错，此时，这个 `a` 就是 `window.a`。
+
+**规律2：一切声明的全局变量，全是window的属性**。（注意，这里说的是在全局作用域内声明的全局变量，不是说局部变量）
+
+比如，当定义 `var a = 200` 时，这个 `a` 就是 `window.a`。
+
+由此，我们可以看出：**window 代表了全局作用域**（是说「代表」，没说「等于」）。
+
+
+掌握了上面两句话之后，我们再来看看下面的例子。
+
+```
+function foo() {
+    var a = b = 100; // 连续赋值
+}
+
+foo();
+
+console.log(window.b); // 在全局范围内访问 b
+console.log(b); // 在全局范围内访问 b，但是前面没有加 window 这个关键字
+
+console.log(window.a); // 在全局范围内访问 a
+console.log(a); // 在全局范围内访问 a，但是前面没有加 window 这个关键字
+
+```
+
+上方代码的打印结果：
+
+```
+100
+
+100
+
+undefined
+
+（会报错，提示 Uncaught ReferenceError: a is not defined）
+
+```
+
+**解释**：
+
+当执行了`foo()`函数之后， `var a = b = 100` 这行**连续赋值**的代码等价于 `var a = (b = 100)`，其执行顺序是：
+
+（1）先把 100 赋值给 b；
+
+（2）再声明变量 a；
+
+（3）再把 b 的值赋值给 a。
+
+我们可以看到，b 是未经声明的变量就被赋值了，此时，根据规律1，这个 b 是属于 `window.b`；而 a 的作用域仅限于 foo() 函数内部，不属于 window。所以也就有了这样的打印结果。
+
+
+
+#### 函数预编译的步骤
+
+> 函数预编译，发生在函数执行的前一刻。
+
+（1）创建AO对象。AO即 Activation Object 活跃对象，其实就是「执行期上下文」。
+
+（2）找形参和变量声明，将形参名和变量作为 AO 的属性名，值为undefined。
+
+（3）将实参值和形参统一，实参的值赋给形参。
+
+（4）查找函数声明，函数名作为 AO 对象的属性名，值为整个函数体。
+
+这个地方比较难理解。但只有了解了函数的预编译，才能理解明白函数的执行顺序。
+
+代码举例：
+
+```
+function fn(a) {
+    console.log(a);
+
+    var a = 666;
+
+    console.log(a);
+
+    function a() {}
+
+    console.log(a);
+
+    var b = function() {};
+
+    console.log(b);
+
+    function c() {}
+}
+
+fn(1);
+```
+
+打印结果：
+
+```
+ƒ a() {}
+666
+666
+ƒ () {}
+```
+### this指向
+#### 执行期上下文
+
+当**函数执行**时（准确来说，是在函数发生预编译的前一刻），会创建一个执行期上下文的内部对象。一个执行期上下文定义了一个函数执行时的环境。
+
+每调用一次函数，就会创建一个新的上下文对象，他们之间是相互独立且独一无二的。当函数执行完毕，它所产生的执行期上下文会被销毁。
+#### this 指向
+
+解析器在调用函数每次都会向函数内部传递进一个隐含的参数，这个隐含的参数就是 this，this 指向的是一个对象，这个对象我们称为函数执行的 上下文对象。
+
+ **ES5 函数内 this 的指向**
+ 在ES5语法中，根据函数的调用方式的不同，this 会指向不同的对象：
+
+1、以函数的形式（包括普通函数、定时器函数、立即执行函数）调用时，this 的指向永远都是 window。比如`fun();`相当于`window.fun();`
+
+2、以方法的形式调用时，this 指向调用方法的那个对象
+
+3、以构造函数的形式调用时，this 指向实例对象
+
+4、以事件绑定函数的形式调用时，this 指向**绑定事件的对象**
+
+5、使用 call 和 apply 调用时，this 指向指定的那个对象
+**第 1 条的举例**：
+```
+function fun() {
+    console.log(this);
+    console.log(this.name);
+}
+
+var obj1 = {
+    name: 'smyh',
+    sayName: fun,
+};
+
+var obj2 = {
+    name: 'vae',
+    sayName: fun,
+};
+
+var name = '全局的name属性';
+
+//以函数形式调用，this是window
+fun(); //可以理解成 window.fun()
+```
+
+打印结果：
+
+```
+    Window
+    全局的name属性
+```
+this 指向的是 window 对象，所以 this.name 指的是全局的 name。
+**第 2 条的举例**：
+
+```
+function fun() {
+    console.log(this);
+    console.log(this.name);
+}
+
+var obj1 = {
+    name: 'smyh',
+    sayName: fun,
+};
+
+var obj2 = {
+    name: 'vae',
+    sayName: fun,
+};
+
+var name = '全局的name属性';
+
+//以方法的形式调用，this是调用方法的对象
+obj2.sayName();
+```
+
+打印结果：
+
+```
+    Object
+    vae
+```
+
+上面的举例可以看出，this 指向的是 对象 obj2 ，所以 this.name 指的是 obj2.name。
+
+**ES6 箭头函数中 this 的指向**
+
+ES6 中的箭头函数并不使用上面的准则，而是会继承外层函数调用的 this 绑定（无论 this 绑定到什么）。
+
+**改变函数内部的 this 指向**
+
+JS 专门为我们提供了一些方法来改变函数内部的 this 指向。常见的方法有 call()、apply()、bind() 方法。
+
+#### call()
+
+call() 方法的作用
+
+call() 方法的作用：可以**调用**一个函数，与此同时，它还可以改变这个函数内部的 this 指向。
+
+call() 方法的另一个应用：**可以实现继承**。之所以能实现继承，其实是利用了上面的作用。
+
+语法：
+
+```
+fn1.call(想要将this指向哪里, 函数实参1, 函数实参2);
+```
+
+备注：第一个参数中，如果不需要改变 this 指向，则传 null。
+
+
+call() 方法举例
+
+**举例 1**、通过 call() 调用函数：
+
+```
+const obj1 = {
+    nickName: 'qianguyihao',
+    age: 28,
+};
+function fn1() {
+    console.log(this);
+    console.log(this.nickName);
+}
+fn1.call(this); // this的指向并没有被改变，此时相当于 fn1();
+```
+
+上方代码的打印结果：
+
+```
+window
+undefined
+```
+
+上面的代码，跟普通的函数调用 `fn1()` 没有区别。
+
+**举例 2**、通过 call() 改变 this 指向：
+
+```
+var obj1 = {
+    nickName: 'qianguyihao',
+    age: 28,
+};
+
+function fn1(a, b) {
+    console.log(this);
+    console.log(this.nickName);
+    console.log(a + b);
+}
+
+fn1.call(obj1, 2, 4); // 先将 this 指向 obj1，然后执行 fn1() 函数
+```
+
+上方代码的打印结果：
+
+```
+obj1
+qianguyihao
+6
+```
+
+**举例 3**、通过 call() 实现继承：
+
+```
+// 给 Father 增加 name 和 age 属性
+function Father(myName, myAge) {
+    this.name = myName;
+    this.age = myAge;
+}
+
+function Son(myName, myAge) {
+    // 【下面这一行，重要代码】
+    // 通过这一步，将 father 里面的 this 修改为 Son 里面的 this；另外，给 Son 加上相应的参数，让 Son 自动拥有 Father 里的属性。最终实现继承
+    Father.call(this, myName, myAge);
+}
+
+const son1 = new Son('千古壹号', 28);
+console.log(JSON.stringify(son1));
+```
+
+上方代码中，通过 call() 方法，让 Son 继承了 Father 里面的 name 和 age 属性。
+
+打印结果：
+
+```
+{"myName":"千古壹号","myAge":28}
+```
+
+#### apply() 方法
+
+apply() 方法的作用
+
+apply() 方法的作用：可以**调用**一个函数，与此同时，它还可以改变这个函数内部的 this 指向。这一点，和 call()类似。
+
+apply() 方法的应用： 由于 apply()需要传递**数组**，所以它有一些巧妙应用，稍后看接下来的应用举例就知道了。
+
+语法：
+
+```
+fn1.apply(想要将this指向哪里, [函数实参1, 函数实参2]);
+```
+
+备注：第一个参数中，如果不需要改变 this 指向，则传 null。
+
+到这里可以看出， call() 和 apply() 方法的作用是相同的。唯一的区别在于，apply() 里面传入的**实参，必须是数组（或者伪数组）**。
+
+apply() 方法举例
+
+**举例**、通过 apply() 改变 this 指向：
+
+```
+var obj1 = {
+    nickName: 'qianguyihao',
+    age: 28,
+};
+
+function fn1(a) {
+    console.log(this);
+    console.log(this.nickName);
+    console.log(a);
+}
+
+fn1.apply(obj1, ['hello']); // 先将 this 指向 obj1，然后执行 fn1() 函数
+```
+
+注意，上方代码中，apply() 里面传实参时，需要以数组的形式。即便是传一个实参，也需要传数组。
+
+打印结果：
+
+```
+obj1
+qianguyihao
+hello
+```
+
+apply() 方法的巧妙应用：求数组的最大值
+
+我们知道，如果想要求数组中元素的最大值，数组本身是没有自带方法的。那怎么办呢？
+
+虽然数组里没有获取最大值的方法，但是数值里有 `Math.max(数字1，数字2，数字3)` 方法，可以获取**多个数值中的最大值**。 另外，由于 apply() 方法在传递实参时，传的刚好是**数组**，所以我们可以 通过 Math.max() 和 apply() 曲线救国。
+
+**举例**：求数组中多个元素的最大值：
+
+```
+const arr1 = [3, 7, 10, 8];
+
+// 下面这一行代码的目的，无需改变 this 指向，所以：第一个参数填 null，或者填 Math，或者填 this 都可以。严格模式中，不让填null。
+const maxValue = Math.max.apply(Math, arr1); // 求数组 arr1 中元素的最大值
+console.log(maxValue);
+
+const minValue = Math.min.apply(Math, arr1); // 求数组 arr1 中元素的最小值
+console.log(minValue);
+```
+
+打印结果：
+
+```
+10
+3
+```
+
+#### bind() 方法
+
+bind() 方法的作用
+
+bind() 方法**不会调用函数**，但是可以改变函数内部的 this 指向。
+
+把call()、apply()、bind()这三个方法做一下对比，你会发现：实际开发中， bind() 方法使用得最为频繁。如果有些函数，我们不需要立即调用，但是又想改变这个函数内部的this指向，此时用 bind() 是最为合适的。
+
+语法：
+
+```
+新函数 = fn1.bind(想要将this指向哪里, 函数实参1, 函数实参2);
+```
+
+参数：
+
+- 第一个参数：在 fn1 函数运行时，指定 fn1 函数的this 指向。如果不需要改变 this 指向，则传 null。
+    
+- 其他参数：fn1 函数的实参。
+    
+
+解释：它不会调用 fn1 函数，但会返回 由指定this 和指定实参的**原函数拷贝**。可以看出， bind() 方法是有返回值的。
+
+### 闭包
+#### 闭包的引入
+
+我们知道，变量根据作用域的不同分为两种：全局变量和局部变量。
+
+- 函数内部可以访问全局变量和局部变量。
+    
+- 函数外部只能访问全局变量，不能访问局部变量。
+    
+- 当函数执行完毕，本作用域内的局部变量会销毁。
+    
+
+比如下面这样的代码：
+
+```
+function foo() {
+    let a = 1;
+}
+
+foo();
+console.log(a); // 打印报错：Uncaught ReferenceError: a is not defined
+```
+
+上方代码中，由于变量 `a` 是函数内的局部变量，所以外部无法访问。
+
+但是，在有些场景下，我们就是想要在函数外部访问**函数内部作用域的局部变量**，那要怎么办呢？这就引入了闭包的概念。
+#### 什么是闭包
+
+**闭包（closure）的概念**
+
+**闭包**：如果**外部作用域**有权访问另外一个**函数内部**的**局部变量**时，那就产生了闭包。这个内部函数称之为闭包函数。注意，这里强调的是访问**局部变量**。
+
+闭包代码举例：
+
+```
+function fun1() {
+  const a = 10;
+  return function fun2() {
+    console.log(a);
+  };
+}
+fun1();
+// 调用外部函数，就能得到内部函数，并用 变量 result 接收
+const result = fun1();
+// 在 fun1函数的外部，执行了内部函数 fun2，并访问到了 fun2的内部变量a
+result(); // 10
+```
+
+打印结果：
+
+```
+10
+```
+
+上方代码中，外部作用域（即全局作用域） 访问了函数 fun1 中的局部变量，那么，在 fun1 中就产生了闭包，函数 fun1是闭包函数。
+
+全局作用域中，并没有定义变量a。正常情况下作为函数内的局部变量 a，无法被外部访问到。但是通过闭包，我们最后还是可以在全局作用域中拿到局部变量 a 的值。
+
+注意，闭包函数是fun1，不是fun2。fun2在这里的作用是让全局作用域访问到变量a，fun2只是一个桥梁。
+
+**闭包的生命周期**
+
+1. 产生：内部函数fn1被声明时（即被创建时，不是被调用时）就产生了。
+    
+2. 死亡：嵌套的内部函数成为垃圾对象时。（比如fun1 = null，就可以让 fun1 成为垃圾对象）
+#### 闭包的表现形式
+
+形式1：将一个函数作为另一个函数的返回值
+
+```
+    function fn1() {
+      var a = 2
+
+      function fn2() {
+        a++
+        console.log(a)
+      }
+      return fn2
+    }
+
+    var f = fn1();   //执行外部函数fn1，返回的是内部函数fn2
+    f() // 3       //执行fn2
+    f() // 4       //再次执行fn2
+```
+
+当f()第二次执行的时候，a加1了，也就说明了：闭包里的数据没有消失，而是保存在了内存中。如果没有闭包，代码执行完倒数第三行后，变量a就消失了。
+
+上面的代码中，虽然调用了内部函数两次，但是，闭包对象只创建了一个。
+
+也就是说，要看闭包对象创建了几个，就看：**外部函数执行了几次**（与内部函数执行几次无关）。
+
+形式2：将函数作为实参传递给另一个函数调用
+
+在定时器、事件监听、Ajax 请求、Web Workers 或者任何异步中，只要使用了回调函数，实际上就是在使用闭包。
+
+```
+    function showDelay(msg, time) {
+      setTimeout(function() {  //这个function是闭包，因为是嵌套的子函数，而且引用了外部函数的变量msg
+        alert(msg)
+      }, time)
+    }
+    showDelay('qianguyihao', 2000)
+```
+
+上面的代码中，闭包是里面的function，因为它是嵌套的子函数，而且引用了外部函数的变量msg。
+#### 闭包的作用
+
+- 作用1：延长局部变量的生命周期。
+    
+- 作用2：让函数外部可以操作（读写）函数内部的数据（变量/函数）。
+    
+
+代码演示：
+
+```
+function fun1() {
+  let a = 2
+
+  function fun2() {
+    a++
+    console.log(a)
+  }
+  return fun2;
+}
+
+const foo = fun1();   //执行外部函数fn1，返回的是内部函数fn2
+foo() // 3       //执行fun2
+foo() // 4       //再次执行fun2
+```
+
+上方代码中，foo 代表的就是整个 fun2 函数。当执行了 `foo()` 语句之后，也就执行了fun2()函数，fun1() 函数内就产生了闭包。
+
+**作用1分析**：
+
+一般来说，在 fn1() 函数执行完毕后，它里面的变量 a 会立即销毁。但此时由于产生了闭包，所以 **fun1 函数中的变量 a 不会立即销毁，仍然保留在内存中，因为 fn2 函数还要继续调用变量 a**。只有等所有函数把变量 a 调用完了，变量 a 才会销毁。
+
+**作用2分析：**
+
+在执行 `foo()`语句之后，竟然能够打印出 `3`，这就完美通过闭包实现了：全局作用域成功访问到了局部作用域中的变量 a。
+
+达到的效果是：**外界看不到变量a，但可以操作a**。当然，如果你真想看到a，可以在fun2中将a返回即可。
+
+#### 闭包的应用场景
+
+**场景1：高阶函数**
+
+题目：不同的班级有不同成绩检测标准。比如：A班的合格线是60分，B 班的合格线是70分。已知某个人班级和分数，请用闭包函数判断他的成绩是否合格。
+
+思路：创建成绩检测函数 checkStandard(n)，检查成绩 n 是否合格，函数返回布尔值。
+
+代码实现：
+
+```
+// 高阶函数：判断学生的分数是否合格。形参 standardTemp 为标准线
+function createCheckTemp(standardTemp) {
+  // 形参 n 表示具体学生的分数
+  function checkTemp(n) {
+    if (n >= standardTemp) {
+      alert('成绩合格');
+    } else {
+      alert('成绩不合格');
+    }
+  }
+  return checkTemp;
+}
+
+// 创建一个 checkStandard_A 函数，它以60分为合格线
+var checkStandard_A = createCheckTemp(60);
+// 再创建一个 checkStandard_B 函数，它以70分为合格线
+var checkStandard_B = createCheckTemp(70);
+
+// 调用函数
+checkStandard_A(65); // 成绩合格
+checkStandard_B(65); // 成绩不合格
+```
+
+对于A班来说，它的闭包函数是createCheckTemp()，闭包范围是 checkTemp()函数和参数`standardTemp = 60`。对于B班来说，它的闭包函数是全新的createCheckTemp()，闭包范围是全新的checkTemp()函数和全新的参数`standardTemp = 70`。
+
+因为有闭包存在，所以，并不会因为 createCheckTemp() 执行完毕后就销毁 standardTemp 的值；且A班和B班的standardTemp参数不会混淆。
+
+备注：关于“高阶函数”的更多解释，我们在以后的内容中讲解。
+
+**场景2：封装JS模块**
+
+闭包的第二个使用场景是：定义具有特定功能的JS模块，将所有的数据和功能都封装在一个函数内部，只向外暴露指定的对象或方法。模块的调用者，只能调用模块暴露的对象或方法来实现对应的功能。
+
+比如有这样一个需求：定义一个私有变量a，要求a只能被进行指定操作（加减），不能进行其他操作（乘除）。在 Java、C++ 等语言中，有私有属性的概念，但在JS中只能通过闭包模拟。
+
+我们来看看下面的代码，如何通过闭包封装JS模块。
+
+写法1：
+
+（1）myModule.js：（定义一个模块，向外暴露多个方法，供外界调用）
+
+```
+function myModule() {
+    //私有数据
+    var msg = 'Qinguyihao Haha'
+
+    //操作私有数据的函数
+    function doSomething() {
+        console.log('doSomething() ' + msg.toUpperCase()); //字符串大写
+    }
+
+    function doOtherthing() {
+        console.log('doOtherthing() ' + msg.toLowerCase()) //字符串小写
+    }
+
+    //通过【对象字面量】的形式进行包裹，向外暴露多个函数
+    return {
+        doSomething1: doSomething,
+        doOtherthing2: doOtherthing
+    }
+}
+```
+
+上方代码中，外界只能通过doSomething1和doOtherthing2来操作里面的数据，但不让外界看到里面的具体实现。
+
+（2）index.html:
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闭包的应用-自定义JS模块</title>
+</head>
+<body>
+<!--
+闭包应用举例: 定义JS模块
+  * 具有特定功能的js文件
+  * 将所有的数据和功能都封装在一个函数内部(私有的)
+  * 【重要】只向外暴露一个包含n个方法的对象或方法
+  * 模块的使用者, 只需要调用模块暴露的对象或者方法来实现对应的功能
+-->
+<script type="text/javascript" src="myModule.js"></script>
+<script type="text/javascript">
+    var module = myModule();
+    module.doSomething1();
+    module.doOtherthing2();
+</script>
+</body>
+</html>
+```
+
+写法2：
+
+同样是实现上面的功能，我们还采取另外一种写法，写起来更方便。如下：
+
+（1）myModule2.js：（是一个立即执行的匿名函数）
+
+```
+(function () {
+    //私有数据
+    var msg = 'Qinguyihao Haha'
+
+    //操作私有数据的函数
+    function doSomething() {
+        console.log('doSomething() ' + msg.toUpperCase())
+    }
+
+    function doOtherthing() {
+        console.log('doOtherthing() ' + msg.toLowerCase())
+    }
+
+    //外部函数是即使运行的匿名函数，我们可以把两个方法直接传给window对象
+    window.myModule = {
+        doSomething1: doSomething,
+        doOtherthing2: doOtherthing
+    }
+})()
+```
+
+（2）index.html：
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闭包的应用-自定义JS模块</title>
+</head>
+<body>
+<!--
+闭包的应用2 : 定义JS模块
+  * 具有特定功能的js文件
+  * 将所有的数据和功能都封装在一个函数内部(私有的)
+  * 只向外暴露一个包信n个方法的对象或函数
+  * 模块的使用者, 只需要通过模块暴露的对象调用方法来实现对应的功能
+-->
+
+<!--引入myModule文件-->
+<script type="text/javascript" src="myModule2.js"></script>
+<script type="text/javascript">
+    myModule.doSomething1()
+    myModule.doOtherthing2()
+</script>
+</body>
+</html>
+
+```
+
+上方两个文件中，我们在`myModule2.js`里直接把两个方法直接传递给window对象了。于是，在index.html中引入这个js文件后，会立即执行里面的匿名函数。在index.html中把myModule直接拿来用即可。
+#### 内存溢出和内存泄露
+
+**内存泄漏**
+
+**内存泄漏**：**占用的内存**没有及时释放。
+
+内存泄露的次数积累多了，就容易导致内存溢出。
+
+**常见的内存泄露**：
+
+1、意外的全局变量
+
+2、没有及时清理的计时器或回调函数
+
+3、闭包
+
+情况1举例：
+
+```
+// 意外的全局变量
+function fn() {
+  a = new Array(10000000);
+  console.log(a);
+}
+
+fn();
+```
+
+情况2举例：
+
+```
+// 没有及时清理的计时器或回调函数
+var intervalId = setInterval(function () { //启动循环定时器后不清理
+  console.log('----')
+}, 1000)
+
+// clearInterval(intervalId);  //清理定时器
+```
+
+情况3举例：
+
+```
+function fn1() {
+  var a = 4;
+  function fn2() {
+    console.log(++a)
+  }
+  return fn2
+}
+var f = fn1()
+f()
+
+// f = null //让内部函数成为垃圾对象-->回收闭包
+```
+
+**内存溢出**
+
+**内存溢出**：程序运行时出现的错误。当程序运行**需要的内存**超过**剩余的内存**时，就抛出内存溢出的错误。
+
+代码举例：
+
+```
+    var obj = {};
+    for (var i = 0; i < 10000; i++) {
+    obj[i] = new Array(10000000);  //把所有的数组内容都放到obj里保存，导致obj占用了很大的内存空间
+    console.log("-----");
+    }
+```
+
+**闭包是否会造成内存泄漏**
+
+一般来说，答案是否定的。因为内存泄漏是非预期情况，本来想回收，但实际没回收；而闭包是预期情况，一般不会造成内存泄漏。
+
+但如果因代码质量不高，滥用闭包，也会造成内存泄漏。
+
+```
+function addCount() {
+  let count = 0;
+  return function () {
+    count = count + 1;
+    console.log(count);
+  };
+}
+
+const fun1 = addCount();
+const fun2 = addCount();
+fun1();
+fun2();
+
+fun1();
+fun2();
+```
+
+打印结果：
+
+```
+1
+1
+2
+2
+```
+
+代码解释：
+
+（1）fun1 和 fun2 这两个闭包函数是互不影响的，因此第一次调用时，count变量都是0，最终各自都输出1。
+
+（2）第二次调用时，由于闭包有记忆性，所以各自会在上一次的结果上再加1，因此输出2。
+## 面向对象
+### 面向对象简介
+
+**面向过程**
+
+**面向过程**：先分析好的具体步骤，然后按照步骤，一步步解决问题。
+
+优点：性能比面向对象高，适合跟硬件联系很紧密的东西，例如单片机就采用的面向过程编程。
+
+缺点：没有面向对象易维护、易复用、易扩展。
+
+**面向对象**
+
+**面向对象**（OOP，Object Oriented Programming）：以对象功能来划分问题，而不是步骤。
+
+优点：易维护、易复用、易扩展，由于面向对象有封装、继承、多态性的特性，可以设计出低耦合的系统，使系统 更加灵活、更加易于维护。
+
+缺点：性能比面向过程低。
+
+**面向对象的编程思想**
+
+面向对象的编程思想：对代码和数据进行封装，并以对象调用的方式，对外提供统一的调用接口。
+
+比如说，当我们在开车的时候，无需关心汽车的内部构造有多复杂，对于大多数人而言，只需要会开、知道汽车有哪些功能就行了。
+
+**面向对象的特性**
+
+在面向对象程序开发思想中，每一个对象都是功能中心，具有明确分工。面向对象编程具有灵活、代码可复用、容易维护和开发的优点，适合多人合作的大型软件项目，更符合我们认识事物的规律。
+
+面向对象的特性如下：
+
+- 封装性
+    
+- 继承性
+    
+- 多态性
+    
+
+**JS 中的面向对象**
+
+JS 中的面向对象，是基于**原型**的面向对象。JS 中的对象（Object）是依靠构造器（constructor）和原型（prototype）构造出来的。
+
+另外，在ES6中，新引入了 类（Class）和继承（Extends）来实现面向对象。
+### 对象的创建&构造函数
+#### 方式一：对象字面量
+
+**对象的字面量**就是一个{}。里面的属性和方法均是**键值对**：
+
+- 键：相当于属性名。
+    
+- 值：相当于属性值，可以是任意类型的值（数字类型、字符串类型、布尔类型，函数类型等）。
+    
+
+使用对象字面量来创建一个对象，非常简洁，举例如下：：
+
+```
+var obj = {};
+```
+
+使用对象字面量，可以在创建对象时，直接指定对象中的属性。语法：{属性名:属性值,属性名:属性值....}
+
+例 1：（一个简单的对象）
+
+```
+const obj1 = {
+    name: '千古壹号',
+    age: 28
+};
+```
+
+例 2：（一个较复杂的对象）
+
+```
+const obj2 = {
+    name: "千古壹号",
+    age: 26,
+    isBoy: true,
+    // 还可以存放一个嵌套的对象
+    test: {
+        id: 123,
+        tel: 180
+    }
+    //我们还可以在对象中增加一个方法。以后可以通过obj2.sayName()的方式调用这个方法
+    sayName: function() {
+        console.log(this.name);
+    }
+};
+
+console.log(JSON.stringify(obj2));
+obj2.sayName();
+
+```
+
+对象字面量的属性名可以加引号也可以不加，建议不加。如果要使用一些特殊的名字，则必须加引号。
+
+属性名和属性值是一组一组的键值对结构，键和值之间使用`:`连接，多个值对之间使用`,`隔开。
+
+#### 方式二：工厂模式 new Object()
+
+通过该方法可以大批量的创建对象。
+
+```
+/*
+ * 使用工厂方法创建对象
+ *  通过该方法可以大批量的创建对象
+ */
+function createPerson(name, age, gender) {
+    //创建一个新的对象
+    var obj = new Object();
+    //向对象中添加属性
+    obj.name = name;
+    obj.age = age;
+    obj.gender = gender;
+    obj.sayName = function () {
+        alert(this.name);
+    };
+    //将新的对象返回
+    return obj;
+}
+
+var obj2 = createPerson('猪八戒', 28, '男');
+var obj3 = createPerson('白骨精', 16, '女');
+var obj4 = createPerson('蜘蛛精', 18, '女');
+```
+
+第一次看到这种工厂模式时，你可能会觉得陌生。如果简化一下，可以写成下面这种形式，更容易理解：（也就是，利用 new Object 创建对象）
+
+```
+var obj = new Obejct();
+obj.name = '猪八戒';
+obj.age = 28;
+obj.gender = '男';
+obj.sayHi = function () {
+    alert('hello world');
+};
+```
+
+**弊端：**
+
+使用工厂方法创建的对象，使用的构造函数都是 Object。**所以创建的对象都是 Object 这个类型，就导致我们无法区分出多种不同类型的对象**。
+
+#### 方式三：利用构造函数
+
+```
+//利用构造函数自定义对象
+var stu1 = new Student('smyh');
+console.log(stu1);
+stu1.sayHi();
+
+var stu2 = new Student('vae');
+console.log(stu2);
+stu2.sayHi();
+
+// 创建一个构造函数
+function Student(name) {
+    this.name = name; //this指的是当前对象实例【重要】
+    this.sayHi = function () {
+        console.log(this.name + '厉害了');
+    };
+}
+```
+#### 构造函数
+
+代码引入
+
+```
+// 创建一个构造函数，专门用来创建Person对象
+function Person(name, age, gender) {
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+    this.sayName = function () {
+        alert(this.name);
+    };
+}
+
+var per = new Person('孙悟空', 18, '男');
+var per2 = new Person('玉兔精', 16, '女');
+var per3 = new Person('奔波霸', 38, '男');
+
+// 创建一个构造函数，专门用来创建 Dog 对象
+function Dog() {}
+
+var dog = new Dog();
+```
+
+**构造函数的概念**
+
+**构造函数**：是一种特殊的函数，主要用来创建和初始化对象，也就是为对象的成员变量赋初始值。它与 `new` 一起使用才有意义。
+
+我们可以把对象中一些公共的属性和方法抽取出来，然后封装到这个构造函数里面。
+
+**构造函数和普通函数的区别**
+
+构造函数的创建方式和普通函数没有区别，不同的是构造函数习惯上首字母大写。
+
+构造函数和普通函数的区别就是**调用方式**的不同：普通函数是直接调用，而构造函数需要使用 new 关键字来调用。
+
+**this 的指向也有所不同**：
+
+- 1.以函数的形式调用时，this 永远都是 window。比如`fun();`相当于`window.fun();`
+    
+- 2.以方法的形式调用时，this 是调用方法的那个对象
+    
+- 3.以构造函数的形式调用时，this 是新创建的实例对象
+    
+
+**new 一个构造函数的执行流程**
+
+new 在执行时，会做下面这四件事：
+
+（1）开辟内存空间，在内存中创建一个新的空对象。
+
+（2）让 this 指向这个新的对象。
+
+（3）执行构造函数里面的代码，给这个新对象添加属性和方法。
+
+（4）返回这个新对象（所以构造函数里面不需要 return）。
+
+因为 this 指的是 new 一个 Object 之后的对象实例。于是，下面这段代码：
+
+```
+// 创建一个函数
+function createStudent(name) {
+    var student = new Object();
+    student.name = name; //第一个name指的是student对象定义的变量。第二个name指的是createStudent函数的参数。二者不一样
+}
+```
+
+可以改进为：
+
+```
+// 创建一个函数
+function Student(name) {
+    this.name = name; //this指的是构造函数中的对象实例
+}
+```
+
+注意上方代码中的注释。
+
+**静态成员和实例成员**
+
+JavaScript 的构造函数中可以添加一些成员，可以在构造函数本身上添加，也可以在构造函数内部的 this 上添加。通过这两种方式添加的成员，就分别称为静态成员和实例成员。
+
+- 静态成员：在构造函数本上添加的成员称为静态成员，只能由构造函数本身来访问。
+    
+- 实例成员：在构造函数内部创建的对象成员称为实例成员，只能由实例化的对象来访问。
+    
+
+**类、实例**
+
+使用同一个构造函数创建的对象，我们称为一类对象，也将一个构造函数称为一个**类**。
+
+通过一个构造函数创建的对象，称为该类的**实例**。
+
+**instanceof**
+
+使用 instanceof 可以检查**一个对象是否为一个类的实例**。
+
+**语法如下**：
+
+```
+对象 instanceof 构造函数;
+```
+
+如果是，则返回 true；否则返回 false。
+
+**代码举例**：
+
+```
+function Person() {}
+
+function Dog() {}
+
+var person1 = new Person();
+
+var dog1 = new Dog();
+
+console.log(person1 instanceof Person); // 打印结果： true
+console.log(dog1 instanceof Person); // 打印结果：false
+
+console.log(dog1 instanceof Object); // 所有的对象都是Object的后代。因此，打印结果为：true
+```
+
+根据上方代码中的最后一行，需要补充一点：**所有的对象都是 Object 的后代，因此 `任何对象 instanceof Object` 的返回结果都是 true**。
+
+#### others
+
+json 的介绍
+
+> 对象字面量和 json 比较像，这里我们对 json 做一个简单介绍。
+
+JSON：JavaScript Object Notation（JavaScript 对象表示形式）。
+
+JSON 和对象字面量的区别：JSON 的属性必须用双引号引号引起来，对象字面量可以省略。
+
+json 举例：
+
+```
+      {
+            "name" : "zs",
+            "age" : 18,
+            "sex" : true,
+            "sayHi" : function() {
+                console.log(this.name);
+            }
+        };
+```
+
+注：json 里一般放常量、数组、对象等，但很少放 function。
+
+另外，对象和 json 没有长度，json.length 的打印结果是 undefined。于是乎，自然也就不能用 for 循环遍历（因为遍历时需要获取长度 length）。
+
+**json 遍历的方法：**
+
+json 采用 `for...in...`进行遍历，和数组的遍历方式不同。如下：
+
+```
+<script>
+    var myJson = {
+        "name": "qianguyihao",
+        "aaa": 111,
+        "bbb": 222,
+    };
+
+    //json遍历的方法：for...in...
+    for (var key in myJson) {
+        console.log(key); //获取 键
+        console.log(myJson[key]); //获取 值（第二种属性绑定和获取值的方法）
+        console.log('------');
+    }
+</script>
+```
+
+### 对象的基本操作
+#### 创建对象
+
+使用 new 关键字调用的函数，是构造函数 constructor。**构造函数是专门用来创建对象的函数**。
+
+例如：
+
+```
+const obj = new Object();
+```
+
+记住，使用`typeof`检查一个对象时，会返回`object`。
+
+关于创建对象的更多方式，可以看上一篇文章《对象的创建&构造函数》。
+
+#### 向对象中添加属性
+
+在对象中保存的值称为属性。
+
+向对象添加属性的语法：
+
+```
+对象.属性名 = 属性值;
+```
+
+举例：
+
+```
+const obj = new Object();
+
+//向obj中添加一个name属性
+obj.name = '孙悟空';
+
+//向obj中添加一个gender属性
+obj.gender = '男';
+
+//向obj中添加一个age属性
+obj.age = 18;
+
+console.log(JSON.stringify(obj)); // 将 obj 以字符串的形式打印出来
+```
+
+打印结果：
+
+```
+	{
+		"name":"孙悟空",
+		"gender":"男",
+		"age":18
+	}
+```
+
+这里我们也可以看出一个规律：如果对象里本身没有某个属性，则用点语法赋值时，这个属性会被创建出来。
+
+#### 获取对象中的属性
+
+**方式 1**：
+
+语法：
+
+```
+对象.属性名;
+```
+
+如果获取对象中没有的属性，不会报错而是返回`undefined`。
+
+举例：
+
+```
+const obj = new Object();
+
+//向obj中添加一个name属性
+obj.name = '孙悟空';
+
+//向obj中添加一个gender属性
+obj.gender = '男';
+
+//向obj中添加一个age属性
+obj.age = 18;
+
+// 获取对象中的属性，并打印出来
+console.log(obj.gender); // 打印结果：男
+console.log(obj.color); // 打印结果：undefined
+```
+
+**方式 2**：可以使用`[]`这种形式去操作属性
+
+如果属性名的命名规范没有遵循标识符的命名规范，就不能采用`.`的方式来操作对象的属性，则必须用方括号的形式来访问。比如说，`123`这种属性名，如果我们直接写成`obj.123 = 789`来操作属性，是会报错的。那怎么办呢？办法如下：
+
+语法格式如下：（读取时，也是采用这种方式）
+
+```
+// 注意，括号里的属性名，必须要加引号
+
+// 获取属性
+对象['属性名']
+
+// 设置属性值
+对象['属性名'] = 属性值;
+```
+
+上面这种语法格式，举例如下：
+
+```
+obj['123'] = 789;
+```
+
+当然，如果属性名遵循了标识符的命名规范，也可以使用方括号操作属性。
+
+**重要**：使用`[]`这种形式去操作属性会更灵活，因为我们可以在`[]`中传递一个**变量**。也就是说，如果属性名以变量的形式存储，请记得也必须使用方括号的形式操作属性。这在日常开发中，使用得非常多。比如：
+
+```
+const person = {
+		name: '千古壹号',
+    age: 30
+}
+
+const myKey = 'name';
+// 错误的访问方式
+console.log(obj.myKey); // undefined
+// 正确的访问方式
+console.log(obj[myKey]); // 千古壹号
+```
+
+#### 修改对象的属性值
+
+语法：
+
+```
+对象.属性名 = 新值;
+```
+
+举例：
+
+```
+obj.name = 'qiangu yihao';
+```
+
+#### 删除对象的属性
+
+语法：
+
+```
+delete obj.name;
+```
+
+#### in 运算符
+
+通过该运算符可以检查一个对象中是否含有指定的属性。如果有则返回 true，没有则返回 false。
+
+语法：
+
+```
+'属性名' in 对象;
+```
+
+举例：
+
+```
+//检查对象 obj 中是否含有name属性
+console.log('name' in obj);
+```
+
+我们平时使用的对象不一定是自己创建的，可能是从接口获取的，这个时候，in 运算符可以派上用场。
+
+当然，还有一种写法可以达到上述目的：
+
+```
+if (obj.name) {
+    // 如果对象 obj 中有name属性，我就继续做某某事情。
+}
+```
+
+#### for of：遍历数组
+
+ES6 中，如果我们要遍历一个数组，可以这样做：
+
+```
+let arr1 = [2, 6, 8, 5];
+
+for (let value of arr1) {
+    console.log(value);
+}
+```
+
+打印结果：
+
+```
+2
+6
+8
+5
+```
+
+for ... of 的循环可以避免我们开拓内存空间，增加代码运行效率，所以建议大家在以后的工作中使用 for…of 遍历数组。
+
+注意，上面的数组中，`for ... of`获取的是数组里的值；如果采用`for ... in`遍历数组，则获取的是 index 索引值。
+
+#### Map 对象的遍历
+
+`for ... of`既可以遍历数组，也可以遍历 Map 对象。
+
+#### for in：遍历对象的属性
+
+> `for ... in`主要用于遍历对象，不建议用来遍历数组。
+
+语法：
+
+```
+for (const 变量 in 对象) {
+
+}
+```
+
+解释：对象中有几个属性，循环体就会执行几次。每次执行时，会将对象中的**每个属性的 属性名 赋值给变量**。
+
+语法举例：
+
+```
+for (var key in obj) {
+    console.log(key); // 这里的 key 是：对象属性的键（也就是属性名）
+    console.log(obj[key]); // 这里的 obj[key] 是：对象属性的值（也就是属性值）
+}
+```
+
+举例：
+
+```
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+        <script type="text/javascript">
+            const obj = {
+                name: 'qianguyihao',
+                age: 28,
+                gender: '男',
+                address: 'shenzhen',
+                sayHi: function () {
+                    console.log(this.name);
+                },
+            };
+
+            // 遍历对象中的属性
+            for (const key in obj) {
+                console.log('属性名:' + key);
+                console.log('属性值:' + obj[key]); // 注意，因为这里的属性名 key 是变量，所以，如果想获取属性值，不能写成 obj.key，而是要写成 obj[key]
+            }
+        </script>
+    </head>
+
+    <body></body>
+</html>
+```
+
+打印结果：
+
+```
+属性名:name
+属性值:qianguyihao
+
+属性名:age
+属性值:26
+
+属性名:gender
+属性值:男
+
+属性名:address
+属性值:shenzhen
+
+属性名:sayHi
+属性值:function() {
+                    console.log(this.name);
+                }
+```
+
+#### for in 遍历数组（不建议）
+
+另外，for in 当然也可以用来遍历数组（只是不建议），此时的 key 是数组的索引。举例如下：
+
+```
+const arr = ['hello1', 'hello2', 'hello3'];
+
+for (const key in arr) {
+    console.log('属性名：' + key);
+    console.log('属性值：' + arr[key]);
+}
+```
+
+打印结果：
+
+```
+属性名：0
+属性值：hello1
+
+属性名：1
+属性值：hello2
+
+属性名：2
+属性值：hello3
+```
+### 浅拷贝和深拷贝
+#### 概念
+
+- 浅拷贝：只拷贝最外面一层的数据；更深层次的对象，只拷贝引用。
+    
+- 深拷贝：拷贝多层数据；每一层级别的数据都会拷贝。
+    
+
+**总结**：
+
+拷贝引用的时候，是属于**传址**，而非**传值**。关于传值和传址的区别，是很基础的内容，详见《JavaScript 基础/对象简介.md》这篇文章。
+
+深拷贝会把对象里**所有的数据**重新复制到新的内存空间，是最彻底的拷贝。
+
+#### 浅拷贝的实现方式
+
+用 for in 实现浅拷贝（比较繁琐）
+
+```
+const obj1 = {
+    name: 'qianguyihao',
+    age: 28,
+    info: {
+        desc: '很厉害',
+    },
+};
+
+const obj2 = {};
+//  用 for in 将 obj1 的值拷贝给 obj2
+for (let key in obj1) {
+    obj2[key] = obj1[key];
+}
+
+console.log('obj2:' + JSON.stringify(obj2));
+
+obj1.info.desc = '永不止步'; // 当修改 obj1 的第二层数据时，obj2的值也会被改变。所以  for in 是浅拷贝
+
+console.log('obj2:' + JSON.stringify(obj2));
+```
+
+上方代码中，用 for in 做拷贝时，只能做到浅拷贝。也就是说，在 obj2 中， name 和 age 这两个属性会单独存放在新的内存地址中，和 obj1 没有关系。但是，`obj2.info` 属性，跟 `obj1.info`属性，**它俩指向的是同一个堆内存地址**。所以，当我修改 `obj1.info` 里的值之后，`obj2.info`的值也会被修改。
+
+打印结果如下：
+
+```
+obj2:{"name":"qianguyihao","age":28,"info":{"desc":"很厉害"}}
+
+obj2:{"name":"qianguyihao","age":28,"info":{"desc":"永不止步"}}
+```
+
+用 Object.assgin() 实现浅拷贝（推荐的方式）
+
+上面的 for in 方法做浅拷贝过于繁琐。ES6 给我们提供了新的语法糖，通过 `Object.assgin()` 可以实现**浅拷贝**。
+
+`Object.assgin()` 在日常开发中，使用得相当频繁，非掌握不可。
+
+**语法**：
+
+```
+// 语法1
+obj2 = Object.assgin(obj2, obj1);
+
+// 语法2
+Object.assign(目标对象, 源对象1, 源对象2...);
+```
+
+**解释**：将`obj1` 拷贝给 `obj2`。执行完毕后，obj2 的值会被更新。
+
+**作用**：将 obj1 的值追加到 obj2 中。如果对象里的属性名相同，会被覆盖。
+
+从语法2中可以看出，Object.assign() 可以将多个“源对象”拷贝到“目标对象”中。
+
+**例 1**：
+
+```
+const obj1 = {
+    name: 'qianguyihao',
+    age: 28,
+    info: {
+        desc: 'hello',
+    },
+};
+
+// 浅拷贝：把 obj1 拷贝给 obj2。如果 obj1 只有一层数据，那么，obj1 和 obj2 则互不影响
+const obj2 = Object.assign({}, obj1);
+console.log('obj2:' + JSON.stringify(obj2));
+
+obj1.info.desc = '永不止步'; // 由于 Object.assign() 只是浅拷贝，所以当修改 obj1 的第二层数据时，obj2 对应的值也会被改变。
+console.log('obj2:' + JSON.stringify(obj2));
+```
+
+代码解释：由于 Object.assign() 只是浅拷贝，所以在当前这个案例中， obj2 中的 name 属性和 age 属性是单独存放在新的堆内存地址中的，和 obj1 没有关系；但是，`obj2.info` 属性，跟 `obj1.info`属性，**它俩指向的是同一个堆内存地址**。所以，当我修改 `obj1.info` 里的值之后，`obj2.info`的值也会被修改。
+
+打印结果：
+
+```
+obj2:{"name":"qianguyihao","age":28,"info":{"desc":"hello"}}
+
+obj2:{"name":"qianguyihao","age":28,"info":{"desc":"永不止步"}}
+```
+
+**例 2**：
+
+```
+const myObj = {
+    name: 'qianguyihao',
+    age: 28,
+};
+
+// 【写法1】浅拷贝：把 myObj 拷贝给 obj1
+const obj1 = {};
+Object.assign(obj1, myObj);
+
+// 【写法2】浅拷贝：把 myObj 拷贝给 obj2
+const obj2 = Object.assign({}, myObj);
+
+// 【写法3】浅拷贝：把 myObj 拷贝给 obj31。注意，这里的 obj31 和 obj32 其实是等价的，他们指向了同一个内存地址
+const obj31 = {};
+const obj32 = Object.assign(obj31, myObj);
+
+```
+
+上面这三种写法，是等价的。所以，当我们需要将对象 A 复制（拷贝）给对象 B，不要直接使用 `B = A`，而是要使用 Object.assign(B, A)。
+
+**例 3**：
+
+```
+let obj1 = { name: 'qianguyihao', age: 26 };
+let obj2 = { city: 'shenzhen', age: 28 };
+let obj3 = {};
+
+Object.assign(obj3, obj1, obj2); // 将 obj1、obj2的内容赋值给 obj3
+console.log(obj3); // {name: "qianguyihao", age: 28, city: "shenzhen"}
+```
+
+上面的代码，可以理解成：将多个对象（obj1和obj2）合并成一个对象 obj3。
+
+**例4**：【重要】
+
+```
+const obj1 = {
+    name: 'qianguyihao',
+    age: 28,
+    desc: 'hello world',
+};
+
+const obj2 = {
+    name: '许嵩',
+    sex: '男',
+};
+
+// 浅拷贝：把 obj1 赋值给 obj2。这一行，是关键代码。这行代码的返回值也是 obj2
+Object.assign(obj2, obj1);
+
+console.log(JSON.stringify(obj2));
+```
+
+打印结果：
+
+```
+{
+    "name":"qianguyihao",
+    "sex":"男",
+    "age":28,
+    "desc":"hello world"
+}
+```
+
+注意，**例 4 在实际开发中，会经常遇到，一定要掌握**。它的作用是：将 obj1 的值追加到 obj2 中。如果两个对象里的属性名相同，则 obj2 中的值会被 obj1 中的值覆盖。
+
+**例5：**
+
+```
+const a1 = undefined;
+const a2 = null;
+
+Object.assgin(a1, {name: 'qiangu'}); // 报错：TypeError. Cannot convert undefined or null to object
+Object.assgin(a1, {name: 'yihao'}); // 报错：TypeError. Cannot convert undefined or null to object
+```
+
+Object.assign() 方法的第一个参数是目标对象，如果目标对象是 undefined 或 null，则会报错 TypeError。
+
+所以，为了避免报错，我们要先确目标对象存在。比如使用短路运算符确保 a1 是存在的，就不会报错：
+
+```
+const a1 = undefined || {}; // 短路苏奶奶福，确保 obj 是存在的对象
+Object.assgin(a1, {name: 'qiangu'});
+```
+
+#### 深拷贝的实现方式
+
+深拷贝其实就是将浅拷贝进行递归。
+
+用 for in 递归实现深拷贝
+
+代码实现：
+
+```
+let obj1 = {
+    name: 'qianguyihao',
+    age: 28,
+    info: {
+        desc: 'hello',
+    },
+    color: ['red', 'blue', 'green'],
+};
+let obj2 = {};
+
+deepCopy(obj2, obj1);
+console.log(obj2);
+obj1.info.desc = 'github';
+console.log(obj2);
+
+// 方法：深拷贝
+function deepCopy(newObj, oldObj) {
+    for (let key in oldObj) {
+        // 获取属性值 oldObj[key]
+        let item = oldObj[key];
+        // 判断这个值是否是数组
+        if (item instanceof Array) {
+            newObj[key] = [];
+            deepCopy(newObj[key], item);
+        } else if (item instanceof Object) {
+            // 判断这个值是否是对象
+            newObj[key] = {};
+            deepCopy(newObj[key], item);
+        } else {
+            // 简单数据类型，直接赋值
+            newObj[key] = item;
+        }
+    }
+}
+```
+
+### 对象的高级操作
+
+#### hasOwnProperty()：判断对象中是否包含某个属性
+
+hasOwnProperty() 是 Object 对象的一个方法，用于判断对象自身（即不包括从原型链继承来的属性）是否具有某个特定的属性。
+
+语法：
+
+```
+obj.hasOwnProperty(prop);
+```
+
+解释：
+
+- obj 是要检查的对象。
+- prop 是一个字符串，表示要检查的属性名。
+
+返回值：如果对象 obj 自身包含名为 prop 的属性，则返回 true。否则，返回 false。
+
+举例：
+
+```
+const obj = {a: undefined, b: 2, c: 3};
+
+console.log(obj.hasOwnProperty('a')); // true
+console.log(obj.hasOwnProperty('b')); // true
+console.log(obj.hasOwnProperty('d')); // false
+
+```
+
+#### Object.freeze() 冻结对象
+
+Object.freeze() 方法可以冻结一个对象。一个被冻结的对象再也不能被修改；冻结了一个对象则不能向这个对象添加新的属性，不能删除已有属性，不能修改该对象已有属性的可枚举性、可配置性、可写性，以及不能修改已有属性的值。此外，冻结一个对象后该对象的原型也不能被修改。freeze() 返回和传入的参数相同的对象。
+
+代码举例：
+
+```
+const params = {
+    name: 'qianguyihao';
+    port: '8899';
+}
+
+Object.freeze(params); // 冻结对象 params
+
+params.port = '8080';// 修改无效
+
+```
+
+上方代码中，把 params 对象冻结后，如果想再改变 params 里面的属性值，是无效的。
+
+#### Object.entries() 遍历对象的键值对，封装成数组
+
+### 原型链和原型继承
+
+### 类和构造继承
+
+
+## 正则表达式
+### 正则表达式简介
+
+**定义**：正则表达式用于定义一些字符串的规则。
+
+**作用**：计算机可以根据正则表达式，来检查一个字符串是否符合指定的规则；或者将字符串中符合规则的内容提取出来。
+### 创建正则表达式的对象
+
+#### 方式一：使用构造函数创建正则表达式的对象
+
+语法：
+
+```
+	var 变量 = new RegExp("正则表达式"); // 注意，参数是字符串
+
+	var 变量 = new RegExp("正则表达式", "匹配模式"); // 注意，两个参数都是字符串
+```
+
+备注：`RegExp`的意思是 **Regular expression**。使用typeof检查正则对象，会返回object。
+
+上面的语法中，既可以传一个参数，也可以传两个参数。
+
+创建了正则表达式的对象后，该怎么使用呢？大致分为两个步骤：
+
+- （1）创建正则表达式的对象 reg。
+    
+- （2）使用 reg 的test() 方法，判断指定字符串是否符合规则。
+    
+
+**正则表达式的`test()`方法**：【重要】
+
+```
+	myReg.test(str); // 判断字符串 str 是否符合 指定的 myReg 这个正则表达式的规则
+```
+
+解释：使用`test()`这个方法可以用来检查一个字符串是否符合正则表达式的规则，**如果符合则返回true，否则返回false**。
+
+我们来看看下面的例子。
+
+**1、传一个参数时**：
+
+构造函数 RegExp 中，可以只传一个参数。
+
+代码举例：
+
+```
+	var reg = new RegExp("a"); // 定义一个正则表达式：检查一个字符串中是否含有 a
+
+	var str1 = "qianguyihao";
+	var str2 = "smyh";
+
+	// 通过 test()方法，判断字符串是否符合 上面定义的 reg 规则
+	console.log(reg.test(str1)); // 打印结果：true
+	console.log(reg.test(str2)); // 打印结果：false
+
+```
+
+注意，上面的例子中，我们是先定义了一个正则表达式的规则，然后通过正则表达式的`test()`方法来判断字符串是否符合之前定义的规则。
+
+**2、传两个参数时**：匹配模式 【重要】
+
+构造函数 RegExp 中，也可以传两个参数。我们可以传递一个**匹配模式**作为第二个参数。这个参数可以是：
+
+- `i` 忽略大小写。这里的 i 指的是 ignore。
+    
+- `g` 全局匹配模式。这里的 g 指的是 global。
+    
+
+代码举例：
+
+```
+    var reg = new RegExp('A', 'i');
+    var str = 'qiangu';
+
+    console.log(reg.test(str)); // 打印结果：true
+```
+
+#### 方式二：使用字面量创建正则表达式
+
+我们可以使用字面量来创建正则表达式。
+
+语法：
+
+```
+	var 变量 = /正则表达式/;  // 注意，这个语法里没有引号
+
+	var 变量 = /正则表达式/匹配模式;  // 注意，这个语法里没有引号
+```
+
+代码举例：
+
+```
+	var reg = /A/i; // 定义正则表达式的规则：检查一个字符串中是否含有 a。忽略大小写。
+	var str = "qiangu";
+
+	console.log(typeof reg);  // 打印结果：object
+	console.log(reg.test(str)); // 打印结果：true
+```
+
+**以上两种方式的对比**
+
+- 方式一：使用构造函数创建时，更加灵活，因为参数中还可以传递变量。
+    
+- 方式二：使用字面量的方式创建，更加简单。
+    
+
+代码举例：
+
+```
+	var reg = new RegExp("a", "i"); // 方式一
+
+	var reg = /a/i; // 方式二
+```
+
+上面这两行代码的作用是等价的。
+
+**避坑指南：全局匹配 g 慎用test()方法**
+
+对于非全局匹配的正则表达式，`test()`只会检测**是否存在某个目标字符串**（只要存在就为 true），多次检测的结果都相同。例如：
+
+```
+const reg = /test/;
+const str = '_test_test';
+
+reg.test(str) // true
+reg.test(str) // true
+reg.test(str) // true
+```
+
+重点来了。
+
+当设置全局标志 `/g` 时，一旦字符串中还存在匹配，test() 方法都将返回 true，同时匹配成功后将把 `lastIndex` 属性的值**设置为上次匹配成功结果之后的第一个字符所在的位置**，下次匹配将从 `lastIndex` 指示的位置开始；匹配不成功时返回 false，同时将 lastIndex 属性的值重置为 0。
+
+举例：（很重要的例子，看仔细）
+
+```
+const reg = /test/g;
+const str = '_test_test';
+
+console.log(reg.test(str)); // true
+console.log(reg.lastIndex); // 5
+
+console.log(reg.test(str)); // true
+console.log(reg.lastIndex); // 10
+
+console.log(reg.test(str)); // false
+console.log(reg.lastIndex); // 0
+```
+
+**总结**：
+
+全局匹配模式`g`一般用于 `exec()`、`match()`、`replace()`等方法。
+
+全局匹配模式`g`如果用于test()方法会有问题。因为g模式会生成一个`lastindex`参数来存储匹配最后一次的位置。
+### 正则表达式的简单语法
+
+#### 检查一个字符串中是否包含 a或b
+
+**写法1**：
+
+```
+	var reg = /a|b/;
+```
+
+解释：使用 `|` 表示`或`的意思。
+
+**写法2**：
+
+```
+	var reg = /[ab]/;  // 跟上面的那行语法，是等价的
+```
+
+解释：这里的`[]`也是表示`或`的意思。
+
+`[]`这个符号在正则还是比较常用的。我们接下来看几个例子。
+
+#### []表示：或
+
+一些规则：
+
+- `/[ab]/` 等价于 `/a|b/`：检查一个字符串中是否包含 **a或b**
+    
+- `/[a-z]/`：检查一个字符串那种是否包含**任意小写字母**
+    
+- `/[A-Z]/`：任意大写字母
+    
+- `/[A-z]/`：任意字母
+    
+- `/[0-9]/`：任意数字
+    
+- `/a[bde]c/`：检查一个字符串中是否包含 abc 或 adc 或 aec
+    
+
+#### [^ ] 表示：除了
+
+举例1：
+
+```
+  var reg = /[^ab]/; // 规则：字符串中，除了a、b之外，还有没有其他的字符内容？
+  var str = "acb";
+
+  console.log(reg.test(str)); // 打印结果：true
+```
+
+举例2：（可以用来验证某字符串是否为 纯数字）
+
+```
+	var reg = /[^0-9]/;  // 规则：字符串中，除了数字之外，还有没有其他的内容？
+	var str1 = "1991";
+	var str2 = "199a1";
+
+	console.log(reg.test(str1)); // 打印结果：false （如果字符串是 纯数字，则返回 false）
+	console.log(reg.test(str2)); // 打印结果：true
+```
+
+### 支持正则表达式的 String 对象的方法
+
+String对象的如下方法，是支持正则表达式的：
+
+|方法|描述|备注|
+|---|---|---|
+|split()|将字符串拆分成数组||
+|search()|搜索字符串中是否含有指定内容，返回索引 index||
+|match()|根据正则表达式，从一个字符串中将符合条件的内容提取出来||
+|replace()|将字符串中的指定内容，替换为新的内容并返回||
+
+下面来分别介绍和举例。
+
+#### split()
+
+`split()`：将一个字符串拆分成一个数组。可以接受一个正则表达式作为参数。
+
+备注：关于`split()`更详细的用法，可以看之前的关于《内置对象：String》这篇文章。
+
+**正则相关的举例**：根据任意字母，将字符串拆分成数组。
+
+代码实现：（通过正则）
+
+```
+	var str = "1a2b3c4d5e6f7g";
+
+	var result = str.split(/[A-z]/); // 参数是一个正则表达式：表示所有字母
+	console.log(result);
+```
+
+打印结果：
+
+```
+	["1", "2", "3", "4", "5", "6", "7", ""]
+```
+
+#### search()
+
+`search()`：搜索字符串中是否含有指定内容。如果搜索到指定内容，则会返回第一次出现的索引；否则返回-1。
+
+`search()`方法可以接受一个正则表达式作为参数，然后会根据正则表达式去检索字符串。`serach()`只会查找第一个，即使设置全局匹配也没用。
+
+**举例**：
+
+```
+	var str = "hello abc hello aec afc";
+	/*
+	* 搜索字符串中是否含有abc 或 aec 或 afc
+	*/
+	result = str.search(/a[bef]c/);
+	console.log(result); // 打印结果：6
+```
+
+#### match()
+
+`match()`：根据正则表达式，从一个字符串中将符合条件的内容提取出来，封装到一个数组中返回（即使只查询到一个结果）。
+
+**注意**：默认情况下，`match()`方法只会找到**第一个**符合要求的内容，找到以后就停止检索。我们可以设置正则表达式为**全局匹配**模式，这样就会匹配到所有的内容，并以**数组**的形式返回。
+
+另外，我们可以为一个正则表达式设置多个匹配模式，且匹配模式的顺序无所谓。
+
+**代码举例**：
+
+```
+	var str = "1a2a3a4a5e6f7A8B9C";
+
+	var result1 = str.match(/[a-z]/);   // 找到符合要求的第一个内容，然后返回
+	var result2 = str.match(/[a-z]/g);  // 设置为“全局匹配”模式，匹配字符串中 所有的小写字母
+	var result3 = str.match(/[a-z]/gi); // 设置多个匹配模式，匹配字符串中 所有的字母（忽略大小写）
+
+	console.log(result1); // 打印结果：["a"]
+	console.log(result2); // 打印结果：["a", "a", "a", "a", "e", "f"]
+	console.log(result3); // 打印结果：["a", "a", "a", "a", "e", "f", "A", "B", "C"]
+```
+
+**总结**：
+
+match()这个方法还是很实用的，可以在一个很长的字符串中，提取出**有规则**的内容。这不就是爬虫的时候经常会遇到的场景么？
+
+#### replace()
+
+`replace()`：将字符串中的指定内容，替换为新的内容并返回。不会修改原字符串。
+
+语法：
+
+```
+	新的字符串 = str.replace(被替换的内容，新的内容);
+```
+
+参数解释：
+
+- 被替换的内容：可以接受一个正则表达式作为参数。
+    
+- 新的内容：默认只会替换第一个。如果需要替换全部符合条件的内容，可以设置正则表达式为**全局匹配**模式。
+    
+
+代码举例：
+
+```
+    //replace()方法：替换
+    var str2 = "Today is fine day,today is fine day !!!"
+
+    console.log(str2);
+    console.log(str2.replace("today","tomorrow"));  //只能替换第一个today
+    console.log(str2.replace(/today/gi,"tomorrow")); //这里用到了正则，且为“全局匹配”模式，才能替换所有的today
+```
+### 常见正则表达式举例
+
+
+**检查一个字符串是否是一个合法手机号**
+
+手机号的规则：
+
+- 以1开头（`^1` 表示1开头 , `[^1]`表示非1或除了1）
+    
+- 第二位是3~9之间任意数字
+    
+- 三位以后任意9位数字
+    
+
+正则实现：
+
+```
+	var phoneStr = "13067890123";
+
+	var phoneReg = /^1[3-9][0-9]{9}$/;
+
+	console.log(phoneReg.test(phoneStr));
+```
+
+**备注**：如果在正则表达式中同时使用`^`和`$`符号，则要求字符串必须完全符合正则表达式。
+
+**去掉字符串开头和结尾的空格**
+
+正则实现：
+
+```
+	str = str.replace(/^\s*|\s*$/g,"");
+```
+
+解释如下：
+
+```
+	str = str.replace(/^\s*/, ""); //去除开头的空格
+
+	str = str.replace(/\s*$/, ""); //去除结尾的空格
+```
+
+**判断字符串是否为电子邮件**
+
+正则实现：
+
+```
+	var emailReg = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/;
+
+	var email = "abchello@163.com";
+
+	console.log(emailReg.test(email));
+```
+
+## 事件
+事件：就是文档或浏览器窗口中发生的一些特定的交互瞬间。对于 Web 应用来说，有下面这些代表性的事件：点击某个元素、将鼠标移动至某个元素上方、关闭弹窗等等。
+
+JavaScript 是以**事件驱动为核心**的一门语言。JavaScript 与 HTML 之间的交互是通过事件实现的。
+
+### 事件的三要素
+
+**事件的三要素：事件源、事件、事件驱动程序**。
+
+比如，我用手去按开关，灯亮了。这件事情里，事件源是：手。事件是：按开关。事件驱动程序是：灯开了或者关了。
+
+再比如，网页上弹出一个广告，我点击右上角的`X`，广告就关闭了。这件事情里，事件源是：`X`。事件是：onclick。事件驱动程序是：广告关闭了。
+
+于是我们可以总结出：谁引发的后续事件，谁就是事件源。
+
+**总结如下：**
+
+- 事件源：引发后续事件的html标签。
+    
+- 事件：js已经定义好了（见下图）。
+    
+- 事件驱动程序：对样式和html的操作。也就是DOM。
+    
+
+也就是说，我们可以在时间对应的属性中写一些js代码，当事件被触发时，这些代码将会执行。
+
+**代码书写步骤如下：**（重要）
+
+- （1）获取事件源：document.getElementById(“box”); // 类似于Android里面的findViewById
+    
+- （2）绑定事件： 事件源box.事件onclick = function(){ 事件驱动程序 };
+    
+- （3）书写事件驱动程序：关于DOM的操作。
+    
+
+最简单的代码举例：（点击box1，然后弹框）
+
+```
+<body>
+<div id="box1"></div>
+
+<script type="text/javascript">
+    // 1、获取事件源
+    var div = document.getElementById("box1");
+    // 2、绑定事件
+    div.onclick = function () {
+        // 3、书写事件驱动程序
+        alert("我是弹出的内容");
+    }
+</script>
+
+</body>
+```
+
+常见的事件如下：
+
+![[事件.png]]
+
+
+
+### 1、获取事件源的方式（DOM节点的获取）
+
+获取事件源的常见方式如下：
+
+```
+var div1 = document.getElementById("box1");      //方式一：通过id获取单个标签
+
+var arr1 = document.getElementsByTagName("div");     //方式二：通过 标签名 获得 标签数组，所以有s
+
+var arr2 = document.getElementsByClassName("hehe");  //方式三：通过 类名 获得 标签数组，所以有s
+```
+
+### 2、绑定事件的方式
+
+方式一：直接绑定匿名函数
+
+```
+<div id="box1" ></div>
+
+<script type="text/javascript">
+    var div1 = document.getElementById("box1");
+    
+//这种事件绑定的方式，如果绑定多个，则后面的会覆盖掉前面的
+    btn.onclick = function () {
+        console.log("事件1");
+    }
+
+    btn.onclick = function () {
+        console.log("事件2");
+    }
+
+</script>
+```
+
+
+方式二：先单独定义函数，再绑定
+
+```
+ <div id="box1" ></div>
+
+<script type="text/javascript">
+    var div1 = document.getElementById("box1");
+    //绑定事件的第二种方式
+    div1.onclick = fn;   //注意，这里是fn，不是fn()。fn()指的是返回值。
+    //单独定义函数
+    function fn() {
+        alert("我是弹出的内容");
+    }
+</script>
+```
+
+注意上方代码的注释。**绑定的时候，是写fn，不是写fn()**。fn代表的是整个函数，而fn()代表的是返回值。
+
+方式三：行内绑定
+
+```
+<!--行内绑定-->
+<div id="box1" onclick="fn()"></div>
+
+<script type="text/javascript">
+
+    function fn() {
+        alert("我是弹出的内容");
+    }
+
+</script>
+```
+
+注意第一行代码，绑定时，是写的`"fn()"`，不是写的`"fn"`。因为绑定的这段代码不是写在js代码里的，而是被识别成了**字符串**。
+
+**DOM2的写法：addEventListener（高版本浏览器）**
+
+```
+    element.addEventListener('click', function () {
+
+    }, false);
+```
+
+参数解释：
+
+- 参数1：事件名的字符串(注意，没有on)
+    
+- 参数2：回调函数：当事件触发时，该函数会被执行
+    
+- 参数3：**true表示捕获阶段触发，false表示冒泡阶段触发（默认）**。如果不写，则默认为false。【重要】
+    
+
+举例：
+
+```
+<body>
+<button>按钮</button>
+<script>
+    var btn = document.getElementsByTagName("button")[0];
+
+    // addEventListener: 事件监听器。 原事件被执行的时候，后面绑定的事件照样被执行
+    // 这种写法不存在响应函数被覆盖的情况。（更适合团队开发）
+    btn.addEventListener("click", fn1);
+    btn.addEventListener("click", fn2);
+
+    function fn1() {
+        console.log("事件1");
+    }
+
+    function fn2() {
+        console.log("事件2");
+    }
+
+</script>
+</body>
+```
+`addEventListener()`这种绑定事件的方式：
+
+- 一个元素的一个事件，可以绑定多个响应函数。不存在响应函数被覆盖的情况。**执行顺序是**：事件被触发时，响应函数会按照函数的绑定顺序执行。
+    
+- addEventListener()中的this，是绑定事件的对象。
+    
+- `addEventListener()`不支持 IE8 及以下的浏览器。在IE8中可以使用`attachEvent`来绑定事件
+**attachEvent（IE8及以下版本浏览器）**
+
+```
+    element.attachEvent('onclick', function () {
+
+    });
+
+```
+
+参数解释：
+
+- 参数1：事件名的字符串(注意，有on)
+    
+- 参数2：回调函数：当事件触发时，该函数会被执行
+    
+
+举例：
+
+```
+    <body>
+        <button>按钮</button>
+        <script>
+            var btn = document.getElementsByTagName('button')[0];
+
+            btn.attachEvent('onclick', function() {
+                console.log('事件1');
+            });
+
+            btn.attachEvent('onclick', function() {
+                console.log('事件2');
+            });
+        </script>
+    </body>
+```
+`attachEvent()`这种绑定事件的方式：
+
+- 一个元素的一个事件，可以绑定多个响应函数。不存在响应函数被覆盖的情况。**注意**：执行顺序是，后绑定的先执行。
+    
+- attachEvent()中的this，是window
+
+上面的内容里，需要强调的是：
+
+- `addEventListener()`中的this，是绑定事件的对象。
+    
+- `attachEvent()`中的this，是window。
+    
+
+既然这两个写法的`this`不同，那么，有没有一种兼容性的写法可以确保这两种绑定方式的this是相同的呢？我们可以封装一下。代码如下：
+
+```
+    <body>
+        <button>按钮</button>
+        <script>
+            var btn = document.getElementsByTagName('button')[0];
+
+            myBind(btn , "click" , function(){
+                alert(this);
+            });
+
+
+
+            //定义一个函数，用来为指定元素绑定响应函数
+            /*
+             * addEventListener()中的this，是绑定事件的对象
+             * attachEvent()中的this，是window
+             *  需要统一两个方法this
+             */
+            /*
+             * 参数：
+             *  element 要绑定事件的对象
+             *  eventStr 事件的字符串(不要on)
+             *  callback 回调函数
+             */
+            function myBind(element , eventStr , callback){
+                if(element.addEventListener){
+                    //大部分浏览器兼容的方式
+                    element.addEventListener(eventStr , callback , false);
+                }else{
+                    /*
+                     * this是谁，由调用方式决定
+                     * callback.call(element)
+                     */
+                    //IE8及以下
+                    element.attachEvent("on"+eventStr , function(){
+                        //在匿名函数 function 中调用回调函数callback
+                        callback.call(element);
+                    });
+                }
+            }
+
+        </script>
+    </body>
+```
+
+### 3、事件驱动程序
+
+我们在上面是拿alert举例，不仅如此，我们还可以操作标签的属性和样式。举例如下：
+
+点击鼠标时，原本粉色的div变大了，背景变红：
+
+```
+    <style>
+        #box1 {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="box1" ></div>
+
+<script type="text/javascript">
+    var div1 = document.getElementById("box1");
+    //点击鼠标时，原本粉色的div变大了，背景变红了
+    div1.onclick = function () {
+        div1.style.width = "200px";   //属性值要写引号
+        div1.style.height = "200px";
+        div1.style.backgroundColor = "red";   //属性名是backgroundColor，不是background-color
+    }
+</script>
+```
+
+上方代码的注意事项：
+
+- 在js里写属性值时，要用引号
+    
+- 在js里写属性名时，是`backgroundColor`，不是CSS里面的`background-color`。
+### 鼠标的拖拽事件
+
+拖拽的流程：
+
+（1）`onmousedown`：当鼠标在被拖拽元素上按下时，开始拖拽；
+
+（2）`onmousemove`：当鼠标移动时被拖拽元素跟随鼠标移动；
+
+（3）`onmouseup`：当鼠标松开时，被拖拽元素固定在当前位置。
+
+### 鼠标的滚轮事件
+
+`onmousewheel`：鼠标滚轮滚动的事件，会在滚轮滚动时触发。但是火狐不支持该属性。
+
+`DOMMouseScroll`：在火狐中需要使用 DOMMouseScroll 来绑定滚动事件。注意该事件需要通过addEventListener()函数来绑定。
+### onload事件
+
+> onload事件比较特殊，这里单独讲一下。
+
+**当页面加载（文本和图片）完毕的时候，触发onload事件。**
+
+举例：
+
+```
+<script type="text/javascript">
+    window.onload = function () {
+        console.log("smyhvae");  //等页面加载完毕时，打印字符串
+    }
+</script>
+```
+
+有一点我们要知道：**js的加载是和html同步加载的**。因此，如果使用元素在定义元素之前，容易报错。这个时候，onload事件就能派上用场了，我们可以把使用元素的代码放在onload里，就能保证这段代码是最后执行。
+
+建议是：整个页面上所有元素加载完毕再执行js内容。所以，window.onload可以预防使用标签在定义标签之前。
+
+### 键盘事件
+
+#### 事件名
+
+`onkeydown`：按键被按下。
+
+`onkeyup`：按键被松开。
+
+**注意**：
+
+- 如果一直按着某一个按键不松手，那么，`onkeydown`事件会一直触发。此时，松开键盘，`onkeyup`事件会执行一次。
+    
+- 当`onkeydown`连续触发时，第一次和第二次之间会间隔稍微长一点，后续的间隔会非常快。这种设计是为了防止误操作的发生。
+    
+
+键盘事件一般都会绑定给一些可以获取到焦点的对象或者是document。代码举例：
+
+```
+    <body>
+        <script>
+            document.onkeydown = function(event) {
+                event = event || window.event;
+                console.log('qianguyihao 键盘按下了');
+            };
+
+            document.onkeyup = function() {
+                console.log('qianguyihao 键盘松开了');
+            };
+        </script>
+
+        <input type="text" />
+    </body>
+```
+
+#### 判断哪个键盘被按下
+
+可以通过`event`事件对象的`keyCode`来获取按键的编码。
+
+此外，`event`事件对象里面还提供了以下几个属性：
+
+- altKey
+    
+- ctrlKey
+    
+- shiftKey
+    
+
+上面这三个属性，可以用来判断`alt`、`ctrl`、和`shift`是否被按下。如果按下则返回true，否则返回false。代码举例：
+
+```
+    <body>
+        <script>
+            document.onkeydown = function(event) {
+                event = event || window.event;
+                console.log('qianguyihao：键盘按下了');
+
+                // 判断y和ctrl是否同时被按下
+                if (event.ctrlKey && event.keyCode === 89) {
+                    console.log('ctrl和y都被按下了');
+                }
+            };
+        </script>
+    </body>
+```
+
+**举例**：input 文本框中，禁止输入数字。代码实现：
+
+```
+    <body>
+        <input type="text" />
+
+        <script>
+            //获取input
+            var input = document.getElementsByTagName('input')[0];
+
+            input.onkeydown = function(event) {
+                event = event || window.event;
+
+                //console.log('qianguyihao:' + event.keyCode);
+                //数字 48 - 57
+                //使文本框中不能输入数字
+                if (event.keyCode >= 48 && event.keyCode <= 57) {
+                    //在文本框中输入内容，属于onkeydown的默认行为
+                    return false; // 如果在onkeydown中取消了默认行为，则输入的内容，不会出现在文本框中
+                }
+            };
+        </script>
+    </body>
+
+```
+
+举例：通过键盘的方向键，移动盒子
+
+代码实现：
+
+```
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+        <style type="text/css">
+            #box1 {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                position: absolute;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box1"></div>
+
+        <script type="text/javascript">
+            // 使div可以根据不同的方向键向不同的方向移动
+            /*
+             * 按左键，div向左移
+             * 按右键，div向右移
+             * ...
+             */
+
+            //为document绑定一个按键按下的事件
+            document.onkeydown = function(event) {
+                event = event || window.event;
+
+                //定义一个变量，来表示移动的速度
+                var speed = 10;
+
+                //当用户按了ctrl以后，速度加快
+                if (event.ctrlKey) {
+                    console.log('smyhvae ctrl');
+                    speed = 20;
+                }
+
+                /*
+                 * 37 左
+                 * 38 上
+                 * 39 右
+                 * 40 下
+                 */
+                switch (event.keyCode) {
+                    case 37:
+                        //alert("向左"); left值减小
+                        box1.style.left = box1.offsetLeft - speed + 'px'; // 在初始值的基础之上，减去 speed 大小
+                        break;
+                    case 39:
+                        //alert("向右");
+                        box1.style.left = box1.offsetLeft + speed + 'px';
+                        break;
+                    case 38:
+                        //alert("向上");
+                        box1.style.top = box1.offsetTop - speed + 'px';
+                        break;
+                    case 40:
+                        //alert("向下");
+                        box1.style.top = box1.offsetTop + speed + 'px';
+                        break;
+                }
+            };
+        </script>
+    </body>
+</html>
+
+
+```
+
+上方代码，待改进的地方：
+
+（1）移动盒子时，如果要加速，需要先按`方向键`，再按`Ctrl键`。
+
+（2）首次移动盒子时，动作较慢。
+### 事件对象Event
+
+当事件的响应函数被触发时，会产生一个事件对象`event`。浏览器每次都会将这个事件`event`作为实参传进之前的响应函数。
+
+这个对象中包含了与当前事件相关的一切信息。比如鼠标的坐标、键盘的哪个按键被按下、鼠标滚轮滚动的方向等。
+#### 获取 event 对象（兼容性问题）
+
+所有浏览器都支持event对象，但支持的方式不同。如下。
+
+（1）普通浏览器的写法是 `event`。
+（2）ie 678 的写法是 `window.event`。此时，事件对象 event 是作为window对象的属性保存的。
+可以采取一种兼容性的写法。如下：
+
+```
+    event = event || window.event; // 兼容性写法
+```
+#### event 属性
+
+event 有很多属性，比如
+![[event 属性.png]]
+由于pageX 和 pageY的兼容性不好，我们可以这样做：
+
+- 鼠标在页面的位置 = 滚动条滚动的距离 + 可视区域的坐标。
+#### Event举例
+
+举例1：使 div 跟随鼠标移动
+
+代码实现：
+
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <style type="text/css">
+      #box1 {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        /*
+        * 开启box1的绝对定位
+        */
+        position: absolute;
+      }
+    </style>
+
+    <script type="text/javascript">
+      window.onload = function() {
+        /*
+         * 使div可以跟随鼠标移动
+         */
+
+        //获取box1
+        var box1 = document.getElementById("box1");
+
+        //给整个页面绑定：鼠标移动事件
+        document.onmousemove = function(event) {
+          //兼容的方式获取event对象
+          event = event || window.event;
+
+          // 鼠标在页面的位置 = 滚动条滚动的距离 + 可视区域的坐标。
+          var pagex = event.pageX || scroll().left + event.clientX;
+          var pagey = event.pageY || scroll().top + event.clientY;
+
+          //   设置div的偏移量（相对于整个页面）
+          // 注意，如果想通过 style.left 来设置属性，一定要给 box1开启绝对定位。
+          box1.style.left = pagex + "px";
+          box1.style.top = pagey + "px";
+        };
+      };
+
+      // scroll 函数封装
+      function scroll() {
+        return {
+          //此函数的返回值是对象
+          left: window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop,
+          right:
+            window.pageXOffset || document.body.scrollLeft || document.documentElement.scrollLeft
+        };
+      }
+    </script>
+  </head>
+  <body style="height: 1000px;width: 2000px;">
+    <div id="box1"></div>
+  </body>
+</html>
+```
+
+举例2：获取鼠标距离所在盒子的距离
+
+关键点：
+
+```
+    鼠标距离所在盒子的距离 = 鼠标在整个页面的位置 - 所在盒子在整个页面的位置
+```
+
+代码演示：
+
+```
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box {
+            width: 300px;
+            height: 200px;
+            padding-top: 100px;
+            background-color: pink;
+            margin: 100px;
+            text-align: center;
+            font: 18px/30px "simsun";
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+
+</div>
+
+<script src="animate.js"></script>
+<script>
+    //需求：鼠标进入盒子之后只要移动，哪怕1像素，随时显示鼠标在盒子中的坐标。
+    //技术点：新事件，onmousemove：在事件源上，哪怕鼠标移动1像素也会触动这个事件。
+    //一定程度上，模拟了定时器
+    //步骤：
+    //1.老三步和新五步
+    //2.获取鼠标在整个页面的位置
+    //3.获取盒子在整个页面的位置
+    //4.用鼠标的位置减去盒子的位置赋值给盒子的内容。
+
+    //1.老三步和新五步
+    var div = document.getElementsByTagName("div")[0];
+
+    div.onmousemove = function (event) {
+
+        event = event || window.event;
+        //2.获取鼠标在整个页面的位置
+        var pagex = event.pageX || scroll().left + event.clientX;
+        var pagey = event.pageY || scroll().top + event.clientY;
+        //3.获取盒子在整个页面的位置
+        // var xx =
+        // var yy =
+        //4.用鼠标的位置减去盒子的位置赋值给盒子的内容。
+        var targetx = pagex - div.offsetLeft;
+        var targety = pagey - div.offsetTop;
+        this.innerHTML = "鼠标在盒子中的X坐标为：" + targetx + "px;<br>鼠标在盒子中的Y坐标为：" + targety + "px;"
+    }
+
+</script>
+</body>
+</html>
+```
+
+举例3：商品放大镜
+
+代码实现：
+
+（1）index.html:
+
+```
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 350px;
+            height: 350px;
+            margin: 100px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .big {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            top: 0;
+            left: 360px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            display: none;
+        }
+
+        /*mask的中文是：遮罩*/
+        .mask {
+            width: 175px;
+            height: 175px;
+            background: rgba(255, 255, 0, 0.4);
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: move;
+            display: none;
+        }
+
+        .small {
+            position: relative;
+        }
+
+        img {
+            vertical-align: top;
+        }
+    </style>
+
+    <script src="tools.js"></script>
+    <script>
+        window.onload = function () {
+            //需求：鼠标放到小盒子上，让大盒子里面的图片和我们同步等比例移动。
+            //技术点：onmouseenter==onmouseover 第一个不冒泡
+            //技术点：onmouseleave==onmouseout  第一个不冒泡
+            //步骤：
+            //1.鼠标放上去显示盒子，移开隐藏盒子。
+            //2.老三步和新五步（黄盒子跟随移动）
+            //3.右侧的大图片，等比例移动。
+
+            //0.获取相关元素
+            var box = document.getElementsByClassName("box")[0];
+            var small = box.firstElementChild || box.firstChild;
+            var big = box.children[1];
+            var mask = small.children[1];
+            var bigImg = big.children[0];
+
+            //1.鼠标放上去显示盒子，移开隐藏盒子。(为小盒子绑定事件)
+            small.onmouseenter = function () {
+                //封装好方法调用：显示元素
+                show(mask);
+                show(big);
+            }
+            small.onmouseleave = function () {
+                //封装好方法调用：隐藏元素
+                hide(mask);
+                hide(big);
+            }
+
+            //2.老三步和新五步（黄盒子跟随移动）
+            //绑定的事件是onmousemove，而事件源是small(只要在小盒子上移动1像素，黄盒子也要跟随)
+            small.onmousemove = function (event) {
+                //新五步
+                event = event || window.event;
+
+                //想要移动黄盒子，必须要知道鼠标在small小图中的位置。
+                var pagex = event.pageX || scroll().left + event.clientX;
+                var pagey = event.pageY || scroll().top + event.clientY;
+
+                //x：mask的left值，y：mask的top值。
+                var x = pagex - box.offsetLeft - mask.offsetWidth / 2; //除以2，可以保证鼠标mask的中间
+                var y = pagey - box.offsetTop - mask.offsetHeight / 2;
+
+                //限制换盒子的范围
+                //left取值为大于0，小盒子的宽-mask的宽。
+                if (x < 0) {
+                    x = 0;
+                }
+                if (x > small.offsetWidth - mask.offsetWidth) {
+                    x = small.offsetWidth - mask.offsetWidth;
+                }
+                //top同理。
+                if (y < 0) {
+                    y = 0;
+                }
+                if (y > small.offsetHeight - mask.offsetHeight) {
+                    y = small.offsetHeight - mask.offsetHeight;
+                }
+
+                //移动黄盒子
+                console.log(small.offsetHeight);
+                mask.style.left = x + "px";
+                mask.style.top = y + "px";
+
+                //3.右侧的大图片，等比例移动。
+                //如何移动大图片？等比例移动。
+                //    大图片/大盒子 = 小图片/mask盒子
+                //    大图片走的距离/mask走的距离 = （大图片-大盒子）/（小图片-黄盒子）
+//                var bili = (bigImg.offsetWidth-big.offsetWidth)/(small.offsetWidth-mask.offsetWidth);
+
+                //大图片走的距离/mask盒子都的距离 = 大图片/小图片
+                var bili = bigImg.offsetWidth / small.offsetWidth;
+
+                var xx = bili * x;  //知道比例，就可以移动大图片了
+                var yy = bili * y;
+
+                bigImg.style.marginTop = -yy + "px";
+                bigImg.style.marginLeft = -xx + "px";
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="box">
+    <div class="small">
+        <img src="images/001.jpg" alt=""/>
+        <div class="mask"></div>
+    </div>
+    <div class="big">
+        <img src="images/0001.jpg" alt=""/>
+    </div>
+</div>
+</body>
+</html>
+```
+
+（2）tools.js:
+
+```
+/**
+ * Created by smyhvae on 2018/02/03.
+ */
+
+//显示和隐藏
+function show(ele) {
+    ele.style.display = "block";
+}
+
+function hide(ele) {
+    ele.style.display = "none";
+}
+
+function scroll() {  // 开始封装自己的scrollTop
+    if (window.pageYOffset != null) {  // ie9+ 高版本浏览器
+        // 因为 window.pageYOffset 默认的是  0  所以这里需要判断
+        return {
+            left: window.pageXOffset,
+            top: window.pageYOffset
+        }
+    }
+    else if (document.compatMode === "CSS1Compat") {    // 标准浏览器   来判断有没有声明DTD
+        return {
+            left: document.documentElement.scrollLeft,
+            top: document.documentElement.scrollTop
+        }
+    }
+    return {   // 未声明 DTD
+        left: document.body.scrollLeft,
+        top: document.body.scrollTop
+    }
+}
+```
+### 事件的传播和事件冒泡
+#### DOM事件流
+
+事件传播的三个阶段是：事件捕获、事件冒泡和目标。
+
+- 事件捕获阶段：事件从祖先元素往子元素查找（DOM树结构），直到捕获到事件目标 target。在这个过程中，默认情况下，事件相应的监听函数是不会被触发的。
+    
+- 事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。
+    
+- 事件冒泡阶段：事件从事件目标 target 开始，从子元素往冒泡祖先元素冒泡，直到页面的最上一级标签。
+![[DOM事件流.png]]
+#### 事件捕获
+
+addEventListener可以捕获事件：
+
+```
+    box1.addEventListener("click", function () {
+        alert("捕获 box3");
+    }, true);
+```
+
+上面的方法中，参数为true，代表事件在捕获阶段执行。
+
+代码演示：
+
+```
+    //参数为true，代表事件在「捕获」阶段触发；参数为false或者不写参数，代表事件在「冒泡」阶段触发
+    box3.addEventListener("click", function () {
+        alert("捕获 child");
+    }, true);
+
+    box2.addEventListener("click", function () {
+        alert("捕获 father");
+    }, true);
+
+    box1.addEventListener("click", function () {
+        alert("捕获 grandfather");
+    }, true);
+
+    document.addEventListener("click", function () {
+        alert("捕获 body");
+    }, true);
+```
+
+**重点**：捕获阶段，事件依次传递的顺序是：window --> document --> html--> body --> 父元素、子元素、目标元素。
+
+这几个元素在事件捕获阶段的完整写法是：
+
+```
+    window.addEventListener("click", function () {
+        alert("捕获 window");
+    }, true);
+
+    document.addEventListener("click", function () {
+        alert("捕获 document");
+    }, true);
+
+    document.documentElement.addEventListener("click", function () {
+        alert("捕获 html");
+    }, true);
+
+    document.body.addEventListener("click", function () {
+        alert("捕获 body");
+    }, true);
+
+    fatherBox.addEventListener("click", function () {
+        alert("捕获 father");
+    }, true);
+
+    childBox.addEventListener("click", function () {
+        alert("捕获 child");
+    }, true);
+
+```
+
+说明：
+
+（1）第一个接收到事件的对象是 **window**（有人会说body，有人会说html，这都是错误的）。
+
+（2）JS中涉及到DOM对象时，有两个对象最常用：window、doucument。它们俩是最先获取到事件的。
+
+**补充：**
+
+在 js中：
+
+- 如果想获取 `html`节点，方法是`document.documentElement`。
+    
+- 如果想获取 `body` 节点，方法是：`document.body`。
+#### 事件冒泡
+
+**事件冒泡**: 当一个元素上的事件被触发的时候（比如说鼠标点击了一个按钮），同样的事件将会在那个元素的所有**祖先元素**中被触发。这一过程被称为事件冒泡；这个事件从原始元素开始一直冒泡到DOM树的最上层。
+
+通俗来讲，冒泡指的是：**子元素的事件被触发时，父元素的同样的事件也会被触发**。取消冒泡就是取消这种机制。
+
+代码演示：
+
+```
+    //事件冒泡
+    box3.onclick = function () {
+        alert("child");
+    }
+
+    box2.onclick = function () {
+        alert("father");
+    }
+
+    box1.onclick = function () {
+        alert("grandfather");
+    }
+
+    document.onclick = function () {
+        alert("body");
+    }
+```
+当我点击子元素 box3 的时候，它的父元素box2、box1、body都依次被触发了。即使我改变代码的顺序，也不会影响效果的顺序。
+
+当然，上面的代码中，我们用 addEventListener 这种 DOM2的写法也是可以的，但是第三个参数要写 false，或者不写。
+
+**冒泡顺序**：
+
+一般的浏览器: （除IE6.0之外的浏览器）
+
+- div -> body -> html -> document -> window
+
+IE6.0：
+
+- div -> body -> html -> document
+#### 不是所有的事件都能冒泡
+
+以下事件不冒泡：blur、focus、load、unload、onmouseenter、onmouseleave。意思是，事件不会往父元素那里传递。
+
+我们检查一个元素是否会冒泡，可以通过事件的以下参数：
+
+```
+    event.bubbles
+```
+
+如果返回值为true，说明该事件会冒泡；反之则相反。
+#### 阻止冒泡
+
+大部分情况下，冒泡都是有益的。当然，如果你想阻止冒泡，也是可以的。可以按下面的方法阻止冒泡。
+
+**阻止冒泡的方法**
+
+w3c的方法：（火狐、谷歌、IE11）
+
+```
+    event.stopPropagation();
+```
+
+IE10以下则是：
+
+```
+event.cancelBubble = true
+```
+
+兼容代码如下：
+
+```
+   box3.onclick = function (event) {
+
+        alert("child");
+
+        //阻止冒泡
+        event = event || window.event;
+
+        if (event && event.stopPropagation) {
+            event.stopPropagation();
+        } else {
+            event.cancelBubble = true;
+        }
+    }
+```
+
+上方代码中，我们对box3进行了阻止冒泡，产生的效果是：事件不会继续传递到 father、grandfather、body了。
+
+**阻止冒泡的举例**
+
+```
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+        <style type="text/css">
+            #box1 {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                /*
+        * 开启box1的绝对定位
+        */
+                position: absolute;
+            }
+        </style>
+
+        <script type="text/javascript">
+            window.onload = function() {
+                /*
+                 * 使div可以跟随鼠标移动
+                 */
+
+                //获取box1
+                var box1 = document.getElementById('box1');
+
+                //给整个页面绑定：鼠标移动事件
+                document.onmousemove = function(event) {
+                    //兼容的方式获取event对象
+                    event = event || window.event;
+
+                    // 鼠标在页面的位置 = 滚动条滚动的距离 + 可视区域的坐标。
+                    var pagex = event.pageX || scroll().left + event.clientX;
+                    var pagey = event.pageY || scroll().top + event.clientY;
+
+                    //   设置div的偏移量（相对于整个页面）
+                    // 注意，如果想通过 style.left 来设置属性，一定要给 box1 开启绝对定位。
+                    box1.style.left = pagex + 'px';
+                    box1.style.top = pagey + 'px';
+                };
+
+                // 【重要注释】
+                // 当 document.onmousemove 和 box2.onmousemove 同时触发时，通过  box2 阻止事件向 document 冒泡。
+                // 也就是说，只要是在 box2 的区域，就只触发 document.onmousemove 事件
+                var box2 = document.getElementById('box2');
+                box2.onmousemove = function(event) {
+                    //阻止冒泡
+                    event = event || window.event;
+
+                    if (event && event.stopPropagation) {
+                        event.stopPropagation();
+                    } else {
+                        event.cancelBubble = true;
+                    }
+                };
+            };
+
+            // scroll 函数封装
+            function scroll() {
+                return {
+                    //此函数的返回值是对象
+                    left: window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop,
+                    right: window.pageXOffset || document.body.scrollLeft || document.documentElement.scrollLeft,
+                };
+            }
+        </script>
+    </head>
+    <body style="height: 1000px;width: 2000px;">
+        <div id="box2" style="width: 300px; height: 300px; background-color: #bfa;"></div>
+        <div id="box1"></div>
+    </body>
+</html>
+```
+### 事件委托
+事件委托，通俗地来讲，就是把一个元素响应事件（click、keydown......）的函数委托到另一个元素。
+
+比如说有一个列表 ul，列表之中有大量的列表项 `<a>`标签：
+
+```
+<ul id="parent-list">
+    <li><a href="javascript:;" class="my_link">超链接一</a></li>
+    <li><a href="javascript:;" class="my_link">超链接二</a></li>
+    <li><a href="javascript:;" class="my_link">超链接三</a></li>
+</ul>
+```
+
+当我们的鼠标移到`<a>`标签上的时候，需要获取此`<a>`的相关信息并飘出悬浮窗以显示详细信息，或者当某个`<a>`被点击的时候需要触发相应的处理事件。我们通常的写法，是为每个`<a>`都绑定类似onMouseOver或者onClick之类的事件监听：
+
+```
+    window.onload = function(){
+        var parentNode = document.getElementById("parent-list");
+        var aNodes = parentNode.getElementByTagName("a");
+        for(var i=0, l = aNodes.length; i < l; i++){
+
+            aNodes[i].onclick = function() {
+                console.log('我是超链接 a 的单击相应函数');
+            }
+        }
+    }
+```
+
+但是，上面的做法过于消耗内存和性能。**我们希望，只绑定一次事件，即可应用到多个元素上**，即使元素是后来添加的。
+
+因此，比较好的方法就是把这个点击事件绑定到他的父层，也就是 `ul` 上，然后在执行事件函数的时候再去匹配判断目标元素。如下：
+
+```
+    <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script type="text/javascript">
+            window.onload = function() {
+
+                // 获取父节点，并为它绑定click单击事件。 false 表示事件在冒泡阶段触发（默认）
+                document.getElementById('parent-list').addEventListener('click', function(event) {
+                    event = event || window.event;
+
+                    // e.target 表示：触发事件的对象
+                    //如果触发事件的对象是我们期望的元素，则执行；否则不执行
+                    if (event.target && event.target.className == 'link') {
+                    // 或者写成 if (event.target && event.target.nodeName.toUpperCase() == 'A') {
+                        console.log('我是ul的单击响应函数');
+                    }
+                }, false);
+            };
+        </script>
+    </head>
+    <body>
+        <ul id="parent-list" style="background-color: #bfa;">
+            <li>
+                <p>我是p元素</p>
+            </li>
+            <li><a href="javascript:;" class="link">超链接一</a></li>
+            <li><a href="javascript:;" class="link">超链接二</a></li>
+            <li><a href="javascript:;" class="link">超链接三</a></li>
+        </ul>
+    </body>
+```
+
+上方代码，为父节点注册 click 事件，当子节点被点击的时候，click事件会从子节点开始**向父节点冒泡**。**父节点捕获到事件**之后，开始执行方法体里的内容：通过判断 event.target 拿到了被点击的子节点`<a>`。从而可以获取到相应的信息，并作处理。
+
+换而言之，参数为false，说明事件是在冒泡阶段触发（子元素向父元素传递事件）。而父节点注册了事件函数，子节点没有注册事件函数，此时，会在父节点中执行函数体里的代码。
+
+**总结**：事件委托是利用了冒泡机制，减少了事件绑定的次数，减少内存消耗，提高性能。
+
+## 定时器
+### 定时器的常见方法
+
+- setInterval()：循环调用。将一段代码，**每隔一段时间**执行一次。（循环执行）
+    
+- setTimeout()：延时调用。将一段代码，等待一段时间之后**再执行**。（只执行一次）
+    
+
+备注：在实际开发中，二者是可以根据需要，互相替代的。
+
+### setInterval() 的使用
+
+`setInterval()`：循环调用。将一段代码，**每隔一段时间**执行一次。（循环执行）
+
+**参数**：
+
+- 参数1：回调函数，该函数会每隔一段时间被调用一次。
+    
+- 参数2：每次调用的间隔时间，单位是毫秒。
+    
+
+**返回值**：返回一个Number类型的数据。这个数字用来作为定时器的**唯一标识**，方便用来清除定时器。
+
+### 定义定时器
+
+**方式一**：匿名函数
+
+每间隔一秒，将 数字 加1：
+
+```
+    let num = 1;
+   setInterval(function () {
+       num ++;
+       console.log(num);
+   }, 1000);
+```
+
+**方式二：**
+
+每间隔一秒，将 数字 加1：
+
+```
+    setInterval(fn,1000);
+
+    function fn() {
+       num ++;
+       console.log(num);
+    }
+
+```
+
+### 清除定时器
+
+定时器的返回值是作为这个定时器的**唯一标识**，可以用来清除定时器。具体方法是：假设定时器setInterval()的返回值是`参数1`，那么`clearInterval(参数1)`就可以清除定时器。
+
+setTimeout()的道理是一样的。
+
+代码举例：
+
+```
+<script>
+    let num = 1;
+
+    const timer = setInterval(function () {
+        console.log(num);  //每间隔一秒，打印一次num的值
+        num ++;
+        if(num === 5) {  //打印四次之后，就清除定时器
+            clearInterval(timer);
+        }
+
+    }, 1000);
+</script>
+
+```
+
+### setTimeout() 的使用
+
+`setTimeout()`：延时调用。将一段代码，等待一段时间之后**再执行**。（只执行一次）
+
+**参数**：
+
+- 参数1：回调函数，该函数会每隔一段时间被调用一次。
+    
+- 参数2：每次调用的间隔时间，单位是毫秒。
+    
+
+**返回值**：返回一个Number类型的数据。这个数字用来作为定时器的**唯一标识**，方便用来清除定时器。
+
+### 定义和清除定时器
+
+代码举例：
+
+```
+    const timer = setTimeout(function() {
+        console.log(1); // 3秒之后，再执行这段代码。
+    }, 3000);
+
+    clearTimeout(timer);
+
+```
+
+代码举例：（箭头函数写法）
+
+```
+    setTimeout(() => {
+        console.log(1); // 3秒之后，再执行这段代码。
+    }, 3000);
+```
+
+### setTimeout() 举例：5秒后关闭网页两侧的广告栏
+
+假设网页两侧的广告栏为两个img标签，它们的样式为：
+
+```
+<style>
+    ...
+    ...
+
+</style>
+
+```
+
+5秒后关闭广告栏的js代码为：
+
+```
+    <script>
+        window.onload = function () {
+            //获取相关元素
+            var imgArr = document.getElementsByTagName("img");
+            //设置定时器：5秒后关闭两侧的广告栏
+            setTimeout(fn,5000);
+            function fn(){
+                imgArr[0].style.display = "none";
+                imgArr[1].style.display = "none";
+            }
+        }
+    </script>
+```

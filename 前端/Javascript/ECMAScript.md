@@ -1,0 +1,1391 @@
+## 前言
+
+### ECMAScript 简介
+
+ES 的全称是 ECMAScript，它是由 ECMA 国际标准化组织 制定的一套**脚本语言的标准化规范**。
+
+详细来说，ES 是由 ECMA 的第 39 号技术专家委员会（Technical Committee 39，简称 TC39）负责制订 ECMAScript 标准，成员包括 Microsoft、Mozilla、Google 等公司。
+
+简单来说，ECMAScript 是 JS 的语言标准。当然，ECMAScript 还包括其他脚本语言的语言标准。
+
+### ECMAScript 版本发布记录
+
+- 1995 年：ECMAScript 诞生。
+    
+- 1997 年：ECMAScript 标准确立。ECMA 发布 ECMA-262 标准，推出浏览器标准语言 ECMAScript 1.0。
+    
+- 1999 年：发布 ES3；与此同时，IE5 风靡一时。
+    
+- **2009 年**：发布 ECMAScript 5.0（简称 **ES5**）。例如 foreach、Object.keys、Object.create 和 json 标准。
+    
+- 2011 年：发布 ECMAScript5.1，成为 ISO **国际标准**，从而推动所有浏览器都支持。
+    
+- **2015** 年 6 月：发布 ECMAScript 6（简称 **ES6**），即 ECMAScript 2015。（注意，**前者是按版本号区分，后者是按年份区分**。ES 的后续版本，请尽量用**年份**来命名。）
+    
+- 2016 年 6 月：发布 ECMAScript 7，即 ECMAScript 2016。
+    
+- 2017 年 6 月：发布 ECMAScript 8，即 ECMAScript 2017。
+    
+- 2018 年 6 月：发布 ECMAScript 9，即 ECMAScript 2018。
+    
+- 2019 年 6 月：发布 ECMAScript 10，即 ECMAScript 2019。
+    
+- 2020 年 6 月：发布 ECMAScript 11，即 ECMAScript 2020。
+    
+- ......
+    
+
+- 此后，每年更新一版。
+
+### ECMAScript5.1简介
+
+ECMAScript 5.1是ECMAScript标准的最新修正版本，所以这个版本非常重要。与ECMAScript 5.0 相比，ECMAScript 5.1的改进如下：
+
+- 对于此前不合理的地方进行了修正。
+- 新增了一些新的方法。
+- 新增了**严格模式**的语法。（我们将在下一篇文章讲严格模式）
+### ES6 简介
+
+从上面的 ES 的版本记录可以看出：2015 年 6 月，ES6 正式发布。如果用年份来命名版本号，也可以称之为 ES2015。
+
+ES6 是新的 JS 语法标准。**ES6 实际上是一个泛指，泛指 ES 2015 及后续的版本**。
+
+很多人在做业务选型的时候，会倾向于选 jQuery。其实 jQuery 的语法是偏向于 ES3 的。而现在主流的框架 Vue.js 和 React.js 的默认语法，都是用的 ES6。
+
+ES6 的改进如下：
+
+- ES6 之前的变量提升，会导致程序在运行时有一些不可预测性。而 ES6 中通过 let、const 变量优化了这一点。
+    
+- ES6 增加了很多功能，比如：**常量、作用域、对象代理、异步处理、类、继承**等。这些在 ES5 中想实现，比较复杂，但是 ES6 对它们进行了封装。
+    
+- ES6 之前的语法过于松散，实现相同的功能，不同的人可能会写出不同的代码。
+    
+
+ES6 的目标是：让 JS 语言可以编写复杂的大型应用程序，成为企业级开发语言。
+### 将ES6的语法转为ES5（为了兼容 ES5）
+
+> 掌握 ES6 之后，如果你的业务需要考虑 ES5 的兼容性，则可以这样做：写 ES6 语法的 js 代码，然后通过 `Babel`将 ES6 转换为 ES5。如果没有这样的需要，那么下面的内容，了解即可。
+
+babel 的作用是将 ES6 语法转为 ES5 语法，支持低端浏览器。
+
+但是，在这之前，我们需要配置一下相关的环境。
+
+### 建立工程目录
+
+（1）先建立一个空的工程目录 `ES6Demo`，并在目录下建立两个文件夹 `src`和 `dist`：
+
+- `src`：书写 ES6 代码，我们写的 js 程序都放在这里。
+    
+- `dist`：利用 Babel 编译生成的 ES5 代码。**我们在 HTML 页面需要引入 dist 里的 js 文件**。
+    
+
+（2）在 src 里新建文件 `index.html`：
+
+```
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <!-- 我们引入 ES5 中的 js 文件，而不是引入 ES6 中的 js 文件。 -->
+        <script src="./dist/index.js"></script>
+    </head>
+    <body></body>
+</html>
+```
+
+**注意**，上方代码中，我们引入的是`dist`目录下的 js 文件。
+
+然后我们新建文件 `src/index.js`：
+
+```
+let a = 'smyhvae';
+const b = 'qianguyihao';
+
+console.log(a);
+console.log(b);
+```
+
+这个文件是一个 ES6 语法 的 js 文件，稍后，我们尝试把这个 ES6 语法的 js 文件转化为 ES5 的 js 文件。
+
+PS：我们在写代码时，能用单引号尽量用单引号，而不是双引号，前者在压缩之后，程序执行会更快。
+
+### 全局安装 Babel-cli
+
+（1）初始化项目：
+
+在安装 Babel 之前，需要先用 npm init 先初始化我们的项目。打开终端或者通过 cmd 打开命令行工具，进入项目目录，输入如下命令：
+
+```
+	npm init -y
+```
+
+上方代码中，`-y` 代表全部默认同意，就不用一次次按回车了（稍后再根据需要，在文件中手动修改）。命令执行完成后，会在项目的根目录下生成 package.json 文件：
+
+```
+{
+    "name": "es6demo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "smyhvae",
+    "license": "ISC"
+}
+```
+
+PS：VS Code 里打开终端的快捷键是：`Contol + ~`。
+
+（2）全局安装 Babel-cli：
+
+在终端中输入以下命令：
+
+```
+	npm install -g babel-cli
+```
+
+如果安装比较慢的话，Mac 下可以使用`cnpm`进行安装 ，windows 下可以使用`nrm`切换到 taobao 的镜像。
+
+（3）本地安装 babel-preset-es2015 和 babel-cli：
+
+```
+	npm install --save-dev babel-preset-es2015 babel-cli
+```
+4）新建.babelrc：
+
+在根目录下新建文件`.babelrc`，输入如下内容：
+
+```
+{
+    "presets":[
+        "es2015"
+    ],
+    "plugins":[]
+}
+```
+
+（5）开始转换：
+
+现在，我们应该可以将 ES6 的文件转化为 ES5 的文件了，命令如下：（此命令略显复杂）
+
+```
+	babel src/index.js -o dist/index.js
+```
+
+我们可以将上面这个命令进行简化一下。操作如下：
+
+在文件 `package.json` 中修改键 `scripts`中的内容：
+
+```
+  "scripts": {
+    "build": "babel src/index.js -o dist/index.js"
+  },
+```
+
+目前为止，环境配置好了。以后，我们执行如下命令，即可将`src/index.js`这个 ES6 文件转化为 `dist/index.js`这个 ES5 文件：
+
+```
+	npm run build
+```
+
+我们执行上面的命令之后，会发现， dist 目录下会生成 ES5 的 js 文件：
+
+index.js：
+
+```
+'use strict';
+
+var a = 'smyhvae';
+var b = 'qianguyihao';
+
+console.log(a);
+console.log(b);
+```
+
+当我们打开网页后，就可以在浏览器的控制台，看到代码的输出结果。
+## ES5中的严格模式
+我们知道，JS的语法是非常灵活的，比如说，我们随便写一个变量`x`，这个变量其实是挂在 windows下面的。这种灵活性在有些情况下，反而是一种缺点，造成了全局污染。因此，ES5还引入了一种严格的运行模式："严格模式"（strict mode）。
+### 概念
+
+顾名思义，严格模式使得 Javascript 在更严格的语法条件下运行。限制性更强，也更安全。
+
+**目的**：
+
+- 消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为。
+    
+- 消除代码运行的一些不安全之处，为代码的安全运行保驾护航。
+    
+- 为未来新版本的Javascript做好铺垫
+### 使用
+
+- 针对整个文件：将`use strict`放在文件的第一行，则整个文件将以严格模式运行。
+    
+- 针对单个函数：将`use strict`放在函数体的第一行，则整个函数以严格模式运行。
+    
+
+PS：如果浏览器不支持，则这句话只会被解析为一条简单的语句，没有任何副作用。
+
+脚本文件的变通写法：因为第一种调用方法不利于文件合并，所以更好的做法是，借用第二种方法，将整个脚本文件放在一个立即执行的匿名函数之中。
+### 语法和行为改变
+
+- 必须用var声明变量
+    
+- 禁止自定义的函数中的this指向window
+    
+- 创建eval作用域
+    
+- 对象不能有重名的属性
+###   严格模式和普通模式的区别
+#### 全局变量显式声明
+
+在正常模式中，如果一个变量没有声明就赋值，默认是全局变量。严格模式禁止这种用法，全局变量必须显式声明。
+#### 禁止this关键字指向全局对象：
+
+```
+        var foo = function () {
+            console.log(this);
+        }
+
+        foo();
+```
+
+上方代码中，普通模式打印的是window。严格模式下打印的是undefined。
+#### 创设eval作用域
+#### 禁止使用with语句
+
+因为with语句无法在编译时就确定，属性到底归属哪个对象。
+#### 构造函数必须通过new实例化对象
+
+构造函数必须通过new实例化对象，否则报错。因为this为undefined，此时无法设置属性。
+
+比如说：
+
+```
+        var Cat = function (name) {
+            this.name = name;
+        }
+
+        Cat('haha');
+```
+
+上方代码中，如果在严格模式下，则会报错。
+#### 为了让代码更安全，禁止函数内部遍历调用栈
+#### 严格模式下无法删除变量
+
+#### 属性相关
+
+普通模式下，对一个对象的只读属性进行赋值，不会报错，只会默默地失败。严格模式下，将报错。
+
+严格模式下，对禁止扩展的对象添加新属性，会报错。
+
+普通模式下，如果对象有多个重名属性，最后赋值的那个属性会覆盖前面的值。严格模式下，这属于语法错误。
+
+普通模式下，如果函数有多个重名的参数，可以用arguments[i]读取。严格模式下，多个重名的参数属于语法错误。
+
+比如下面这样的代码：
+
+```
+	var obj = {
+		username: 'smyh';
+		username: 'vae'
+	}
+```
+
+上面的代码，在严格模式下属于语法错误，因为有重名的属性。
+
+#### 函数必须声明在顶层
+
+将来Javascript的新版本会引入"块级作用域"。为了与新版本接轨，严格模式只允许在全局作用域或函数作用域的顶层声明函数。也就是说，不允许在非函数的代码块内声明函数。
+
+#### 新增关键字
+
+为了向将来Javascript的新版本过渡，严格模式新增了一些保留字：implements, interface, let, package, private, protected, public, static, yield。
+
+## ES5中的一些扩展
+### JSON 对象
+
+1、js对象(数组) --> json对象(数组)：
+
+```
+	JSON.stringify(obj/arr)
+```
+
+2、json对象(数组) --> js对象(数组)：
+
+```
+	JSON.parse(json)
+```
+
+上面这两个方法是ES5中提供的。
+
+我们要记住，我们通常说的“json字符串”，只有两种：**json对象、json数组**。
+
+`typeof json字符串`的返回结果是string。
+
+### Object的扩展
+#### 方法一
+
+```
+	Object.create(prototype, [descriptors])
+```
+
+作用: 以指定对象为原型，创建新的对象。同时，第二个参数可以为为新的对象添加新的属性，并对此属性进行描述。
+
+**举例1**：（没有第二个参数时）
+
+```
+    var obj1 = {username: 'smyhvae', age: 26};
+    var obj2 = {address:'shenzhen'};
+
+    obj2 = Object.create(obj1);
+    console.log(obj2);
+```
+我们发现，obj1成为了obj2的原型。
+
+**举例2**：（有第二个参数时）
+
+第二个参数可以给新的对象添加新的属性。我们修改上面的代码，尝试给obj2添加新属性`sex`：
+
+```
+    var obj1 = {username: 'smyhvae', age: 26};
+    var obj2 = {address: 'shenzhen'};
+
+    obj2 = Object.create(obj1, {
+        sex: {//给obj2添加新的属性`sex`。注意，这一行的冒号不要漏掉
+            value: '男',  //通过value关键字设置sex的属性值
+            writable: false,
+            configurable: true,
+            enumerable: true
+        }
+    });
+
+    console.log(obj2);
+
+```
+
+上方代码中，我们通过第5行的sex给obj2设置了一个新的属性`sex`，但是要通过`value`来设置属性值（第6行）。
+
+设置完属性值后，这个属性值默认是不可修改的，要通过`writable`来设置。总而言之，这几个关键字的解释如下：
+
+- `value`：设置属性值。
+    
+- `writable`：标识当前属性值是否可修改。如果不写的话，默认为false，不可修改。
+    
+- `configurable`：标识当前属性是否可以被删除。默认为false，不可删除。
+    
+- `enumerable`：标识当前属性是否能用 for in 枚举。 默认为false，不可。
+    
+
+#### 方法二
+
+> 这个方法有点难理解。
+
+```
+	Object.defineProperties(object, descriptors)
+```
+
+**作用**：为指定对象定义扩展多个属性。
+
+代码举例：
+
+```
+    var obj2 = {
+        firstName : 'smyh',
+        lastName : 'vae'
+    };
+    Object.defineProperties(obj2, {
+        fullName : {
+            get : function () {
+                return this.firstName + '-' + this.lastName
+            },
+            set : function (data) {  //监听扩展属性，当扩展属性发生变化的时候自动调用，自动调用后将变化的值作为实参注入到set函数
+                var names = data.split('-');
+                this.firstName = names[0];
+                this.lastName = names[1];
+            }
+        }
+    });
+    console.log(obj2.fullName);
+    obj2.firstName = 'tim';
+    obj2.lastName = 'duncan';
+    console.log(obj2.fullName);
+    obj2.fullName = 'kobe-bryant';
+    console.log(obj2.fullName);
+```
+
+- get ：用来获取当前属性值的回调函数
+    
+- set ：修改当前属性值得触发的回调函数，并且实参即为修改后的值
+    
+
+存取器属性：setter,getter一个用来存值，一个用来取值。
+### Object的扩展（二）
+obj对象本身就自带了两个方法。格式如下：
+
+```
+get 属性名(){} 用来得到当前属性值的回调函数
+
+set 属性名(){} 用来监视当前属性值变化的回调函数
+
+```
+
+举例如下：
+
+```
+    var obj = {
+        firstName : 'kobe',
+        lastName : 'bryant',
+        get fullName(){
+            return this.firstName + ' ' + this.lastName
+        },
+        set fullName(data){
+            var names = data.split(' ');
+            this.firstName = names[0];
+            this.lastName = names[1];
+        }
+    };
+    console.log(obj.fullName);
+    obj.fullName = 'curry stephen';
+    console.log(obj.fullName);
+```
+###   数组的扩展
+**方法1**：
+
+```
+	Array.prototype.indexOf(value)
+```
+
+作用：获取 value 在数组中的第一个下标。
+
+**方法2**：
+
+```
+	Array.prototype.lastIndexOf(value)
+```
+
+作用：获取 value 在数组中的最后一个下标。
+
+**方法3**：遍历数组
+
+```
+	Array.prototype.forEach(function(item, index){})
+```
+
+**方法4**：
+
+```
+	Array.prototype.map(function(item, index){})
+```
+
+作用：遍历数组返回一个新的数组，返回的是**加工之后**的新数组。
+
+**方法5**：
+
+```
+	Array.prototype.filter(function(item, index){})
+```
+
+作用：遍历过滤出一个新的子数组，返回条件为true的值。
+### 函数function的扩展：bind()
+```
+Function.prototype.bind(obj)
+```
+
+作用：将函数内的this绑定为obj, 并将函数返回。
+
+**面试题**: call()、apply()和bind()的区别：
+
+- 都能改变this的指向
+    
+- call()/apply()是**立即调用函数**
+    
+- bind()：绑定完this后，不会立即调用当前函数，而是**将函数返回**，因此后面还需要再加`()`才能调用。
+    
+
+PS：bind()传参的方式和call()一样。
+
+**分析**：
+
+为什么ES5中要加入bind()方法来改变this的指向呢？因为bind()不会立即调用当前函数。
+
+bind()通常使用在回调函数中，因为回调函数并不会立即调用。如果你希望在回调函数中改变this，不妨使用bind()。
+## ES6：变量 let、const 和块级作用域
+### ES6 的变量声明
+
+ES5 中，使用 `var` 定义变量（ var 是 variable 的简写）。
+
+ES6 中，新增了 let 和 const 来定义变量：
+
+- `let`：定义**变量**，替代 var。
+    
+- `const`：定义**常量**（定义后，不可修改）。
+#### var：定义变量（ES5 知识回顾）
+
+看下面的代码：
+
+```
+{
+    var a = 1;
+}
+
+console.log(a); //这里的 a，指的是 区块 里的 a
+```
+
+上方代码是可以输出结果的，输出结果为 1。因为 var 是全局声明的，所以，即使是在区块里声明，但仍然在全局起作用。
+
+也就是说：**使用 var 声明的变量不具备块级作用域特性**。
+ES5语法中，用 var 定义的变量，容易造成全局污染（污染整个 js 的作用域）。如果不考虑浏览器的兼容性，我们在今后的实战中，**尽量避免**使用 var 定义变量，尽量用接下来要讲的ES6语法。
+#### 1、let：定义变量
+
+举例 1：
+
+```
+{
+    let a = 'hello';
+}
+console.log(a); // 打印结果报错：Uncaught ReferenceError: a is not defined
+```
+
+上方代码，打印报错。
+
+举例 2：
+
+```
+var a = 2;
+{
+    let a = 3;
+}
+
+console.log(a); // 打印结果：2
+```
+
+通过上面两个例子可以看出，**用块级作用域内， 用let 声明的变量，只在局部起作用**。
+
+**经典面试题**：
+
+let 可以防止数据污染，我们来看下面这个 **for 循环**的经典面试题。
+
+1、用 var 声明变量：
+
+```
+for (var i = 0; i < 10; i++) {
+    console.log('循环体中:' + i);
+}
+
+console.log('循环体外:' + i);
+```
+
+上方代码的最后一行可以正常打印结果，且最后一行的打印结果是 10。说明**循环体外**定义的变量 i，是**全局作用域**下的 i。
+
+2、用 let 声明变量：
+
+```
+for (let i = 0; i < 10; i++) {
+    console.log('循环体中:' + i); // // 每循环一次，就会在 { } 所在的块级作用域中，重新定义一个新的变量 i
+}
+
+console.log('循环体外:' + i);
+```
+
+上方代码的关键在于：**每次循环都会产生一个块级作用域，每个块级作用域中会重新定义一个新的变量 i**。
+
+另外，上方代码的最后一行，打印会报错。因为用 let 定义的变量 i，只在`{ }`这个**块级作用域**里生效。
+
+**总结：**我们要习惯用 let 声明，减少 var 声明带来的**污染全局空间**。
+
+为了进一步强调 let 不会带来污染，需要说明的是：当我们定义了`let a = 1`时，如果我们在同一个作用域内继续定义`let a = 2`，是会报错的。
+#### 2、const：定义常量
+
+在程序开发中，有些变量是希望声明后，在业务层就不再发生变化，此时可以用 const 来定义**常量**。常量就是值（内存地址）不能变化的量。
+
+举例：
+
+```
+const name = 'smyhvae'; //定义常量
+```
+
+用 const 声明的常量，只在局部（块级作用域内）起作用；而且，用 const 声明常量时，必须赋值，否则报错。
+#### let 和 const 的特点【重要】
+
+- 不属于顶层对象 Window
+    
+- 不允许重复声明
+    
+- 不存在变量提升
+    
+- 暂时性死区
+    
+- 支持块级作用域
+    
+
+相反， 用`var`声明的变量：存在变量提升、可以重复声明、**没有块级作用域**。
+#### var/let/const 的共同点
+
+- 全局作用域中定义的变量，可以在函数中使用。
+    
+- 函数中声明的变量，只能在函数及其子函数中使用，外部无法使用。
+**代码 1**、我们先来看看如下代码：（用 var 定义变量 i）
+
+```
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta />
+        <meta />
+        <meta />
+        <title>Document</title>
+    </head>
+    <body>
+        <input type="button" value="aa" />
+        <input type="button" value="bb" />
+        <input type="button" value="cc" />
+        <input type="button" value="dd" />
+
+        <script>
+            var myBtn = document.getElementsByTagName('input');
+
+            for (var i = 0; i < myBtn.length; i++) {
+                myBtn[i].onclick = function () {
+                    alert(i);
+                };
+            }
+        </script>
+    </body>
+</html>
+```
+为何点击任何一个按钮，弹出的内容都是 4 呢？这是因为，我们用 var 定义的变量 i，是在全局作用域声明的。整个代码中，自始至终只有一个变量。
+
+for 循环是同步代码，而 onclick 点击事件是异步代码。当我们还没点击按钮之前，同步代码已经执行完了，变量 i 已经循环到 4 了。
+
+也就是说，上面的 for 循环，相当于如下代码：
+
+```
+var i = 0;
+myBtn[0].onclick = function () {
+    alert(i);
+};
+i++;
+
+myBtn[1].onclick = function () {
+    alert(i);
+};
+i++;
+
+myBtn[2].onclick = function () {
+    alert(i);
+};
+i++;
+
+myBtn[3].onclick = function () {
+    alert(i);
+};
+i++; // 到这里，i 的值已经是4了。因此，当我们点击按钮时，i的值一直都是4
+```
+
+**代码 2**、上面的代码中，如果我们改为用 let 定义变量 i：
+
+```
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta />
+        <meta />
+        <meta />
+        <title>Document</title>
+    </head>
+    <body>
+        <input type="button" value="aa" />
+        <input type="button" value="bb" />
+        <input type="button" value="cc" />
+        <input type="button" value="dd" />
+
+        <script>
+            var myBtn = document.getElementsByTagName('input');
+
+            for (let i = 0; i < myBtn.length; i++) {
+                myBtn[i].onclick = function () {
+                    alert(i);
+                };
+            }
+        </script>
+    </body>
+</html>
+```
+
+## ES6：变量的解构赋值
+### 解构赋值的概念
+
+**解构赋值**：ES6 允许我们，按照一一对应的方式，从数组或者对象中**提取值**，再将提取出来的值赋值给变量。
+
+解构：分解数据结构；赋值：给变量赋值。
+
+解构赋值在实际开发中可以大量减少我们的代码量，并且让程序结构更清晰。
+### 数组的解构赋值
+
+数组的结构赋值：将数组中的值按照**位置**提取出来，然后赋值给变量。
+
+#### 语法
+
+在 ES6 之前，当我们在为一组变量赋值时，一般是这样写：
+
+```
+var a = 1;
+var b = 2;
+var c = 3;
+```
+
+或者是这样写：
+
+```
+var arr = [1, 2, 3];
+
+var a = arr[0];
+var b = arr[1];
+var c = arr[2];
+```
+
+现在有了 ES6 之后，我们可以通过数组解构的方式进行赋值：（根据**位置**进行一一对应）
+
+```
+let [a, b, c] = [1, 2, 3];
+```
+
+二者的效果是一样的，但明显后者的代码更简洁优雅。
+#### 未匹配到的情况
+
+数据的结构赋值，是根据位置进行一一对应来赋值的。可如果左边的数量大于右边的数量时（也就是变量的数量大于值的数量时），多余的变量要怎么处理呢？
+
+答案是：如果变量在一一对应时，没有找到对应的值，那么，**多余的变量会被赋值为 undefined**。
+#### 解构时，左边允许有默认值
+
+在解构赋值时，是允许使用默认值的。举例如下：
+
+```
+{
+    //一个变量时
+    let [foo = true] = [];
+    console.log(foo); //输出结果：true
+}
+
+{
+    //两个变量时
+    let [a, b] = ['千古壹号']; //a 赋值为：千古壹号。b没有赋值
+    console.log(a + ',' + b); //输出结果：千古壹号,undefined
+}
+
+{
+    //两个变量时
+    let [a, b = 'qianguyihao'] = ['千古壹号']; //a 赋值为：千古壹号。b 采用默认值 qianguyihao
+    console.log(a + ',' + b); //输出结果：千古壹号,qianguyihao
+}
+```
+
+#### 将右边的 `undefined`和`null`赋值给变量
+
+如果我们在赋值时，采用的是 `undefined`或者`null`，那会有什么区别呢？
+
+```
+{
+    let [a, b = 'qianguyihao'] = ['千古壹号', undefined]; //b 虽然被赋值为 undefined，但是 b 会采用默认值
+    console.log(a + ',' + b); //输出结果：千古壹号,qianguyihao
+}
+
+{
+    let [a, b = 'qianguyihao'] = ['千古壹号', null]; //b 被赋值为 null
+    console.log(a + ',' + b); //输出结果：千古壹号,null
+}
+```
+
+上方代码分析：
+
+- undefined：相当于什么都没有，此时 b 采用默认值。
+    
+- null：相当于有值，但值为 null。
+### 对象的解构赋值
+
+对象的结构赋值：将对象中的值按照**属性匹配的方式**提取出来，然后赋值给变量。
+
+#### 语法
+
+在 ES6 之前，我们从接口拿到 json 数据后，一般这么赋值：
+
+```
+var name = json.name;
+
+var age = json.age;
+
+var sex = json.sex;
+```
+
+上面这种写法，过于麻烦了。
+
+现在，有了 ES6 之后，我们可以使用对象解构的方式进行赋值。举例如下：
+
+```
+const person = { name: 'qianguyihao', age: 28, sex: '男' };
+let { name, age, sex } = person; // 对象的结构赋值
+
+console.log(name); // 打印结果：qianguyihao
+console.log(age); // 打印结果：28
+console.log(sex); // 打印结果：男
+```
+
+上方代码可以看出，对象的解构与数组的结构，有一个重要的区别：**数组**的元素是按次序排列的，变量的取值由它的**位置**决定；而**对象的属性没有次序**，是**根据键来取值**的。
+#### 未匹配到的情况
+
+对象的结构赋值，是根据属性名进行一一对应来赋值的。可如果左边的数量大于右边的数量时（也就是变量的数量大于值的数量时），多余的变量要怎么处理呢？
+
+答案是：如果变量在一一对应时，没有找到对应的值，那么，**多余的变量会被赋值为 undefined**。
+#### 给左边的变量自定义命名
+
+对象的结构赋值里，左边的变量名一定要跟右边的属性名保持一致么？答案是不一定。我们可以单独给左边的变量自定义命名。
+
+举例如下：
+
+```
+const person = { name: 'qianguyihao', age: 28 };
+let { name: myName, age: myAge } = person; // 对象的结构赋值
+
+console.log(myName); // 打印结果：qianguyihao
+console.log(myAge); // 打印结果：28
+
+console.log(name); // 打印报错：Uncaught ReferenceError: name is not defined
+console.log(age); // 打印报错：Uncaught ReferenceError: age is not defined
+```
+
+上方的第 2 行代码中：（请牢记）
+
+- 等号左边的属性名 name、age 是对应等号右边的属性名。
+    
+- 等号左边的 myName、myAge 是左边自定义的变量名。
+    
+
+或者，我们也可以理解为：将右边 name 的值赋值给左边的 myName 变量，将右边 age 的值赋值给左边的 myAge 变量。现在，你应该一目了然了吧？
+#### 圆括号的使用
+
+如果变量 foo 在解构之前就已经定义了，此时你再去解构，就会出现问题。下面是错误的代码，编译会报错：
+
+```
+	let foo = 'haha';
+	{ foo } = { foo: 'smyhvae' };
+	console.log(foo);
+
+```
+
+要解决报错，只要在解构的语句外边，加一个圆括号即可：
+
+```
+let foo = 'haha';
+({ foo } = { foo: 'smyhvae' });
+console.log(foo); //输出结果：smyhvae
+```
+
+### 字符串解构
+
+字符串也可以解构，这是因为，此时字符串被转换成了一个类似数组的对象。举例如下：
+
+```
+const [a, b, c, d] = 'hello';
+console.log(a);
+console.log(b);
+console.log(c);
+
+console.log(typeof a); //输出结果：string
+```
+
+## ES6：箭头函数
+### 箭头函数
+
+
+语法：
+
+```
+(参数1, 参数2 ...) => { 函数体 }
+```
+
+解释：
+
+- 如果有且仅有 1 个形参，则`()`可以省略
+    
+- 如果函数体内有且仅有 1 条语句，则`{}`可以省略，但前提是，这条语句必须是 return 语句。
+    
+
+需要强调的是，箭头函数是没有函数名的，既然如此，那要怎么调用箭头函数呢？你可以将箭头函数赋值给一个变量，通过变量名调用函数；也可以直接使用箭头函数。我们来看看下面的例子。
+
+**举例**
+
+写法 1、定义和调用函数：（传统写法）
+
+```
+function fn1(a, b) {
+    console.log('haha');
+    return a + b;
+}
+
+console.log(fn1(1, 2)); //输出结果：3
+```
+
+写法 2、定义和调用函数：（ES6 中的写法）
+
+```
+const fn2 = (a, b) => {
+    console.log('haha');
+    return a + b;
+};
+
+console.log(fn2(1, 2)); //输出结果：3
+```
+
+上面的两种写法，效果是一样的。
+
+从上面的箭头函数中，我们可以很清晰地看到变量名、参数名、函数体。
+
+另外，箭头函数的写法还可以精简一下，继续往下看。
+
+【重要】在箭头函数中，如果方法体内只有一句话，且这句话是 return 语句，那就可以把 `{}`省略。写法如下：
+
+```
+const fn2 = (a, b) => a + b;
+
+console.log(fn2(1, 2)); //输出结果：3
+```
+
+在箭头函数中，如果形参只有一个参数，则可以把`()`省略。写法如下：
+
+```
+const fn2 = (a) => {
+    console.log('haha');
+    return a + 1;
+};
+
+console.log(fn2(1)); //输出结果：2
+```
+
+### 箭头函数的 this 的指向
+ES6 之前的普通函数中：this 指向的是函数被调用的对象（也就是说，谁调用了函数，this 就指向谁）。
+
+而 ES6 的箭头函数中：**箭头函数本身不绑定 this**，this 指向的是**箭头函数定义位置的 this**（也就是说，箭头函数在哪个位置定义的，this 就跟这个位置的 this 指向相同）。
+
+代码举例：
+
+```
+const obj = { name: '千古壹号' };
+
+function fn1() {
+    console.log(this); // 第一个 this
+    return () => {
+        console.log(this); // 第二个 this
+    };
+}
+
+const fn2 = fn1.call(obj);
+fn2();
+```
+代码解释：（一定要好好理解下面这句话）
+
+上面的代码中，箭头函数是在 fn1()函数里面定义的，所以第二个 this 跟 第一个 this 指向的是**同一个位置**。又因为，在执行 `fn1.call(obj)`之后，第一个 this 就指向了 obj，所以第二个 this 也是指向 了 obj。
+
+### 面试题：箭头函数的 this 指向
+
+代码举例：
+
+```
+var name = '许嵩';
+var obj = {
+    name: '千古壹号',
+    sayHello: () => {
+        console.log(this.name);
+    },
+};
+
+obj.sayHello();
+```
+
+上方代码的打印结果是什么？你可能很难想到。
+
+正确答案的打印结果是`许嵩`。因为 `obj` 这个对象并不产生作用域， `sayHello()` 这个箭头函数实际仍然是定义在 window 当中的，所以 这里的 this 指向是 window。
+
+### 参数默认值
+
+**传统写法**：
+
+```
+function fn(param) {
+    let p = param || 'hello';
+    console.log(p);
+}
+```
+
+上方代码中，函数体内的写法是：如果 param 不存在，就用 `hello`字符串做兜底。这样写比较啰嗦。
+
+**ES6 写法**：（参数默认值的写法，很简洁）
+
+```
+function fn(param = 'hello') {
+    console.log(param);
+}
+```
+
+在 ES6 中定义方法时，我们可以给方法里的参数加一个**默认值**（缺省值）：
+
+- 方法被调用时，如果没有给参数赋值，那就是用默认值；
+    
+- 方法被调用时，如果给参数赋值了新的值，那就用新的值。
+    
+
+如下：
+
+```
+var fn2 = (a, b = 5) => {
+    console.log('haha');
+    return a + b;
+};
+console.log(fn2(1)); //第二个参数使用默认值 5。输出结果：6
+
+console.log(fn2(1, 8)); //输出结果：9
+```
+
+**提醒 1**：默认值的后面，不能再有**没有默认值的变量**。比如`(a,b,c)`这三个参数，如果我给 b 设置了默认值，那么就一定要给 c 设置默认值。
+
+**提醒 2**：
+
+我们来看下面这段代码：
+
+```
+let x = 'smyh';
+function fn(x, y = x) {
+    console.log(x, y);
+}
+fn('vae');
+```
+
+注意第二行代码，我们给 y 赋值为`x`，这里的`x`是括号里的第一个参数，并不是第一行代码里定义的`x`。打印结果：`vae vae`。
+
+如果我把第一个参数改一下，改成：
+
+```
+let x = 'smyh';
+function fn(z, y = x) {
+    console.log(z, y);
+}
+fn('vae');
+```
+
+此时打印结果是：`vae smyh`。
+
+## 剩余参数和扩展运算符
+### 剩余参数
+
+**剩余参数**允许我们将不确定数量的**剩余的元素**放到一个**数组**中。
+
+比如说，当函数的实参个数大于形参个数时，我们可以将剩余的实参放到一个数组中。
+
+**传统写法**：
+
+ES5 中，在定义方法时，参数要确定个数，如下：（程序会报错）
+
+```
+function fn(a, b, c) {
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    console.log(d);
+}
+
+fn(1, 2, 3);
+```
+**ES6 写法**：
+
+ES6 中，我们有了剩余参数，就不用担心报错的问题了。代码可以这样写：
+
+```
+const fn = (...args) => {
+    //当不确定方法的参数时，可以使用剩余参数
+    console.log(args[0]);
+    console.log(args[1]);
+    console.log(args[2]);
+    console.log(args[3]);
+};
+
+fn(1, 2);
+fn(1, 2, 3); //方法的定义中了四个参数，但调用函数时只使用了三个参数，ES6 中并不会报错。
+```
+上方代码中注意，args 参数之后，不能再加别的参数，否则编译报错。
+
+下面这段代码，也是利用到了剩余参数：
+
+```
+function fn1(first, ...args) {
+    console.log(first); // 10
+    console.log(args); // 数组：[20, 30]
+}
+
+fn1(10, 20, 30);
+```
+
+#### 剩余参数的举例：参数求和
+
+代码举例：
+
+```
+const sum = (...args) => {
+    let total = 0;
+    args.forEach(item => total += item); // 注意 forEach里面的代码，写得 很精简
+    return total;
+};
+console.log(sum(10, 20, 30));
+```
+####  剩余参数和解构赋值配合使用
+
+代码举例：
+
+```
+const students = ['张三', '李四', '王五'];
+let [s1, ...s2] = students;
+
+console.log(s1); // '张三'
+console.log(s2); // ['李四', '王五']
+```
+
+### 扩展运算符（展开语法）
+
+扩展运算符和剩余参数是相反的。
+
+剩余参数是将剩余的元素放到一个数组中；而扩展运算符是将数组或者对象拆分成逗号分隔的参数序列。
+
+代码举例：
+
+```
+const arr = [10, 20, 30];
+...arr // 10, 20, 30      注意，这一行是伪代码，这里用到了扩展运算符
+console.log(...arr); // 10 20 30
+
+console.log(10, 20, 30); // 10 20 30
+```
+
+上面的代码要仔细看：
+
+`arr`是一个数组，而`...arr`则表示`10, 20, 30`这样的序列。
+
+我们把`...arr` 打印出来，发现打印结果竟然是 `10 20 30`，为啥逗号不见了呢？因为逗号被当作了 console.log 的参数分隔符。如果你不信，可以直接打印 `console.log(10, 20, 30)` 看看。
+
+#### 举例1：数组赋值
+
+数组赋值的代码举例：
+
+```
+let arr2 = [...arr1]; // 将 arr1 赋值给 arr2
+```
+
+为了理解上面这行代码，我们先来分析一段代码：（将数组 arr1 赋值给 arr2）
+
+```
+let arr1 = ['www', 'smyhvae', 'com'];
+let arr2 = arr1; // 将 arr1 赋值给 arr2，其实是让 arr2 指向 arr1 的内存地址
+console.log('arr1:' + arr1);
+console.log('arr2:' + arr2);
+console.log('---------------------');
+
+arr2.push('你懂得'); //往 arr2 里添加一部分内容
+console.log('arr1:' + arr1);
+console.log('arr2:' + arr2);
+```
+
+上方代码中，我们往往 arr2 里添加了`你懂的`，却发现，arr1 里也有这个内容。原因是：`let arr2 = arr1;`其实是让 arr2 指向 arr1 的地址。也就是说，二者指向的是同一个内存地址。
+
+如果不想让 arr1 和 arr2 指向同一个内存地址，我们可以借助**扩展运算符**来做：
+
+```
+let arr1 = ['www', 'smyhvae', 'com'];
+let arr2 = [...arr1]; //【重要代码】arr2 会重新开辟内存地址
+console.log('arr1:' + arr1);
+console.log('arr2:' + arr2);
+console.log('---------------------');
+
+arr2.push('你懂得'); //往arr2 里添加一部分内容
+console.log('arr1:' + arr1);
+console.log('arr2:' + arr2);
+```
+
+#### 举例2：合并数组
+
+代码举例：
+
+```
+let arr1 = ['王一', '王二', '王三'];
+let arr2 = ['王四', '王五', '王六'];
+// ...arr1  // '王一','王二','王三'
+// ...arr2  // '王四','王五','王六'
+
+// 方法1
+let arr3 = [...arr1, ...arr2];
+console.log(arr3); // ["王一", "王二", "王三", "王四", "王五", "王六"]
+
+// 方法2
+arr1.push(...arr2);
+console.log(arr1); // ["王一", "王二", "王三", "王四", "王五", "王六"]
+```
+
+#### 举例3：将伪数组或者可遍历对象转换为真正的数组
+
+代码举例：
+
+```
+const myDivs = document.getElementsByClassName('div');
+const divArr = [...myDivs]; // 利用扩展运算符，将伪数组转为真正的数组
+```
+
+## 字符串、数组、对象的扩展
+### 字符串的扩展
+ES6 中的字符串扩展如下：
+
+- `includes(str)`：判断是否包含指定的字符串
+    
+- `startsWith(str)`：判断是否以指定字符串开头
+    
+- `endsWith(str)`：判断是否以指定字符串结尾
+    
+- `repeat(count)`：重复指定次数
+    
+
+举例如下：
+
+```
+let str = 'abcdefg';
+
+console.log(str.includes('a')); //true
+console.log(str.includes('h')); //false
+
+//startsWith(str) : 判断是否以指定字符串开头
+console.log(str.startsWith('a')); //true
+console.log(str.startsWith('d')); //false
+
+//endsWith(str) : 判断是否以指定字符串结尾
+console.log(str.endsWith('g')); //true
+console.log(str.endsWith('d')); //false
+
+//repeat(count) : 重复指定次数a
+console.log(str.repeat(5));
+```
+### Number 的扩展
+
+- 二进制与八进制数值表示法: 二进制用`0b`, 八进制用`0o`。
+
+举例：
+
+```
+console.log(0b1010); //10
+console.log(0o56); //46
+```
+
+- `Number.isFinite(i)`：判断是否为有限大的数。比如`Infinity`这种无穷大的数，返回的就是 false。
+    
+- `Number.isNaN(i)`：判断是否为 NaN。
+    
+- `Number.isInteger(i)`：判断是否为整数。
+    
+- `Number.parseInt(str)`：将字符串转换为对应的数值。
+    
+- `Math.trunc(i)`：去除小数部分。
+    
+
+举例：
+
+```
+//Number.isFinite(i) : 判断是否是有限大的数
+console.log(Number.isFinite(NaN)); //false
+console.log(Number.isFinite(5)); //true
+console.log(Number.isFinite(Infinity)); //false
+
+//Number.isNaN(i) : 判断是否是NaN
+console.log(Number.isNaN(NaN)); //true
+console.log(Number.isNaN(5)); //falsse
+
+//Number.isInteger(i) : 判断是否是整数
+console.log(Number.isInteger(5.23)); //false
+console.log(Number.isInteger(5.0)); //true
+console.log(Number.isInteger(5)); //true
+
+//Number.parseInt(str) : 将字符串转换为对应的数值
+console.log(Number.parseInt('123abc')); //123
+console.log(Number.parseInt('a123abc')); //NaN
+
+// Math.trunc(i) : 直接去除小数部分
+console.log(Math.trunc(13.123)); //13
+```
+### 对象的扩展
+#### 扩展 1
+
+```
+Object.is(v1, v2);
+```
+
+**作用：**判断两个数据是否完全相等。底层是通过**字符串**来判断的。
+
+我们先来看下面这两行代码的打印结果：
+
+```
+console.log(0 == -0);
+console.log(NaN == NaN);
+```
+上方代码中，第一行代码的打印结果为 true，这个很好理解。第二行代码的打印结果为 false，因为 NaN 和任何值都不相等。
+
+但是，如果换成下面这种方式来比较：
+
+```
+console.log(Object.is(0, -0));
+console.log(Object.is(NaN, NaN));
+```
+#### Object.assign()
+
+Object.assign() 在实战开发中，使用到的频率非常高，一定要重视。
+#### 扩展 3：`__proto__`属性
+
+举例：
+
+```
+let obj1 = { name: 'smyhvae' };
+let obj2 = {};
+
+obj2.__proto__ = obj1;
+
+console.log(obj1);
+console.log(obj2);
+console.log(obj2.name);
+```
+## 内置对象扩展：Set数据结构
+### Set 数据结构的介绍
+
+ES6 提供了 新的数据结构 Set。Set 类似于**数组**，但成员的值都是**唯一**的，没有重复的值。
+
+Set 的应用有很多。比如，在 H5 页面的搜索功能里，用户可能会多次搜索重复的关键字；但是在数据存储上，不需要存储重复的关键字。此时，我们就可以用 Set 来存储用户的搜索记录，Set 内部会自动判断值是否重复，如果重复，则不会进行存储，十分方便。
+
+### 生成 Set 数据结构
+
+Set 本身就是一个构造函数，可通过 `new Set()` 生成一个 Set 的实例。
+
+举例 1：
+
+```
+const set1 = new Set();
+console.log(set1.size); // 打印结果：0
+```
+
+**举例 2**、可以接收一个**数组**作为参数，实现**数组去重**：
+
+```
+const set2 = new Set(['张三', '李四', '王五', '张三']); // 注意，这个数组里有重复的值
+
+// 注意，这里的 set2 并不是数组，而是一个单纯的 Set 数据结构
+console.log(set2); // {"张三", "李四", "王五"}
+
+// 通过扩展运算符，拿到 set 中的元素（用逗号分隔的序列）
+// ...set2 //  "张三", "李四", "王五"
+
+// 注意，到这一步，才获取到了真正的数组
+console.log([...set2]); // ["张三", "李四", "王五"]
+```
