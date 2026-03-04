@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "前端/Javascript/Promise.md",
+                "file": "前端/Javascript/1.Javascript基础.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Promise"
+              "title": "1.Javascript基础"
             }
           },
           {
@@ -27,15 +27,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "后端/php/php.md",
+                "file": "后端/c语言/C语言.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "php"
+              "title": "C语言"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "前端/Javascript/Promise.md",
+                "file": "后端/c语言/C语言.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Promise 的大纲"
+              "title": "C语言 的大纲"
             }
           }
         ],
@@ -183,48 +184,52 @@
       "bases:新建数据库": false
     }
   },
-  "active": "6a2e563d83cd6035",
+  "active": "6d9e773f1cd81262",
   "lastOpenFiles": [
-    "前端/Javascript/images/Promise的状态图.png",
-    "前端/Javascript/异步编程.md",
-    "前端/Javascript/Promise.md",
-    "前端/Javascript/images/跨域问题.png",
-    "后端/php/php.md",
-    "前端/Javascript/Javascript基础.md",
-    "前端/Javascript/ECMAScript.md",
+    "前端/Javascript/1.Javascript基础.md",
+    "后端/c语言/C语言.md",
+    "后端/c语言/images/二维数组的应用场景.png",
+    "后端/c语言/images/ENIAC 1.png",
+    "后端/c语言/images/字符串.png",
+    "后端/c语言/images/规定地图的方向.png",
+    "后端/c语言/images/二维数组的存储.png",
+    "后端/c语言/images/Pasted image 20260225154652.png",
+    "后端/c语言/images/Pasted image 20260225154627.png",
+    "后端/c语言/images/二维数组的应用场景1.png",
+    "后端/c语言/images/二维数组.png",
+    "后端/c语言/images/折半查找.png",
     "计算机基础/计算机基础知识.md",
-    "计算机基础/images/响应.png",
-    "计算机基础/images/请求.png",
+    "前端/Javascript/文章.md",
+    "后端/c语言/images",
+    "后端/c语言",
+    "未命名",
+    "前端/Javascript/练习.md",
+    "后端/php/php.md",
+    "前端/css/Less.md",
+    "前端/Javascript/4.ECMAScript.md",
+    "前端/Javascript/7.异步编程.md",
+    "前端/Javascript/11.移动web开发.md",
+    "前端/Javascript/10.迭代器.md",
+    "前端/Javascript/9.async异步函数.md",
+    "前端/Javascript/10.异常处理方案.md",
+    "前端/Javascript/8.Promise.md",
+    "前端/Javascript/6.Zepto.md",
+    "前端/Javascript/5.jQuery.md",
+    "前端/Javascript/3.BOM.md",
+    "前端/Javascript/2.DOM.md",
     "计算机基础/images",
     "计算机基础",
     "后端/php/images",
     "后端/php",
     "后端/images",
     "后端",
-    "前端/Javascript/Zepto.md",
-    "前端/Javascript/jQuery.md",
-    "前端/Javascript/images/筛选选择器.png",
-    "前端/Javascript/images/属性选择器.png",
-    "前端/Javascript/images/过滤选择器2.png",
-    "前端/Javascript/images/过滤选择器.png",
-    "前端/Javascript/images/层级选择器2.png",
-    "前端/Javascript/images/层级选择器.png",
-    "前端/Javascript/images/jQuery 的基本选择器2.png",
-    "前端/Javascript/文章.md",
     "Untitled.base",
-    "前端/Javascript/BOM.md",
-    "前端/Javascript/DOM.md",
     "前端/html/HTML.md",
     "前端/html/html文章.md",
     "前端/css/CSS.md",
     "前端/css/文章.md",
     "前端/html/html5.md",
     "前端/css/CSS3的常见边框汇总.md",
-    "前端/css/Sass.md",
-    "前端/css/Web字体.md",
-    "前端/html/案例.md",
-    "前端/Javascript/images",
-    "前端/Javascript",
-    "未命名.md"
+    "前端/css/Sass.md"
   ]
 }
