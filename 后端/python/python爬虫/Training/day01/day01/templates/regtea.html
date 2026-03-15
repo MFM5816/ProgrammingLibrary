@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<form action="/12-otm" method="post">
+  <p>姓名: <input type="text" name="tname"></p>
+  <p>年龄: <input type="text" name="tage"></p>
+  <p>课程:
+    <select name="cid">
+      {% for cour in params.course %}
+      <option value="{{cour.id}}">
+        {{cour.cname}}
+      </option>
+      {% endfor %}
+    </select>
+  </p>
+  <input type="submit" value="注册">
+</form>
+</body>
+</html>

@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "fb69d2f0fd40b5ed",
+        "id": "87548aec816ca8ec",
         "type": "tabs",
         "children": [
           {
-            "id": "31e6536f9775764f",
+            "id": "34e38e7ba6f31d15",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -22,7 +22,7 @@
             }
           },
           {
-            "id": "6d9e773f1cd81262",
+            "id": "9eda13a2ae455411",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -184,10 +184,14 @@
       "bases:新建数据库": false
     }
   },
-  "active": "6d9e773f1cd81262",
+  "active": "9eda13a2ae455411",
   "lastOpenFiles": [
+    "前端/Javascript/文章.md",
     "前端/Javascript/1.Javascript基础.md",
     "后端/c语言/C语言.md",
+    "后端/c语言/images/const常量.png",
+    "前端/Javascript/4.ECMAScript.md",
+    "计算机基础/计算机基础知识.md",
     "后端/c语言/images/二维数组的应用场景.png",
     "后端/c语言/images/ENIAC 1.png",
     "后端/c语言/images/字符串.png",
@@ -197,16 +201,12 @@
     "后端/c语言/images/Pasted image 20260225154627.png",
     "后端/c语言/images/二维数组的应用场景1.png",
     "后端/c语言/images/二维数组.png",
-    "后端/c语言/images/折半查找.png",
-    "计算机基础/计算机基础知识.md",
-    "前端/Javascript/文章.md",
     "后端/c语言/images",
     "后端/c语言",
     "未命名",
     "前端/Javascript/练习.md",
     "后端/php/php.md",
     "前端/css/Less.md",
-    "前端/Javascript/4.ECMAScript.md",
     "前端/Javascript/7.异步编程.md",
     "前端/Javascript/11.移动web开发.md",
     "前端/Javascript/10.迭代器.md",

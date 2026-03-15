@@ -1,0 +1,34 @@
+create database marketdb charset utf8;
+use marketdb;
+create table product(
+id int primary key,
+name varchar(30),
+price decimal(20,2),
+comment varchar(50),
+time date
+)charset=utf8;
+
+create table type(
+id int primary key,
+type varchar(30),
+comment varchar(50)
+)charset=utf8;
+
+create table middle(
+pid int,
+tid int,
+foreign key(pid) references product(id) on delete cascade on update cascade,
+foreign key(tid) references type(id) on delete cascade on update cascade
+)charset=utf8;
+
+insert into product values
+(1,'雪碧',3,'甜','20191001'),
+(2,'可乐',3,'甜','20191101'),
+(3,'小浣熊',1,'脆','20191201');
+
+insert into type values
+(1,'酒水饮料','碳酸饮料'),
+(2,'零食','面类零食');
+
+insert into middle values
+(1,1),(2,1),(3,2);

@@ -1,0 +1,2 @@
+tarena用户为超级用户,拥有至高无上的权限
+Ubuntu中tarena用户默认不让登录,可使用sudo passwd tarena命令给tarena用户设置密码!

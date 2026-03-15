@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>search_users</title>
+</head>
+<body>
+<form action="/05-users">
+  <input type="text" name="kw" value="{{params.kw}}">
+  <button>搜索</button>
+</form>
+<br><br>
+<table width="500px" border="1" cellspacing="0">
+  <tr>
+    <th>姓名</th>
+    <th>年龄</th>
+    <th>邮箱</th>
+    <th>手机</th>
+  </tr>
+  {% for user in params.users %}
+  <tr>
+    <td>{{user.username}}</td>
+    <td>{{user.age}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.phone}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+回顾：
+一对多
+一对一
+　　　练习：查询所有老师对应的wife
+多对多
+    1.A表中的一条数据能关联到B表中的多条数据
+      B表中的一条数据也能关联到A表中的多条数据
+    2.在数据库中的实现
+      依靠第三张表 保存两个表的主键 来实现多对多
+    3.在sqlAlchemy中
+      1.创建第三张表(类)
+      2.设置关联属性和反向引用关系属性
+
+练习:
+为学生分配课程
+在templates中新建模板页面
+templates/mtm.html
+在页面中form中 显示所有学生的列表
+<select>
+    <option>Jack</option>
+</select>
+显示所有课程列表
+<select>
+    <option>Python基础</option>
+</select>
+要求选择学生 选择课程
+点击提交时 为学生设置课程
+判断如果课程存在 提示
+
+cookies和session
+1.cookies
+     1.什么是cookies
+         cookie是一种数据存储的手段
+         将一段文本保存在浏览器上,并且可以长时间保存
+     2.使用场景
+         记录用户的操作或行为,记录关键词
+         记住密码
+     3.cookie的特点
+         1.保存时间长
+         2.明文
+         3.有网站之分
+         4.不同浏览器不能共享
+         5.可以通过浏览器操作
+     4.Flask中使用cookie
+        1.保存数据到cookie
+        通过响应对象保存到cookie中
+            1.创建响应对象
+                1.重定向就是响应对象
+                redirect('/xxx')
+                2.通过make_response()将字符串构建成响应对象
+                resp = make_response()#''或render_template()
+            2.保存cookie
+                响应对象.set_cookie(key,value,max_age)
+                key:数据名称
+                value:数据值
+                max_age:最大存活时长,秒
+            3.获取cookie
+                通过request.cookie获取所有的cookie的值
+            4.删除cookie
+                通过响应对象.delete_cookie('key')
+
+     练习
+     创建04-login.html
+     form
+     用户名
+     密码
+     记住密码
+     登录按钮
+
+     实现登录操作
+     如果用户名为admin 密码为tarena登录成功
+     创建响应对象<a href="">欢迎admin登录</a>
+     判断是否有记住密码
+     如果记住密码 将用户名保存到cookie中
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

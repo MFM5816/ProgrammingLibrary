@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/17-regmtm" method="post">
+    <p>
+        学员:<select name="stu">
+            {% for s in params.students %}
+            <option value="{{s.id}}">{{s.sname}}</option>
+            {% endfor %}
+            </select>
+    </p>
+    <p>
+        课程: <select name="cor">
+            {% for c in params.courses %}
+            <option value="{{c.id}}">{{c.cname}}</option>
+            {% endfor %}
+             </select>
+    </p>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>
